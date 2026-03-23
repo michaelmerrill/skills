@@ -1,0 +1,23 @@
+{
+  "skill_name": "review-prd",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "review the PRD in plans/team-billing-prd.md — are the requirements ready for technical design?",
+      "expected_output": "A structured verdict (Ready/Revise/Rethink) with strengths, issues grounded in product analysis and codebase verification, risks, and a clear next step. Should check whether user stories have testable acceptance criteria, whether success metrics are measurable, whether scope is appropriately bounded. Should look for a matching scope document and check alignment. Should NOT re-interview the user. Should NOT modify the PRD file beyond delivering the verdict in chat. If verdict is Revise, should include a numbered list of actionable items. Should end by suggesting '/design-feature' when ready.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I just finished writing the PRD for dashboard sharing. Can you check if the requirements are solid before we move to design? It's in plans/",
+      "expected_output": "A concise review that finds the PRD in plans/, checks for a matching scope document, leads with strengths, identifies specific issues in requirements quality (vague acceptance criteria, missing edge cases from user perspective, unmeasurable success metrics), and gives a clear verdict. Should verify whether the PRD's claims about existing user behavior match the actual product. Should NOT modify the PRD file beyond delivering the verdict in chat.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "review-prd: Check if the AI search PRD covers everything. I'm worried the success metrics are too vague and we haven't thought about all the user types who search.",
+      "expected_output": "A review that pays special attention to (1) whether success metrics are specific and measurable (not just 'improve search quality') and (2) whether all user personas who search are represented. Should surface any gaps in user coverage (e.g., admin users searching different content than regular users). Should check whether non-functional requirements like response time and relevance thresholds are specified. Should NOT modify the PRD file beyond delivering the verdict in chat.",
+      "files": []
+    }
+  ]
+}

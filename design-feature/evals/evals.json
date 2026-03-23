@@ -1,0 +1,23 @@
+{
+  "skill_name": "design-feature",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to design the technical architecture for team billing. The PRD is in plans/team-billing-prd.md and the scope doc is in plans/team-billing-scope.md.",
+      "expected_output": "Reads both the PRD and scope document before asking questions. Conducts a structured technical interview exploring existing billing/user models in depth, resolves all 9 technical domains (architecture, data, behavior, edge cases, integration, operational, security, testing, phasing) one question at a time with recommendations. Produces a technical design saved as plans/team-billing-design.md with a Decisions Log, Data Models with field definitions, Behavior Specs, Edge Cases table, Phased Build Plan with acceptance criteria and PRD coverage references, Testing Strategy, and Pipeline Status table. The design header should reference both the PRD and scope document. Should end by suggesting '/review-plan'.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Let's design how to build the dashboard sharing feature. I have a PRD at plans/dashboard-sharing-prd.md.",
+      "expected_output": "Reads the PRD before asking questions. Conducts a technical interview that addresses security concerns around external sharing (token generation, link expiration implementation, data filtering queries), explores the existing dashboard/permissions architecture, and produces a technical design with clear dependency chain (permissions model → sharing service → link generation → UI), data models for share tokens, edge case handling for revoked links and expired tokens, and a phased build plan. Should end by suggesting '/review-plan'.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "design-feature: I need to design the technical implementation for AI-powered search. The PRD is at plans/search-prd.md.",
+      "expected_output": "Reads the PRD before asking questions. Conducts a technical interview exploring existing search infrastructure, addressing integration questions (embedding model selection, vector DB choice, indexing pipeline), addressing operational concerns (cost, latency, index freshness), and produces a technical design with architecture decisions, data flow diagrams (conceptual), phased build plan (e.g., Phase 1: indexing pipeline, Phase 2: query endpoint, Phase 3: relevance tuning), testing strategy for search quality, and Pipeline Status table. Should end by suggesting '/review-plan'.",
+      "files": []
+    }
+  ]
+}

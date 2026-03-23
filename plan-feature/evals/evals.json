@@ -1,0 +1,23 @@
+{
+  "skill_name": "plan-feature",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to add team billing to our SaaS app. Right now each user has their own subscription but we're getting requests from companies who want to pay for a group of users under one account.",
+      "expected_output": "A structured scoping interview that explores existing billing/user models for feasibility signals, resolves all 6 domains (problem, stakeholders, feasibility, scope, risks, recommendation) one question at a time with recommendations, and produces a scope document with a Problem Statement, Stakeholders, Feasibility Assessment, High-Level Scope, Key Risks & Assumptions, Recommendation with go/no-go verdict, and a Pipeline Status table. Should NOT include data models, behavior specs, edge case tables, or phased build plans. Should end by suggesting '/write-a-prd'.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "We need a way for users to share dashboards with people outside our org. Like a public link or something, but we need to control what data is visible.",
+      "expected_output": "A structured scoping interview that explores existing dashboard/permissions models for feasibility, assesses whether the current auth system can support external sharing, produces a scope document with feasibility assessment addressing security constraints and rough effort estimate. Should NOT dive into link expiration mechanics, data filtering implementation, or detailed edge cases. Should keep interview to 5-7 questions. Should end by suggesting '/write-a-prd'.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to add AI-powered search to our docs site. Users keep complaining they can't find things and our current keyword search is pretty bad.",
+      "expected_output": "A structured scoping interview that explores existing search infrastructure for feasibility, assesses rough effort (is this a days project or a months project?), identifies key risks (vector DB dependency, embedding model costs, search quality validation), and produces a scope document with a clear recommendation. Should NOT design the embedding pipeline, specify the vector database, or create implementation phases. Should keep interview to 5-7 questions. Should end by suggesting '/write-a-prd'.",
+      "files": []
+    }
+  ]
+}
