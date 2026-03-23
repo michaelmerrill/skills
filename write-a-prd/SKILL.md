@@ -69,7 +69,7 @@ Follow the natural conversation thread, but internally track whether you've reso
 8. **Dependencies & constraints (business)** — Business dependencies (pricing decisions, partner agreements, legal review), timing constraints (market window, customer commitments), content needs (copy, assets, translations).
 9. **Risks & open questions** — Product risks (user adoption, competitive response, cannibalization), open questions that need answers before or during implementation.
 
-These are a safety net, not a script. The interview should feel thorough but natural — typically 8-12 questions total. When the conversation winds down, check for gaps and fill them. Don't produce the PRD until every domain has at least one decision.
+These are a safety net, not a script. The interview should feel thorough but natural. Do not limit the number of questions — be relentless in pursuing complete understanding. Keep probing until you and the user have a thorough, shared picture of every requirement, edge case, and constraint. When you think the conversation is winding down, actively check for gaps and fill them. Don't produce the PRD until every domain has at least one decision.
 
 ### Staying in the product lane
 

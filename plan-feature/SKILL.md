@@ -56,7 +56,7 @@ Follow the natural conversation thread, but internally track whether you've reso
 5. **Key risks & assumptions** — What are the project-level risks? What are we assuming that might not be true? Are there dependencies on external factors (third-party services, other teams, business decisions)?
 6. **Recommendation** — Given the above, should this proceed? Go, no-go, or needs further investigation?
 
-These are a safety net, not a script. The interview should feel natural — typically 5-7 questions total. When the conversation winds down, check for gaps and fill them. Don't produce the scope document until every domain has at least one decision.
+These are a safety net, not a script. The interview should feel natural. Do not limit the number of questions — be relentless in pursuing complete understanding. Keep probing until you and the user have a thorough, shared picture of the problem, the constraints, and the right thing to build. When you think the conversation is winding down, actively check for gaps and fill them. Don't produce the scope document until every domain has at least one decision.
 
 ### Keeping it light
 
