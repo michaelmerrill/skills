@@ -1,5 +1,5 @@
 {
-  "skill_name": "ubiquitous-language",
+  "skill_name": "glossary",
   "evals": [
     {
       "id": 1,
@@ -9,7 +9,7 @@
     },
     {
       "id": 2,
-      "prompt": "ubiquitous-language — the PRD uses 'workspace' and 'project' interchangeably and the code calls it 'org'. Can you sort this out before design?",
+      "prompt": "glossary — the PRD uses 'workspace' and 'project' interchangeably and the code calls it 'org'. Can you sort this out before design?",
       "expected_output": "Should find the PRD in plans/, read it fully, and specifically flag the workspace/project/org ambiguity. Should check the codebase to determine which term is most established. Should propose one canonical term with rationale (user-facing consistency, codebase momentum, or precision). Should include an Ambiguities Resolved section documenting this specific conflict and the recommended resolution. Should extract all other domain terms from the PRD as well, not just the ones the user mentioned. Should save the glossary and append Pipeline Status to the PRD.",
       "files": []
     },

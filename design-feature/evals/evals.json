@@ -18,6 +18,24 @@
       "prompt": "design-feature: I need to design the technical implementation for AI-powered search. The PRD is at plans/search-prd.md.",
       "expected_output": "Reads the PRD before asking questions. Conducts a technical interview exploring existing search infrastructure, addressing integration questions (embedding model selection, vector DB choice, indexing pipeline), addressing operational concerns (cost, latency, index freshness), and produces a technical design with architecture decisions, data flow diagrams (conceptual), phased build plan (e.g., Phase 1: indexing pipeline, Phase 2: query endpoint, Phase 3: relevance tuning), testing strategy for search quality, and Pipeline Status table. Should end by suggesting '/review-plan'.",
       "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want to design the search feature but there's no PRD yet. I know roughly what I want — full-text search across documents with filters by date and author.",
+      "expected_output": "Should note that no PRD exists and suggest running /write-a-prd first, but proceed if user wants to continue. Should conduct the same structured 9-domain interview. Should capture requirements organically during the interview and note them in Assumptions. Should NOT skip domains just because there's no PRD. Output should include a note in Pipeline Status that design was produced without a PRD.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Design the notification system. There's a PRD at plans/notifications-prd.md and a glossary at plans/notifications-glossary.md that resolved 'alert' vs 'notification' in favor of 'notification'.",
+      "expected_output": "Should read both PRD and glossary before asking questions. Should use canonical terms from the glossary throughout the design (e.g., 'notification' not 'alert' in data models, API names, variable names). If the glossary has 'rename' status items, the design should use the canonical term. Should reference the glossary in the design header. Should verify every FR from the PRD maps to a behavior spec or build phase before producing the document.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Let's design the team billing feature. The PRD says we need Stripe integration, but I noticed the codebase already has a half-finished Paddle integration in src/billing/. What should we do?",
+      "expected_output": "Should explore the existing billing code thoroughly before asking questions. Should surface the PRD/codebase conflict explicitly (PRD says Stripe, code has Paddle). Should classify the conflict (stale docs, incomplete implementation, intentional divergence, or unclear) and ask the user to resolve it before proceeding with that domain. Should capture the resolution in the Decisions Log. Should NOT ignore the conflict or silently pick one.",
+      "files": []
     }
   ]
 }

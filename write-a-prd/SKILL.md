@@ -1,13 +1,13 @@
 ---
 name: write-a-prd
-description: MUST USE when a user wants to define product requirements, write a PRD, or specify what a feature should do from the user's perspective. This is the second step in the planning pipeline (plan-feature → write-a-prd → review-prd → ubiquitous-language → design-feature). Typical signals — "write a PRD", "define the requirements", "what should this feature do", "let's spec this out", "write-a-prd", or following up after a plan-feature scoping session. Also applies when the user says "let's figure out the requirements" or "what exactly should we build." Conducts a structured interview to produce a product requirements document focused on WHAT to build, not HOW. Do NOT use for technical design (use design-feature), plan review (use review-plan), scoping/feasibility (use plan-feature), or when the user wants to challenge or critique an existing plan.
+description: MUST USE when a user wants to define product requirements, write a PRD, or specify what a feature should do from the user's perspective. This is the second step in the planning pipeline (plan-feature → write-a-prd → review-prd → glossary → design-feature). Typical signals — "write a PRD", "define the requirements", "what should this feature do", "let's spec this out", "write-a-prd", or following up after a plan-feature scoping session. Also applies when the user says "let's figure out the requirements" or "what exactly should we build." Conducts a structured interview to produce a product requirements document focused on WHAT to build, not HOW. Do NOT use for technical design (use design-feature), plan review (use review-plan), scoping/feasibility (use plan-feature), or when the user wants to challenge or critique an existing plan.
 ---
 
 ## What This Skill Does
 
 Define detailed product requirements through a structured interview. Produce a PRD that specifies what to build from the user's perspective — user stories, functional requirements, success metrics, and scope boundaries. No technical design, no architecture, no data models.
 
-This is the second step in the planning pipeline (`plan-feature` → **write-a-prd** → `review-prd` → `ubiquitous-language` → `design-feature` → `review-plan`). The scope document (from plan-feature) established that this is worth building. This skill answers: "What exactly should we build, and how will we know it's right?"
+This is the second step in the planning pipeline (`plan-feature` → **write-a-prd** → `review-prd` → `glossary` → `design-feature` → `review-plan`). The scope document (from plan-feature) established that this is worth building. This skill answers: "What exactly should we build, and how will we know it's right?"
 
 ## Starting
 
@@ -86,6 +86,8 @@ If the user starts going into technical implementation, gently redirect: "That's
 ### Wrapping up
 
 When all domains are covered, say: "I think we have enough to draft the PRD. Let me put it together."
+
+If a scope document exists in `./plans/`, match its naming prefix for the PRD filename (e.g., if the scope is `team-billing-scope.md`, save the PRD as `team-billing-prd.md`). If no scope doc exists, derive the feature name as kebab-case from the core concept (2-3 words) and confirm with the user before saving.
 
 Save to `./plans/<feature-name>-prd.md`. After writing, ask: "Review this and tell me what to change. When you're satisfied, run `/review-prd` to get a requirements assessment."
 

@@ -1,13 +1,13 @@
 ---
-name: ubiquitous-language
-description: MUST USE when the user wants to extract, define, or harden domain terminology before technical design. This is the terminology alignment step in the planning pipeline (write-a-prd → review-prd → ubiquitous-language → design-feature). Typical signals — "define the domain terms," "build a glossary," "harden the terminology," "ubiquitous language," "what should we call things," "align naming," or following up after a review-prd session. Also applies when a user just finished a PRD and wants to lock down vocabulary before design. This skill reads the PRD and the codebase quietly, then produces a glossary — it does NOT restart discovery, re-interview the user, or produce new documents beyond the glossary. Do NOT use for writing requirements (use write-a-prd), technical design (use design-feature), reviewing plans (use review-plan), or scoping (use plan-feature).
+name: glossary
+description: MUST USE when the user wants to extract, define, or harden domain terminology before technical design. This is the terminology alignment step in the planning pipeline (write-a-prd → review-prd → glossary → design-feature). Typical signals — "define the domain terms," "build a glossary," "harden the terminology," "ubiquitous language," "what should we call things," "align naming," or following up after a review-prd session. Also applies when a user just finished a PRD and wants to lock down vocabulary before design. This skill reads the PRD and the codebase quietly, then produces a glossary — it does NOT restart discovery, re-interview the user, or produce new documents beyond the glossary. Do NOT use for writing requirements (use write-a-prd), technical design (use design-feature), reviewing plans (use review-plan), or scoping (use plan-feature).
 ---
 
 ## What This Skill Does
 
 Extract a DDD-style ubiquitous language glossary from a reviewed PRD and the codebase. Identify every domain term, flag ambiguities (same concept with different names, same name for different concepts), check how the codebase currently names things, and propose canonical terms with definitions.
 
-This is the terminology alignment step in the planning pipeline (`plan-feature` → `write-a-prd` → `review-prd` → **ubiquitous-language** → `design-feature` → `review-plan`). The PRD established what to build. This skill answers: "What do we call things — and does everyone agree?"
+This is the terminology alignment step in the planning pipeline (`plan-feature` → `write-a-prd` → `review-prd` → **glossary** → `design-feature` → `review-plan`). The PRD established what to build. This skill answers: "What do we call things — and does everyone agree?"
 
 ## Why This Step Exists
 
@@ -100,7 +100,7 @@ Limit yourself to 1-2 questions maximum. If you need more, the PRD likely needs 
 # Ubiquitous Language: <Feature Name>
 
 > Domain glossary for [<feature-name>-prd.md]. Scope: [<feature-name>-scope.md] (if exists)
-> Generated from ubiquitous-language analysis on <date>
+> Generated from glossary analysis on <date>
 
 ## Glossary
 
@@ -131,7 +131,7 @@ Limit yourself to 1-2 questions maximum. If you need more, the PRD likely needs 
 | plan-feature | <date or "skipped"> | <verdict> | <summary> |
 | write-a-prd | <date or "skipped"> | -- | <summary> |
 | review-prd | <date or "skipped"> | <verdict> | <summary> |
-| ubiquitous-language | <date> | -- | <N> terms defined, <N> ambiguities resolved, <N> renames proposed |
+| glossary | <date> | -- | <N> terms defined, <N> ambiguities resolved, <N> renames proposed |
 ```
 
 ## After Delivering the Glossary

@@ -1,13 +1,13 @@
 ---
 name: review-plan
-description: MUST USE when the user asks to review, evaluate, critique, assess, challenge, or stress-test a technical design — especially designs in ./plans/ or designs produced by the design-feature skill. This is the design review step in the planning pipeline (plan-feature → write-a-prd → review-prd → ubiquitous-language → design-feature → review-plan). Typical signals — "review this plan," "is this plan solid," "check the plan for gaps," "does this look ready to build," "what's wrong with this plan," "challenge this plan," "poke holes in this," "what could go wrong," "devil's advocate," "stress-test this plan," "find risks," "is this overengineered," "review-plan," or referencing a plan file by name. Also applies when a user just finished a design-feature session and asks for a second opinion or sanity check. This skill reads the technical design and the codebase quietly, then delivers a concise structured verdict — it does NOT restart discovery, re-interview the user, or produce new documents. Do NOT use for PRD review (use review-prd), PR/code review, creating plans (use design-feature), or reviewing non-plan documentation.
+description: MUST USE when the user asks to review, evaluate, critique, assess, challenge, or stress-test a technical design — especially designs in ./plans/ or designs produced by the design-feature skill. This is the design review step in the planning pipeline (plan-feature → write-a-prd → review-prd → glossary → design-feature → review-plan). Typical signals — "review this plan," "is this plan solid," "check the plan for gaps," "does this look ready to build," "what's wrong with this plan," "challenge this plan," "poke holes in this," "what could go wrong," "devil's advocate," "stress-test this plan," "find risks," "is this overengineered," "review-plan," or referencing a plan file by name. Also applies when a user just finished a design-feature session and asks for a second opinion or sanity check. This skill reads the technical design and the codebase quietly, then delivers a concise structured verdict — it does NOT restart discovery, re-interview the user, or produce new documents. Do NOT use for PRD review (use review-prd), PR/code review, creating plans (use design-feature), or reviewing non-plan documentation.
 ---
 
 ## What This Skill Does
 
 Evaluate and pressure-test an existing feature plan for technical soundness, system fit, feasibility, scope control, and implementation readiness. Read the plan and codebase, verify claims against reality, apply adversarial analysis lenses to surface hidden risks and overengineering, deliver a verdict. No new documents are produced.
 
-This is the design review step in the planning pipeline (`plan-feature` → `write-a-prd` → `review-prd` → `ubiquitous-language` → `design-feature` → **review-plan**). This is the last checkpoint before implementation — your job is to find what was missed, underweighted, or left unsaid.
+This is the design review step in the planning pipeline (`plan-feature` → `write-a-prd` → `review-prd` → `glossary` → `design-feature` → **review-plan**). This is the last checkpoint before implementation — your job is to find what was missed, underweighted, or left unsaid.
 
 ## Finding the Plan
 
@@ -73,6 +73,9 @@ What happens when things go wrong? Not the happy path — the 2am pager path. Ra
 #### Overengineering & Unnecessary Complexity
 Where is the plan doing more than needed? Premature abstractions, configurable things that will only ever have one value, infrastructure that anticipates scale that hasn't arrived, layers of indirection that make the code harder to debug. The best code is code you don't write.
 
+#### Code Design & Coupling
+Does the design create appropriate boundaries between components? Are there places where tight coupling will make future changes painful — where changing one module forces changes in several others? Conversely, are there unnecessary abstractions where direct coupling would be simpler and sufficient? Does the dependency direction make sense — do high-level modules depend on low-level details that should be behind an interface? Does the design follow or intentionally deviate from patterns already established in the codebase?
+
 #### Scope Creep Risks
 Where might this expand beyond what was intended? Features that invite follow-up requests, abstractions that beg to be generalized, boundaries that are fuzzy enough that adjacent work starts bleeding in. Identify the slippery slopes.
 
@@ -99,9 +102,6 @@ Is there a way to achieve the same goal with less? A library instead of a custom
 
 #### Should This Be Solved At All?
 The most radical question. Is the problem real? Is it worth solving now? Could the team's time be better spent elsewhere? Is this solving a symptom rather than a root cause?
-
-#### Timeline & Effort Realism
-Does the estimated effort match the actual complexity? Are there parts of the codebase that look simple in the plan but are deeply entangled in practice? Is the team size realistic for the proposed timeline and scope?
 
 #### Feasibility & Phasing
 Is the proposed phasing realistic? Are dependencies in the right order — does any phase assume infrastructure from a later phase? Are there hidden complexities the plan glosses over?
@@ -136,19 +136,83 @@ If the verdict is **Revise**, end with a numbered list of specific items to addr
 
 ## Interaction Model
 
-This skill is designed to minimize user interaction. Do not:
+### During analysis
+
+This skill minimizes user interaction during the analysis phase. Do not:
 - Re-interview the user about their requirements
 - Ask questions the codebase can answer
 - Ask the user to confirm what you found in code
-- Rewrite or revise the plan (you may only append a Pipeline Status entry)
 
 Ask a clarifying question only if there is a true blocking ambiguity — for example, the plan references a system you cannot find any trace of in the codebase or documentation, and you cannot determine whether it exists. If there are two plausible interpretations that lead to very different risk profiles, briefly note both rather than asking which one is correct.
 
-After delivering the verdict, the user may want to discuss findings or ask you to revise the plan. That is a normal follow-up conversation, not part of this skill's protocol.
+### After the verdict
 
-### What happens on Revise
+If the verdict is **Ready**, you're done. Suggest `/break-into-issues`.
 
-If the verdict is Revise, the expected workflow is: edit the design to address the numbered items, then re-run `/review-plan` to verify. For a Rethink verdict, re-run `/design-feature` to redesign from scratch.
+If the verdict is **Rethink**, you're done. Recommend re-running `/design-feature`.
+
+If the verdict is **Revise**, enter the Resolution Phase (see below).
+
+## Resolution Phase
+
+This phase activates only on a Revise verdict. The goal is to resolve every numbered issue from the verdict and update the design, without re-interviewing the user from scratch.
+
+### Transition
+
+After delivering the verdict, say:
+
+> "Let's work through these issues. I'll suggest a resolution for each — accept, modify, or tell me to skip it."
+
+### Group related issues
+
+Before starting, mentally group the numbered issues by which design section they affect. Present each group together in a single turn. For example, if issues 1 and 4 both concern the Data Models section, address them in the same turn.
+
+### One turn per issue-group
+
+Each turn contains:
+- The issue numbers being addressed and a brief restatement
+- A concrete suggested resolution — specific changes to make in the design (updated data model fields, revised behavior spec steps, modified phase boundaries, etc.)
+- An invitation to accept, modify, or skip
+
+Do not present options. Present your best recommendation. The user will push back if they disagree.
+
+Example:
+
+> **Issues 1 & 4 — Data Models section**
+>
+> Issue 1: The `billing_subscriptions` table doesn't account for the existing `plans` table structure in `src/db/schema.ts`.
+> Issue 4: The migration strategy doesn't address the foreign key from `invoices` to the current `subscriptions` table.
+>
+> Suggested resolution:
+> - Update `billing_subscriptions` to extend the existing `plans` table with an `is_team` boolean and `team_id` foreign key, rather than creating a parallel table.
+> - Add a migration step between Phase 1 and Phase 2 that backfills `team_id` on existing rows before adding the NOT NULL constraint.
+>
+> Accept these, or tell me what to change.
+
+### When the user skips an issue
+
+If the user says to skip an issue, note it as an open item. Do not argue. Move on.
+
+### Updating the design
+
+After all issue-groups are resolved, update the design file with all accepted and modified resolutions in a single write. Do not update the file incrementally during the Q&A.
+
+Add a Pipeline Status entry to the design:
+
+```
+| review-plan | <date> | Revise → Resolved | <N> issues addressed, <M> skipped |
+```
+
+After updating, say:
+
+> "Design updated. <N> issues resolved, <M> skipped. [If M > 0: Skipped items are noted in Assumptions & Unknowns.] Run `/review-plan` again to verify, or proceed to `/break-into-issues` if you're confident."
+
+### Efficiency guardrails
+
+- Do not re-explore the codebase during resolution. You already did that.
+- Do not expand scope. If a resolution would add significant new design components, flag it and suggest deferring to a follow-up design-feature session.
+- Do not re-interview. If the user's response opens a new technical question beyond the original issues, note it as an assumption/unknown rather than starting a discovery thread.
+- If all issues are straightforward and the user accepts the first group without modification, batch the remaining groups more aggressively. Read the user's engagement level.
 
 ## Tone
 

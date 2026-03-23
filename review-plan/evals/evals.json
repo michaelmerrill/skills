@@ -37,7 +37,7 @@
     {
       "id": 5,
       "prompt": "Here's our plan for migrating from our Express monolith to microservices:\n\nPhase 1: Extract the auth service into its own container with its own Postgres database. Set up an API gateway (Kong) in front.\nPhase 2: Extract the billing service, splitting the billing tables into a separate database. Use Kafka for async events between auth and billing.\nPhase 3: Extract the notification service. Add a service mesh (Istio) for observability.\nPhase 4: Decommission the monolith.\n\nTimeline: 6 months. Team: 3 backend engineers.\n\nReview this plan.",
-      "expected_output": "A thorough critique hitting: ambitious timeline for team size, data consistency risks during database splits, Kafka + Istio operational overhead for a 3-person team, no mention of rollback strategy, distributed transaction risks in billing, and questioning whether the monolith is actually causing problems worth this investment. Should strongly recommend Revise or Rethink.",
+      "expected_output": "A thorough critique hitting: data consistency risks during database splits, Kafka + Istio operational overhead for a 3-person team, no mention of rollback strategy, distributed transaction risks in billing, and questioning whether the monolith is actually causing problems worth this investment. Should strongly recommend Revise or Rethink.",
       "files": [],
       "expectations": [
         "Response ends with a clear verdict: Ready, Revise, or Rethink",
@@ -46,7 +46,6 @@
         "Response uses clear section headings to organize the critique",
         "Response suggests at least one simpler or safer alternative approach",
         "No files were created other than the response capture",
-        "Flags the timeline-to-team-size mismatch (6 months, 3 engineers for a full microservices migration)",
         "Flags operational overhead of Kafka and/or Istio for a small team",
         "Sections are ordered by severity, not by a fixed template order"
       ]

@@ -7,7 +7,7 @@ description: MUST USE when a user describes wanting to add, build, or implement 
 
 Assess whether a proposed feature is worth pursuing and feasible to build. Conduct a short structured interview to understand the problem, stakeholders, feasibility, scope boundaries, and key risks. Produce a scope document with a go/no-go recommendation.
 
-This is the first step in the planning pipeline (`plan-feature` → `write-a-prd` → `review-prd` → `ubiquitous-language` → `design-feature` → `review-plan`). This skill answers: "Should we build this, and can we?" The later skills handle what exactly to build (PRD) and how to build it (design).
+This is the first step in the planning pipeline (`plan-feature` → `write-a-prd` → `review-prd` → `glossary` → `design-feature` → `review-plan`). This skill answers: "Should we build this, and can we?" The later skills handle what exactly to build (PRD) and how to build it (design).
 
 ## Starting
 
@@ -51,7 +51,7 @@ Follow the natural conversation thread, but internally track whether you've reso
 
 1. **Problem & motivation** — What problem does this solve? Why now? What happens if we don't build it? Is this validated by user feedback, business metrics, or intuition?
 2. **Stakeholders & impact** — Who cares about this? Who are the users? What's the business justification? Are there internal stakeholders with opinions?
-3. **Feasibility** — Is this technically possible with the current stack? Are there architectural constraints or prerequisites? Are there existing third-party solutions or libraries that address this — should we evaluate buy/integrate before build? What's the rough effort level (days, weeks, months)? Are there resource constraints (team size, skills, dependencies on other teams)?
+3. **Feasibility** — Is this technically possible with the current stack? Are there architectural constraints or prerequisites? Are there existing third-party solutions or libraries that address this — should we evaluate buy/integrate before build?
 4. **High-level scope** — What's roughly in for v1? What's clearly out? Are there natural phase boundaries?
 5. **Key risks & assumptions** — What are the project-level risks? What are we assuming that might not be true? Are there dependencies on external factors (third-party services, other teams, business decisions)?
 6. **Recommendation** — Given the above, should this proceed? Go, no-go, or needs further investigation?
@@ -77,6 +77,8 @@ When code, documentation, and stakeholder intent conflict, surface it explicitly
 ### Wrapping up
 
 When all domains are covered, say: "I think we have enough for the scope assessment. Let me put it together."
+
+Derive the feature name as kebab-case from the core concept (2-3 words, e.g., "team-billing", "dashboard-sharing"). Confirm with the user before saving: "I'll save this as `plans/team-billing-scope.md` — all subsequent pipeline documents will use the `team-billing` prefix. Sound right?"
 
 Save to `./plans/<feature-name>-scope.md`. After writing, ask: "Review this and tell me what to change. When you're ready, run `/write-a-prd` to define detailed requirements."
 
@@ -104,8 +106,6 @@ What problem this solves, why it matters now, and what happens if we don't build
 ## Feasibility Assessment
 
 - **Technical feasibility**: Can the current stack support this? Key constraints or prerequisites.
-- **Effort estimate**: Rough order of magnitude (days / weeks / months) and confidence level.
-- **Resource constraints**: Team capacity, skill gaps, external dependencies.
 - **Prior work**: Existing code, abandoned attempts, or related features that inform feasibility.
 
 ## High-Level Scope

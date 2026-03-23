@@ -1,13 +1,13 @@
 ---
 name: design-feature
-description: MUST USE when a user wants to create a technical design or architecture for a feature that has defined requirements. This is the technical design step in the planning pipeline (write-a-prd → review-prd → ubiquitous-language → design-feature → review-plan). Typical signals — "design this feature," "how should we build this," "create the technical design," "design-feature," "let's architect this," or following up after a write-a-prd, review-prd, or ubiquitous-language session. Also applies when the user has a PRD or clear requirements and wants to figure out the implementation approach. Conducts a structured interview to produce a technical design document. Do NOT use for scoping/feasibility (use plan-feature), writing requirements (use write-a-prd), reviewing plans (use review-plan), or when the user wants to start coding immediately without a design.
+description: MUST USE when a user wants to create a technical design or architecture for a feature that has defined requirements. This is the technical design step in the planning pipeline (write-a-prd → review-prd → glossary → design-ux → design-feature → review-plan). Typical signals — "design this feature," "how should we build this," "create the technical design," "design-feature," "let's architect this," or following up after a write-a-prd, review-prd, glossary, or design-ux session. Also applies when the user has a PRD or clear requirements and wants to figure out the implementation approach. Conducts a structured interview to produce a technical design document. Do NOT use for scoping/feasibility (use plan-feature), writing requirements (use write-a-prd), UX design (use design-ux), reviewing plans (use review-plan), or when the user wants to start coding immediately without a design.
 ---
 
 ## What This Skill Does
 
 Create a technical design for a feature whose requirements are already defined. Conduct a structured interview focused on HOW to build it — architecture, data models, integration patterns, edge case handling, and phased build plan. Product decisions are already made; this skill translates them into a buildable technical plan.
 
-This is the technical design step in the planning pipeline (`plan-feature` → `write-a-prd` → `review-prd` → `ubiquitous-language` → **design-feature** → `review-plan`). The PRD established what to build. This skill answers: "How do we build it?"
+This is the technical design step in the planning pipeline (`plan-feature` → `write-a-prd` → `review-prd` → `glossary` → `design-ux` → **design-feature** → `review-plan`). The PRD established what to build. The UX spec (if it exists) established how users interact with it. This skill answers: "How do we build it?"
 
 ## Starting
 
@@ -18,15 +18,16 @@ Before asking anything:
 1. Look for a PRD in `./plans/` matching the feature name (`*-prd.md`). If found, read it fully — the user stories, functional requirements, and scope are your design inputs.
 2. Look for a scope document (`*-scope.md`). If found, read it for feasibility context, constraints, and high-level scope boundaries.
 3. Look for a glossary (`*-glossary.md`). If found, read it fully — use the canonical terms when naming data models, API endpoints, modules, and variables throughout the design. If a glossary term has status "rename," the design should use the canonical term, not the current code name.
-4. Explore the codebase thoroughly — tech stack, existing patterns, data models, auth approach, API conventions, testing patterns, deployment setup. You ARE designing the technical solution, so you need deep understanding.
-5. Search for any existing documentation — architecture docs, ADRs, domain glossaries, process docs, READMEs. Every repo organizes these differently, so search rather than assuming paths.
-6. If documentation and code disagree, note the discrepancy to surface during the interview.
+4. Look for a UX spec (`*-ux.md`). If found, read it fully — the user flows, screen inventory, component inventory, and interaction specs are your design inputs for the frontend layer. Each user flow maps to a behavior spec. Each screen/component maps to frontend architecture decisions. The UX spec defines what users see and do; your job is to define how the system implements it.
+5. Explore the codebase thoroughly — tech stack, existing patterns, data models, auth approach, API conventions, testing patterns, deployment setup. You ARE designing the technical solution, so you need deep understanding.
+6. Search for any existing documentation — architecture docs, ADRs, domain glossaries, process docs, READMEs. Every repo organizes these differently, so search rather than assuming paths.
+7. If documentation and code disagree, note the discrepancy to surface during the interview.
 
-If a PRD exists, ground your first question in it:
+If prior documents exist, ground your first question in them:
 
-> "I've read the PRD for [feature] and explored the codebase. The requirements call for [key items]. The existing stack uses [tech details]. Let me start working through the technical design. First: [question about architecture/patterns]."
+> "I've read the PRD for [feature], the UX spec, and explored the codebase. The requirements call for [key items]. The UX spec defines [N flows] across [N screens] using [component patterns]. The existing stack uses [tech details]. Let me start working through the technical design. First: [question about architecture/patterns]."
 
-If no PRD exists, the skill still works — but note to the user that having defined requirements makes for a better design. If no glossary exists, that's fine — proceed without one, but be consistent in your naming choices and note any terminology decisions in the Decisions Log.
+If no PRD exists, the skill still works — but note to the user that having defined requirements makes for a better design. If no UX spec exists, that's fine — the interview will cover frontend concerns as needed, but note that having a UX spec (from `/design-ux`) makes for better behavior specs. If no glossary exists, proceed without one, but be consistent in your naming choices and note any terminology decisions in the Decisions Log.
 
 ### No PRD? Works anyway.
 
@@ -60,7 +61,7 @@ Before asking anything the codebase could answer, look first. Present findings a
 
 Follow the natural conversation thread, but internally track whether you've resolved decisions across these domains:
 
-1. **Architecture & patterns** — System design, component boundaries, API design. What new components, services, or modules are needed? How do they fit into the existing architecture? What patterns from the codebase should be followed or intentionally deviated from?
+1. **Architecture & patterns** — System design, service/module boundaries, API design. What new services, modules, or system components are needed? How do they fit into the existing architecture? What patterns from the codebase should be followed or intentionally deviated from? (Note: UI component decisions belong in the UX spec — this domain covers system-level boundaries.)
 2. **Data & state** — What's created/read/updated/deleted? Models, schemas, migrations, state management. Where does state live (database, cache, session, client)?
 3. **Core behavior (technical)** — Implementation approach for each user story or functional requirement from the PRD. Step-by-step: what happens in the system when the user performs each action?
 4. **Edge cases & failure modes** — Race conditions, partial failures, concurrent access, error handling, data validation, boundary conditions. What breaks and how does the system respond?
@@ -68,7 +69,8 @@ Follow the natural conversation thread, but internally track whether you've reso
 6. **Operational & rollout** — Backward compatibility, feature flags, database migrations, monitoring, performance budget, cost implications. How does this get safely into production?
 7. **Security & access** — Permissions, trust boundaries, sensitive data handling, input validation, abuse prevention. What are the security implications of each design decision?
 8. **Testing strategy** — Test approach per component. What needs unit tests, integration tests, end-to-end tests? Test data needs, mocking strategy, acceptance verification approach.
-9. **Phased build plan** — Vertical slices that each deliver working functionality. Dependency ordering between phases. Acceptance criteria per phase tied to decisions made during the interview.
+9. **Code design & boundaries** — Interfaces, abstractions, and dependency direction between components. Where should contracts exist between modules? Which dependencies should be injected vs. hardcoded? Where does the codebase already use patterns (repository pattern, strategy pattern, etc.) that this feature should follow? Coupling/cohesion tradeoffs — what should be easy to change later vs. locked down now?
+10. **Phased build plan** — Vertical slices that each deliver working functionality. Dependency ordering between phases. Acceptance criteria per phase tied to decisions made during the interview.
 
 These are a safety net, not a script. When the conversation winds down, check for gaps and fill them. Don't produce the plan until every domain has at least one decision.
 
@@ -80,7 +82,11 @@ When code, documentation, and stakeholder intent conflict, surface it explicitly
 
 ### Wrapping up
 
-When all domains are covered, say: "I think we have enough to draft the technical design. Let me put it together."
+When all domains are covered, verify PRD traceability before generating the document:
+
+If a PRD exists, walk through every numbered functional requirement (FR-1, FR-2, ...) and user story. Verify each maps to at least one behavior spec or build phase entry in the design. If any are missing, surface them: "The PRD includes FR-3 (bulk invite) and the 'Remove Team Member' user story, but the design doesn't address either. Should I add them to the design or are they intentionally deferred?" Resolve gaps before producing the document.
+
+Then say: "I think we have enough to draft the technical design. Let me put it together."
 
 Save to `./plans/<feature-name>-design.md`. After writing, ask: "Review this and tell me what to change. When you're satisfied, run `/review-plan` to get a technical assessment."
 
@@ -93,7 +99,7 @@ Include the sections below that are relevant to the feature. Omit any section th
 ```markdown
 # Design: <Feature Name>
 
-> Technical design for [<feature-name>-prd.md] (scope: [<feature-name>-scope.md])
+> Technical design for [<feature-name>-prd.md] (scope: [<feature-name>-scope.md], UX: [<feature-name>-ux.md])
 > Output: <feature-name>-design.md
 > Generated from design-feature interview on <date>
 
@@ -164,6 +170,13 @@ Use whatever format matches the project's existing conventions.
 - **Trust boundaries**: <changes>
 - **Abuse risks**: <scenarios>
 
+## Code Design & Boundaries
+
+- **Key interfaces/abstractions**: <new contracts or boundaries introduced>
+- **Dependency direction**: <what depends on what, injection points>
+- **Patterns applied**: <existing codebase patterns followed, or new ones introduced with rationale>
+- **Extension points**: <what's designed to be easy to change later>
+
 ## Testing Strategy
 
 - **Unit tests**: <what to unit test and approach>
@@ -190,5 +203,7 @@ Use whatever format matches the project's existing conventions.
 | plan-feature | <date or "skipped"> | <verdict> | <summary> |
 | write-a-prd | <date or "skipped"> | -- | <summary> |
 | review-prd | <date or "skipped"> | <verdict> | <summary> |
-| design-feature | <date> | -- | Interview covered 9 technical domains |
+| glossary | <date or "skipped"> | -- | <summary> |
+| design-ux | <date or "skipped"> | -- | <summary> |
+| design-feature | <date> | -- | Interview covered 10 technical domains |
 ```

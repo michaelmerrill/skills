@@ -1,0 +1,35 @@
+{
+  "skill_name": "break-into-issues",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Break the candidate profiles design into issues. The plan is at plans/candidate-profiles-design.md",
+      "expected_output": "Should produce ./issues/candidate-profiles/ with 00-overview.md and 5-7 numbered issue files. Each issue should have front-loaded context with file paths, line numbers, type signatures, and pattern references from the actual codebase.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I want to convert plans/candidate-profiles-prd.md into implementation issues",
+      "expected_output": "Should detect this is a PRD (not a technical design) and redirect the user to run /design-feature first. Should NOT generate issue files.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "ok the design is reviewed, let's break it down into issues. the plan is at plans/candidate-profiles-design.md — I want to hand these off to agents",
+      "expected_output": "Same as eval 1 but with more casual phrasing. Should produce issue files with the same quality of context enrichment. The 'hand off to agents' framing should reinforce that issues need to be self-contained.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Break plans/simple-fix-design.md into issues. It's a 1-phase design that just adds a validation check to two API endpoints.",
+      "expected_output": "Should handle a small/simple design gracefully — produce 1-2 issues, not force-split into more. Each issue should still have full codebase context (file paths, line numbers, pattern references). The 00-overview.md should be proportionally brief. Should NOT pad with artificial issues to hit a minimum count.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Break plans/platform-migration-design.md into issues. It has 8 phases with cross-cutting concerns across auth, billing, notifications, and the API layer.",
+      "expected_output": "Should produce 8-12 issues. Should correctly order dependencies (schema before API, API before UI, cross-cutting after the code they wire into). Should identify which issues can be parallelized. Should split any phase that touches 8+ files. New patterns (first cron job, first email template) should get their own focused issues even if small. Each issue should be self-contained for an agent context window.",
+      "files": []
+    }
+  ]
+}
