@@ -152,4 +152,4 @@ If not already a repo: `git init`. Stage and commit: `feat: scaffold <name> with
 
 1. **Run quality gates** — lint, build, test. Fix issues.
 2. **Summarize** — key files/directories, quality gate commands, foundation docs.
-3. **Suggest next steps** — "Run `/write-a-prd` to define your first feature," "Set up DB in `.env`," "Push to GitHub."
+3. **Suggest next steps** — "Run `/plan-feature` to scope your first feature," "Set up DB in `.env`," "Push to GitHub."

@@ -72,7 +72,7 @@ Concise review in chat:
 
 **Risks** (if any)
 
-**Recommended next step** — one sentence. If feature introduces new domain concepts or codebase shows terminology drift, suggest `/glossary` first. Otherwise `/design-feature`.
+**Recommended next step** — one sentence. Suggest `/glossary` first when ANY of: PRD introduces 3+ domain nouns not found in codebase (new bounded context), analysis found naming conflicts (PRD says "workspace," code says "org," UI says "team"), or feature crosses existing bounded-context boundaries (e.g., billing + auth). Otherwise suggest `/design-feature`.
 
 ---
 
@@ -86,7 +86,7 @@ Minimize interaction. Don't re-interview, don't ask questions the codebase/PRD c
 
 ### After the verdict
 
-**Ready**: Done. Suggest `/glossary` if new domain concepts or terminology drift, otherwise `/design-feature`. **Rethink**: Done. Recommend `/write-a-prd`. **Revise**: Enter Resolution Phase.
+**Ready**: Done. Suggest `/glossary` if criteria met (see Recommended next step), otherwise `/design-feature`. **Rethink**: Done. Recommend `/write-a-prd`. **Revise**: Enter Resolution Phase.
 
 ## Resolution Phase
 

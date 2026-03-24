@@ -61,7 +61,12 @@ Exhaust every branch. Domains are not checkboxes — each is a branch of the dec
 
 **Minor gaps** (resolvable inline): missing acceptance criteria details, unspecified edge case behavior. Resolve during interview, record in PRD Addendum section.
 
-**Major gaps** (blocking): missing user stories for flows you need to design, fundamental scope ambiguity. Surface immediately and suggest pausing for `/write-a-prd` or `/review-prd`, or proceed with noted assumptions. If 3+ major gaps accumulate, recommend pausing.
+**Major gaps** (blocking): missing user stories for flows you need to design, contradictory requirements, fundamental scope ambiguity.
+
+Rules:
+- 1-2 major gaps: note as assumption in Assumptions & Open Questions, continue. Flag in PRD Addendum with "BLOCKING — backport to PRD before design-feature."
+- 3+ major gaps: pause. Tell the user: "I've hit [N] requirements gaps that change the UX flow. Recommend running `/review-prd` to resolve these before continuing." List the gaps. When user returns after PRD update, resume from where you left off — do not re-interview resolved domains.
+- Glossary does NOT need re-running for PRD patches discovered during design-ux.
 
 ### Scope
 
