@@ -1,6 +1,6 @@
 ---
 name: plan-feature
-description: Scoping interview for new features -> scope doc with go/no-go. Triggers: user wants to add/build/implement any new capability. First pipeline step. Not for: bugs, PRDs (write-a-prd), design (design-feature), executing existing specs.
+description: "Scoping interview for new features -> scope doc with go/no-go. Triggers: user wants to add/build/implement any new capability. First pipeline step. Not for: bugs, PRDs (write-a-prd), design (design-feature), executing existing specs."
 ---
 
 ## Purpose

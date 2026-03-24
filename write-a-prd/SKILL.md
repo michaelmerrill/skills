@@ -1,6 +1,6 @@
 ---
 name: write-a-prd
-description: Product requirements interview -> PRD focused on WHAT to build. Triggers: "write a PRD," "define requirements," "spec this out," post-scoping. Not for: technical design (design-feature), scoping (plan-feature), plan review (review-plan).
+description: "Product requirements interview -> PRD focused on WHAT to build. Triggers: 'write a PRD,' 'define requirements,' 'spec this out,' post-scoping. Not for: technical design (design-feature), scoping (plan-feature), plan review (review-plan)."
 ---
 
 ## Purpose

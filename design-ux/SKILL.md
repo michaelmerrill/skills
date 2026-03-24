@@ -1,6 +1,6 @@
 ---
 name: design-ux
-description: UX design interview -> UX spec (flows, screens, states, components, a11y). Triggers: "design the UX," "what screens," "how should users interact," post-PRD/glossary. Optional — UI features only. Not for: technical design (design-feature), requirements (write-a-prd), plan review (review-plan).
+description: "UX design interview -> UX spec (flows, screens, states, components, a11y). Triggers: 'design the UX,' 'what screens,' 'how should users interact,' post-PRD/glossary. Optional — UI features only. Not for: technical design (design-feature), requirements (write-a-prd), plan review (review-plan)."
 ---
 
 ## Purpose

@@ -1,6 +1,6 @@
 ---
 name: review-plan
-description: Evaluate technical design -> verdict (Ready/Revise/Rethink). Adversarial analysis: verify against codebase, pressure-test assumptions, find gaps. Triggers: "review plan," "stress-test," "poke holes," "is this ready to build." Not for: PRD review (review-prd), creating designs (design-feature), code review.
+description: "Evaluate technical design -> verdict (Ready/Revise/Rethink). Adversarial analysis: verify against codebase, pressure-test assumptions, find gaps. Triggers: 'review plan,' 'stress-test,' 'poke holes,' 'is this ready to build.' Not for: PRD review (review-prd), creating designs (design-feature), code review."
 ---
 
 ## Purpose

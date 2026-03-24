@@ -1,6 +1,6 @@
 ---
 name: break-into-issues
-description: Decompose technical design into agent-sized implementation issues -> numbered markdown files. Triggers: "break into issues," "create tasks," "ready to implement," post-design-review. Not for: designs without file paths/phases (run design-feature first).
+description: "Decompose technical design into agent-sized implementation issues -> numbered markdown files. Triggers: 'break into issues,' 'create tasks,' 'ready to implement,' post-design-review. Not for: designs without file paths/phases (run design-feature first)."
 ---
 
 ## Purpose

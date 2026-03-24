@@ -1,6 +1,6 @@
 ---
 name: review-prd
-description: Evaluate PRD for completeness, clarity, testability -> verdict (Ready/Revise/Rethink). Triggers: "review PRD," "ready for design?" Silent analysis, no re-interview. On Revise, walks through issues to fix. Not for: plan review (review-plan), creating PRDs (write-a-prd), code review.
+description: "Evaluate PRD for completeness, clarity, testability -> verdict (Ready/Revise/Rethink). Triggers: 'review PRD,' 'ready for design?' Silent analysis, no re-interview. On Revise, walks through issues to fix. Not for: plan review (review-plan), creating PRDs (write-a-prd), code review."
 ---
 
 ## Purpose

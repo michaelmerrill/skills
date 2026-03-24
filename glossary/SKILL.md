@@ -1,6 +1,6 @@
 ---
 name: glossary
-description: Extract domain terms from PRD + codebase -> canonical glossary. Triggers: "define terms," "glossary," "ubiquitous language," "align naming," post-PRD-review. Silent analysis, minimal interaction. Not for: requirements (write-a-prd), design (design-feature), plan review (review-plan).
+description: "Extract domain terms from PRD + codebase -> canonical glossary. Triggers: 'define terms,' 'glossary,' 'ubiquitous language,' 'align naming,' post-PRD-review. Silent analysis, minimal interaction. Not for: requirements (write-a-prd), design (design-feature), plan review (review-plan)."
 ---
 
 ## Purpose

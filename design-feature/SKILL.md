@@ -1,6 +1,6 @@
 ---
 name: design-feature
-description: Technical design interview -> design doc (architecture, data models, behavior specs, build phases). Triggers: "design this," "how should we build this," "architect this," post-PRD/UX. Not for: scoping (plan-feature), requirements (write-a-prd), UX (design-ux), plan review (review-plan).
+description: "Technical design interview -> design doc (architecture, data models, behavior specs, build phases). Triggers: 'design this,' 'how should we build this,' 'architect this,' post-PRD/UX. Not for: scoping (plan-feature), requirements (write-a-prd), UX (design-ux), plan review (review-plan)."
 ---
 
 ## Purpose

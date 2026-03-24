@@ -1,6 +1,6 @@
 ---
 name: scaffold-repo
-description: Interview + scaffold new project from empty directory -> code + CLAUDE.md + GLOSSARY.md. Triggers: "new project," "scaffold," "init," "bootstrap," greenfield, empty directory. Not for: adding features (plan-feature), deploying (deploy-to-vercel), hooks on existing repos (setup-pre-commit).
+description: "Interview + scaffold new project from empty directory -> code + CLAUDE.md + GLOSSARY.md. Triggers: 'new project,' 'scaffold,' 'init,' 'bootstrap,' greenfield, empty directory. Not for: adding features (plan-feature), deploying (deploy-to-vercel), hooks on existing repos (setup-pre-commit)."
 ---
 
 ## Purpose
