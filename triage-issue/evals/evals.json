@@ -1,0 +1,35 @@
+{
+  "skill_name": "triage-issue",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Users are getting a 500 error when they try to update their profile. The error message is 'Cannot read properties of undefined (reading id)'. It started happening after last week's deploy.",
+      "expected_output": "Should search codebase for the error message, find the profile update handler, trace the code path, check git log for recent changes to affected files. Should identify the specific null/undefined access causing the error. Should present root cause analysis with file, function, and line reference before asking user to confirm. Should create an issue file with TDD fix plan — failing test that reproduces the null access, then a fix (null check or proper data loading). Should NOT ask more than 3 questions. Should NOT design a new profile system.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "The search feature doesn't return results when I use special characters like quotes or ampersands. It just shows an empty list.",
+      "expected_output": "Should find the search implementation, trace how query input flows from UI to database/search engine. Should identify where special characters cause the failure — likely unescaped input in query construction or improper encoding. Should check for existing input sanitization patterns in the codebase. Should present diagnosis with code references. Should create issue file with a failing test using special character inputs and a fix targeting the encoding/escaping gap. Should NOT redesign the search feature.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I expected the app to send email notifications when a task is overdue, but it doesn't do that. Users are complaining.",
+      "expected_output": "Should investigate whether overdue email notifications were ever implemented — check for notification/email code, cron jobs, task scheduling. If this behavior was never built, should classify as a missing feature, not a bug. Should redirect to /plan-feature for a complex new notification system, or create a simple issue if the infrastructure exists and just needs wiring. Should NOT create a bug issue for behavior that was never designed.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Our API response times went from 50ms to 2 seconds after we added the new dashboard endpoint. Everything is slow now, not just the dashboard.",
+      "expected_output": "Should investigate the dashboard endpoint code, look for blocking operations, N+1 queries, missing indexes, or middleware that affects all routes. Should check if new middleware was added globally vs scoped to the dashboard route. Should assess blast radius — is this affecting all endpoints or just ones sharing a resource? If the fix is localized (e.g., scope middleware, add an index), create an issue file. If the fix is architectural (e.g., need caching layer, query redesign across multiple endpoints), recommend /design-feature.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Something is wrong with permissions. An admin user can't access the settings page. I think it broke recently.",
+      "expected_output": "Should investigate the settings page route/component, the permission/auth middleware, the admin role definition. Should check git log for recent permission-related changes. Should ask the user a clarifying question if the reproduction path is ambiguous (which settings page, which admin role, what error they see). Should present findings before creating the issue. Should create a focused issue file if a specific permission check is wrong, or redirect to design-feature if the permissions model itself is flawed.",
+      "files": []
+    }
+  ]
+}

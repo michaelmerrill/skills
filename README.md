@@ -40,7 +40,8 @@ Not every change needs the full pipeline. Pick your entry point based on the cha
 | Feature already greenlit, has user-facing UI                          | `/write-a-prd`    | write-a-prd → review-prd → design-ux → design-feature → review-plan       |
 | Requirements clear, need UX + technical design                        | `/design-ux`      | design-ux → design-feature → review-plan                                   |
 | Requirements and UX clear (spec exists, ticket has detailed AC)       | `/design-feature` | design-feature → review-plan                                               |
-| Bug fix, config change, copy update, refactor with no behavior change | None              | Just build it                                                              |
+| Bug fix, regression, something broken                                 | `/triage-issue`   | triage-issue → agent implementation                                        |
+| Config change, copy update, refactor with no behavior change          | None              | Just build it                                                              |
 
 **glossary** is optional. Use it when the feature introduces new domain concepts or the codebase shows terminology drift (e.g., PRD says "workspace," code says "org," UI says "team"). Skip it for straightforward features.
 
@@ -63,8 +64,9 @@ When a review gate returns **Rethink**:
 
 | Skill           | Purpose                                                                          |
 | --------------- | -------------------------------------------------------------------------------- |
+| `triage-issue`  | Investigate bugs — root cause analysis → issue file with TDD fix plan                             |
 | `bootstrap` | Initialize new codebases — standalone project, monorepo app/package, or service in existing repo |
 
 ## Structure
 
-Each skill has a `SKILL.md` definition. Pipeline skills also include `evals/evals.json` test cases. Pipeline outputs go to `./plans/` with suffixes: `-scope.md`, `-prd.md`, `-glossary.md`, `-ux.md`, `-design.md`. Issue decomposition outputs go to `./issues/<plan-name>/`.
+Each skill has a `SKILL.md` definition. Pipeline skills also include `evals/evals.json` test cases. Pipeline outputs go to `./plans/` with suffixes: `-scope.md`, `-prd.md`, `-glossary.md`, `-ux.md`, `-design.md`. Issue decomposition outputs go to `./issues/<plan-name>/`. Bug triage outputs go to `./issues/bugs/`.
