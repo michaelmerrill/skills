@@ -1,128 +1,87 @@
 ---
 name: glossary
-description: MUST USE when the user wants to extract, define, or harden domain terminology before technical design. This is the terminology alignment step in the planning pipeline (write-a-prd → review-prd → glossary → design-feature). Typical signals — "define the domain terms," "build a glossary," "harden the terminology," "ubiquitous language," "what should we call things," "align naming," or following up after a review-prd session. Also applies when a user just finished a PRD and wants to lock down vocabulary before design. This skill reads the PRD and the codebase quietly, then produces a glossary — it does NOT restart discovery, re-interview the user, or produce new documents beyond the glossary. Do NOT use for writing requirements (use write-a-prd), technical design (use design-feature), reviewing plans (use review-plan), or scoping (use plan-feature).
+description: Extract domain terms from PRD + codebase -> canonical glossary. Triggers: "define terms," "glossary," "ubiquitous language," "align naming," post-PRD-review. Silent analysis, minimal interaction. Not for: requirements (write-a-prd), design (design-feature), plan review (review-plan).
 ---
 
-## What This Skill Does
+## Purpose
 
-Extract a DDD-style ubiquitous language glossary from a reviewed PRD and the codebase. Identify every domain term, flag ambiguities (same concept with different names, same name for different concepts), check how the codebase currently names things, and propose canonical terms with definitions.
+DDD-style ubiquitous language glossary from PRD + codebase. Pipeline: plan-feature -> write-a-prd -> review-prd -> **glossary** -> (design-ux) -> design-feature -> review-plan.
 
-This is the terminology alignment step in the planning pipeline (`plan-feature` → `write-a-prd` → `review-prd` → **glossary** → `design-feature` → `review-plan`). The PRD established what to build. This skill answers: "What do we call things — and does everyone agree?"
-
-## Why This Step Exists
-
-Domain terminology drifts. The PRD says "workspace," the database calls it "org," the UI shows "team," and the API uses "account." When `design-feature` runs without a canonical vocabulary, it bakes naming inconsistencies into data models, API endpoints, and code constructs. Fixing terminology after design is expensive. Fixing it after implementation is worse.
-
-This step creates a shared vocabulary that `design-feature` uses as its naming source of truth.
+Identifies every domain term, flags ambiguities (same concept / different names, same name / different concepts), checks codebase naming, proposes canonical terms. Creates shared vocabulary that design-feature uses as naming source of truth.
 
 ## Finding the PRD
 
-Look for the PRD in this order:
-1. If the user names a specific file, read that file.
-2. Check `./plans/` for PRD files (`*-prd.md`). If there's exactly one, use it. If there are several, ask which one.
-3. If the PRD was produced earlier in this conversation (via write-a-prd), use the conversation context.
+1. If user names a file, read it.
+2. Check `./plans/` for `*-prd.md`. One? Use it. Several? Ask.
+3. If PRD was produced earlier in conversation, use context.
 
-If no PRD can be found, say so and stop. Do not fabricate a glossary without a source document.
-
-### Check for scope document
-
-Also look for a matching scope document (`*-scope.md`) in `./plans/`. If one exists, read it — additional domain context often surfaces during scoping.
+No PRD found? Say so and stop. Also check for scope doc (`*-scope.md`) for additional domain context.
 
 ## Analysis Process
 
-Work through these steps before writing any output. Do the investigation silently — the user sees only the final glossary, not a play-by-play of your exploration.
+Work through silently — user sees only the final glossary.
 
 ### Step 1: Extract terms from the PRD
 
-Read the PRD fully. Extract every noun and noun phrase that names a domain concept:
-- Entities from user stories ("As a **team admin**, I want to **invite a member** to a **workspace**...")
-- Objects from functional requirements ("The **subscription** must track **usage limits**...")
-- Personas and roles ("**viewer**, **editor**, **owner**")
-- States and transitions ("**pending invite**, **active member**, **suspended account**")
-- Actions that imply domain operations ("**archive**, **publish**, **escalate**")
+Read fully. Extract every noun/noun phrase naming a domain concept: entities from user stories, objects from FRs, personas/roles, states/transitions, actions implying domain operations. Collect every term — obvious ones most likely to have silent disagreements.
 
-Collect every term, even if it seems obvious. Obvious terms are the ones most likely to have silent disagreements about meaning.
+### Step 2: Check codebase naming
 
-### Step 2: Check the codebase for existing naming
+Search for each term in: DB models/schemas/migrations, API endpoints/routes, type definitions/interfaces, core domain logic, UI labels/copy, existing docs/glossaries.
 
-Search the codebase for each extracted term. Look at:
-- Database models, schemas, and migrations
-- API endpoint names and route definitions
-- Type definitions and interfaces
-- Variable and function names in core domain logic
-- UI labels and copy (if accessible)
-- Existing documentation, glossaries, or domain language files
-
-For each term, record what the codebase currently calls it. Note divergences — the PRD says "workspace" but the code says "organization", the PRD says "invite" but the code says "add_member".
+Record what the codebase calls each term. Note divergences.
 
 ### Step 3: Detect ambiguities
 
-Flag two categories of problems:
+**Synonyms** — same concept, different names (PRD says "workspace," code says "org," UI shows "Team").
 
-**Synonyms** — same concept, different names:
-- PRD says "workspace" in user stories but "project" in functional requirements
-- Code uses `org` but UI displays "Team"
-
-**Homonyms** — same name, different concepts:
-- "account" means a billing entity in one context and a user login in another
-- "admin" means a system administrator in some places and a team administrator in others
+**Homonyms** — same name, different concepts ("account" means billing entity in one place, user login in another).
 
 ### Step 4: Propose canonical terms
 
-For each domain concept, propose a single canonical term. Consider:
-- **User-facing consistency**: If users see the term in the UI, the canonical term should match what they see
-- **Codebase momentum**: If the codebase already uses a term consistently, prefer it over a new name (renaming everything is expensive)
-- **Precision**: Choose the term that most precisely describes the concept without ambiguity
-- **Simplicity**: Shorter, more common words over jargon when equally precise
-
-When the codebase term and PRD term disagree, recommend one and explain why. Don't try to keep both alive.
+For each concept, propose one canonical term considering: user-facing consistency, codebase momentum (renaming is expensive), precision, simplicity. When codebase and PRD disagree, recommend one with rationale.
 
 ### Step 5: Write the glossary
 
-Save to `./plans/<feature-name>-glossary.md` using the template below.
+Save to `./plans/<feature-name>-glossary.md`.
 
 ## Interaction Model
 
-This skill minimizes user interaction. Do not:
-- Re-interview the user about their domain
-- Ask questions the codebase or PRD can answer
-- Rewrite or revise the PRD
+Minimize interaction. Do not re-interview or rewrite the PRD.
 
-Ask a clarifying question **only** if:
-- Two terms genuinely cannot be disambiguated from the PRD and codebase alone (e.g., "account" is used for two distinct concepts and context doesn't clarify which is primary)
-- A critical domain concept appears in the PRD but has zero presence in the codebase, and you cannot determine if it's new or a renamed version of something existing
+Ask only if: two terms genuinely can't be disambiguated from PRD + codebase alone, or a critical domain concept has zero codebase presence and you can't tell if it's new or renamed.
 
-Limit yourself to 1-2 questions maximum. If you need more, the PRD likely needs revision — say so and stop. When you do ask, always use the `AskUserQuestion` tool with concrete options rather than plain text.
+Max 1-2 questions. More needed? PRD likely needs revision — say so and stop. Use `AskUserQuestion`: question, header (max 12 chars), 2-4 options with label + description, recommended first with "(Recommended)" suffix.
 
 ## Glossary Template
 
 ```markdown
 # Ubiquitous Language: <Feature Name>
 
-> Domain glossary for [<feature-name>-prd.md]. Scope: [<feature-name>-scope.md] (if exists)
+> Domain glossary for [<feature-name>-prd.md] (scope: [<feature-name>-scope.md])
 > Generated from glossary analysis on <date>
 
 ## Glossary
 
 | Term | Definition | Aliases | Code Name | Status |
 |------|-----------|---------|-----------|--------|
-| <canonical term> | <precise definition in domain context> | <other names used in PRD/code/UI> | <current name in codebase, or "new"> | canonical / rename / new |
+| <canonical term> | <definition> | <other names in PRD/code/UI> | <current code name, or "new"> | canonical / rename / new |
 
 ### Status key
-- **canonical**: Term and code name already match — no action needed
-- **rename**: Code currently uses a different name — design should use the canonical term, implementation should rename
-- **new**: No existing code representation — design should introduce using this term
+- **canonical**: Term and code name match — no action needed
+- **rename**: Code uses different name — design should use canonical, implementation should rename
+- **new**: No existing code representation — design introduces using this term
 
 ## Ambiguities Resolved
 
-### <Ambiguity title>
-- **Problem**: <description of the naming conflict>
-- **Resolution**: <which term was chosen and why>
-- **Action**: <what needs to change — in code, PRD, or both>
+### <Title>
+- **Problem**: <naming conflict>
+- **Resolution**: <chosen term + why>
+- **Action**: <what changes — code, PRD, or both>
 
 ## Naming Conventions
 
-<Any patterns observed in the codebase that should guide naming of new terms — e.g., "models use singular nouns", "API routes use kebab-case plural", "UI copy uses title case">
+<Patterns in codebase that guide new term naming — e.g., "models use singular nouns," "API routes kebab-case plural">
 
 ## Pipeline Status
 
@@ -131,15 +90,11 @@ Limit yourself to 1-2 questions maximum. If you need more, the PRD likely needs 
 | plan-feature | <date or "skipped"> | <verdict> | <summary> |
 | write-a-prd | <date or "skipped"> | -- | <summary> |
 | review-prd | <date or "skipped"> | <verdict> | <summary> |
-| glossary | <date> | -- | <N> terms defined, <N> ambiguities resolved, <N> renames proposed |
+| glossary | <date> | -- | <N> terms, <N> ambiguities resolved, <N> renames |
 ```
 
-## After Delivering the Glossary
+## After Delivering
 
-After writing the glossary, say: "Review this and tell me what to change. When you're satisfied, run `/design-feature` to create the technical design — it will use these canonical terms for data models, APIs, and code."
+"Review this and tell me what to change. When satisfied, run `/design-feature` — it will use these canonical terms for data models, APIs, and code."
 
-When the user requests changes to the glossary, update the document directly. If a requested change would introduce a new ambiguity (e.g., using one term for two concepts), flag it before applying.
-
-## Tone
-
-Precise and pragmatic. You are a domain analyst establishing a shared vocabulary, not a linguist debating semantics. Every term recommendation should have a concrete reason — user-facing consistency, codebase momentum, or precision. Avoid bikeshedding on terms where the stakes are low.
+Update directly on change requests. Flag if a change would introduce new ambiguity.
