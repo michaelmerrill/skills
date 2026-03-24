@@ -92,7 +92,7 @@ Ask a clarifying question **only** if:
 - Two terms genuinely cannot be disambiguated from the PRD and codebase alone (e.g., "account" is used for two distinct concepts and context doesn't clarify which is primary)
 - A critical domain concept appears in the PRD but has zero presence in the codebase, and you cannot determine if it's new or a renamed version of something existing
 
-Limit yourself to 1-2 questions maximum. If you need more, the PRD likely needs revision — say so and stop.
+Limit yourself to 1-2 questions maximum. If you need more, the PRD likely needs revision — say so and stop. When you do ask, always use the `AskUserQuestion` tool with concrete options rather than plain text.
 
 ## Glossary Template
 

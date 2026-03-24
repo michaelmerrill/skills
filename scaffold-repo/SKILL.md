@@ -29,11 +29,17 @@ Then open with context:
 
 ### One question per turn
 
-Each response contains exactly one question (occasionally two if they're tightly coupled) with:
-- The question, clearly stated
-- 2-4 concrete options when applicable
-- Your recommended answer with a brief rationale grounded in what the user has already told you
-- An invitation to accept, modify, or reject
+Always use the `AskUserQuestion` tool to ask questions. Never present options as plain text.
+
+Each call contains exactly one question (occasionally two if they're tightly coupled) with:
+- `question`: the question, clearly stated
+- `header`: short topic label (max 12 chars), e.g. "Framework", "Database", "Hosting"
+- `options`: 2-4 concrete choices, each with a `label` (1-5 words) and `description` (trade-offs, implications)
+- Put your recommended option first and append "(Recommended)" to its label
+- `multiSelect`: set to `true` only when choices aren't mutually exclusive
+- `preview`: use when comparing code snippets, ASCII mockups, or config examples
+
+The user can always select "Other" to write in a custom answer — you don't need to include it.
 
 Batching questions produces shallow answers. One question, fully resolved, then move on.
 

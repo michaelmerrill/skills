@@ -143,7 +143,7 @@ This skill minimizes user interaction during the analysis phase. Do not:
 - Ask questions the codebase can answer
 - Ask the user to confirm what you found in code
 
-Ask a clarifying question only if there is a true blocking ambiguity — for example, the plan references a system you cannot find any trace of in the codebase or documentation, and you cannot determine whether it exists. If there are two plausible interpretations that lead to very different risk profiles, briefly note both rather than asking which one is correct.
+Ask a clarifying question only if there is a true blocking ambiguity — for example, the plan references a system you cannot find any trace of in the codebase or documentation, and you cannot determine whether it exists. If there are two plausible interpretations that lead to very different risk profiles, briefly note both rather than asking which one is correct. When you do ask, always use the `AskUserQuestion` tool with concrete options rather than plain text.
 
 ### After the verdict
 

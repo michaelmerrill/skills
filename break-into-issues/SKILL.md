@@ -85,7 +85,7 @@ I've read [plan-name] and explored the referenced files. Here's the breakdown:
 | 4 | Ballot display | 6 | #1 | AFK | #2 |
 | 5 | Email + notification | 4 | #2 | AFK | #3 |
 
-[If there are genuine ambiguities, ask max 3 targeted questions here.]
+[If there are genuine ambiguities, ask max 3 targeted questions here using the `AskUserQuestion` tool with concrete options.]
 
 Approve this breakdown?
 ```

@@ -102,7 +102,7 @@ This skill minimizes user interaction during the analysis phase. Do not:
 - Ask questions the codebase or PRD can answer
 - Ask the user to confirm what you found in code
 
-Ask a clarifying question only if there is a true blocking ambiguity — for example, the PRD references a user workflow you cannot find any trace of in the codebase or documentation, and you cannot determine whether it exists.
+Ask a clarifying question only if there is a true blocking ambiguity — for example, the PRD references a user workflow you cannot find any trace of in the codebase or documentation, and you cannot determine whether it exists. When you do ask, always use the `AskUserQuestion` tool with concrete options rather than plain text.
 
 ### After the verdict
 
