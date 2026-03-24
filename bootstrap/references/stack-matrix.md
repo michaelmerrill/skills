@@ -15,7 +15,12 @@ CLI commands, default tooling, and configuration for each supported stack. Read 
 - [Rust + CLI (clap)](#rust--cli-clap)
 - [Go + Standard Library](#go--standard-library)
 - [Go + Gin](#go--gin)
-- [Monorepo (Turborepo)](#monorepo-turborepo)
+- [Monorepo (Turborepo) — New](#monorepo-turborepo--new)
+- [Adding App to Existing Turborepo](#adding-app-to-existing-turborepo)
+- [Adding Package to Existing Turborepo](#adding-package-to-existing-turborepo)
+- [Adding to Nx Monorepo](#adding-to-nx-monorepo)
+- [Adding to pnpm Workspace](#adding-to-pnpm-workspace-no-turboreponx)
+- [Workspace Registration Reference](#workspace-registration-reference)
 
 ---
 
@@ -308,7 +313,7 @@ go get -u github.com/gin-gonic/gin
 
 ---
 
-## Monorepo (Turborepo)
+## Monorepo (Turborepo) — New
 
 ### Scaffold CLI
 ```bash
@@ -344,3 +349,145 @@ Turborepo uses `turbo.json` for pipeline definitions. The scaffold CLI sets this
   }
 }
 ```
+
+---
+
+## Adding App to Existing Turborepo
+
+### Scaffold
+```bash
+cd apps
+bunx create-next-app@latest <name> --typescript --tailwind --app --src-dir
+# or for Vite:
+bunx create-vite@latest <name> --template react-ts
+# or for Hono:
+bunx create-hono@latest <name>
+```
+
+### Wire workspace dependencies
+In the new app's `package.json`, add internal deps:
+```json
+{
+  "dependencies": {
+    "@repo/ui": "workspace:*",
+    "@repo/db": "workspace:*"
+  }
+}
+```
+
+### TypeScript config
+Extend the shared base config:
+```json
+{
+  "extends": "../../packages/config-typescript/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}
+```
+
+### Verify registration
+Turborepo auto-discovers workspace members via `pnpm-workspace.yaml` globs (typically `apps/*`). Run `turbo ls` to confirm the new app appears.
+
+---
+
+## Adding Package to Existing Turborepo
+
+### Create structure
+```bash
+mkdir -p packages/<name>/src
+```
+
+### package.json
+```json
+{
+  "name": "@repo/<name>",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "lint": "biome check --write .",
+    "test": "vitest run"
+  }
+}
+```
+
+### TypeScript config
+```json
+{
+  "extends": "../../packages/config-typescript/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}
+```
+
+### Entry point
+Create `src/index.ts` with initial exports.
+
+### Verify registration
+Same as apps — `pnpm-workspace.yaml` globs (typically `packages/*`) auto-discover. Run `turbo ls` to confirm.
+
+---
+
+## Adding to Nx Monorepo
+
+### Generate app
+```bash
+nx generate @nx/next:application <name>
+# or:
+nx generate @nx/react:application <name>
+nx generate @nx/node:application <name>
+```
+
+### Generate library
+```bash
+nx generate @nx/js:library <name>
+# or framework-specific:
+nx generate @nx/react:library <name>
+nx generate @nx/node:library <name>
+```
+
+Nx generators handle project registration in `nx.json` / `project.json` automatically.
+
+---
+
+## Adding to pnpm Workspace (no Turborepo/Nx)
+
+### Ensure workspace config includes the directory
+In `pnpm-workspace.yaml`:
+```yaml
+packages:
+  - 'apps/*'
+  - 'packages/*'
+```
+
+### Create the new member
+```bash
+mkdir -p apps/<name> && cd apps/<name>
+pnpm init
+```
+
+Then scaffold using the relevant framework CLI from sections above.
+
+---
+
+## Workspace Registration Reference
+
+Quick reference for how to wire a new member into each monorepo tool.
+
+| Tool | Discovery mechanism | Manual registration needed? |
+|------|--------------------|-----------------------------|
+| **Turborepo** | `pnpm-workspace.yaml` globs | No — auto-discovered if matching glob pattern. Verify with `turbo ls`. |
+| **Nx** | `nx.json` + `project.json` per project | Auto if using `nx generate`. Manual if creating from scratch — add `project.json`. |
+| **pnpm workspaces** | `pnpm-workspace.yaml` globs | No — auto-discovered if matching glob pattern. Verify with `pnpm ls --filter <name>`. |
+| **npm workspaces** | `workspaces` array in root `package.json` | May need explicit path or glob. Verify with `npm ls --workspaces`. |
+| **yarn workspaces** | `workspaces` array in root `package.json` | Same as npm. Verify with `yarn workspaces info`. |

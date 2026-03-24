@@ -63,7 +63,7 @@ When a review gate returns **Rethink**:
 
 | Skill           | Purpose                                                                          |
 | --------------- | -------------------------------------------------------------------------------- |
-| `scaffold-repo` | Bootstrap a new project from scratch — interview, blueprint, scaffolding, foundation docs |
+| `bootstrap` | Initialize new codebases — standalone project, monorepo app/package, or service in existing repo |
 
 ## Structure
 
