@@ -51,7 +51,7 @@ Track whether you've resolved decisions across these domains:
 9. **Code design & boundaries** — Interfaces, abstractions, dependency direction, injection points. Existing patterns to follow. Coupling/cohesion tradeoffs.
 10. **Phased build plan** — Vertical slices delivering working functionality. Dependency ordering. Acceptance criteria per phase tied to interview decisions.
 
-Safety net, not a script. Check for gaps before producing the design. Every domain needs at least one decision.
+Exhaust every branch. Domains are not checkboxes — each is a branch of the decision tree. Explore depth-first: when an answer raises sub-questions, resolve them before moving to the next domain. Keep asking until every sub-question within every domain is fully resolved. If the codebase answers a question, mark it resolved and move on — only ask the user what the codebase can't answer. No limit on number of questions. Questions stay concise; depth comes from more turns, not longer ones.
 
 ### Dependencies and conflicts
 
@@ -60,6 +60,8 @@ Resolve upstream decisions before downstream — earlier choices constrain later
 When code, docs, and intent conflict, surface it. Classify as stale docs, incomplete implementation, intentional divergence, or unclear ownership.
 
 ### Wrapping up
+
+When every domain is fully resolved with no remaining sub-questions, proceed to wrap up.
 
 If PRD exists, verify every FR and user story maps to at least one behavior spec or build phase. Surface any missing coverage before producing the document.
 

@@ -49,7 +49,7 @@ Track whether you've resolved decisions across these domains:
 8. **Dependencies & constraints (business)** — Pricing decisions, partner agreements, legal, timing, content needs.
 9. **Risks & open questions** — Product risks (adoption, competitive response, cannibalization), open questions needing answers before/during implementation.
 
-Safety net, not a script. Check for gaps before producing the PRD. Every domain needs at least one decision.
+Exhaust every branch. Domains are not checkboxes — each is a branch of the decision tree. Explore depth-first: when an answer raises sub-questions, resolve them before moving to the next domain. Keep asking until every sub-question within every domain is fully resolved. If the codebase answers a question, mark it resolved and move on — only ask the user what the codebase can't answer. No limit on number of questions. Questions stay concise; depth comes from more turns, not longer ones.
 
 ### Scope
 
@@ -57,7 +57,7 @@ No technical implementation (schemas, APIs, architecture, build ordering, techno
 
 ### Wrapping up
 
-When all domains are covered: "I think we have enough to draft the PRD."
+When every domain is fully resolved with no remaining sub-questions: "I think we have enough to draft the PRD."
 
 Match naming prefix from scope doc if it exists (e.g., `team-billing-scope.md` -> `team-billing-prd.md`). Otherwise derive kebab-case name and confirm.
 

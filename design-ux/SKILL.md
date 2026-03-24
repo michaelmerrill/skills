@@ -55,7 +55,7 @@ Track whether you've resolved decisions across these domains:
 7. **Accessibility** — Focus management, keyboard navigation, screen reader announcements, color-independent indicators, touch targets, reduced motion.
 8. **Content & copy** — Key labels, button text, error messages, help text, placeholders, empty state messaging. Tone/voice guidelines.
 
-Safety net, not a script. Check for gaps before producing the UX spec. Every domain needs at least one decision.
+Exhaust every branch. Domains are not checkboxes — each is a branch of the decision tree. Explore depth-first: when an answer raises sub-questions, resolve them before moving to the next domain. Keep asking until every sub-question within every domain is fully resolved. If the codebase answers a question, mark it resolved and move on — only ask the user what the codebase can't answer. No limit on number of questions. Questions stay concise; depth comes from more turns, not longer ones.
 
 ### Upstream gap tracking
 
@@ -68,6 +68,8 @@ Safety net, not a script. Check for gaps before producing the UX spec. Every dom
 No technical implementation (schemas, APIs, architecture, build ordering, tech selection, performance). Redirect: "Captured for technical design — let's stay on how users experience this."
 
 ### Wrapping up
+
+When every domain is fully resolved with no remaining sub-questions, proceed to wrap up.
 
 If PRD exists, verify every user story maps to at least one flow. Surface any missing flows before producing the document.
 

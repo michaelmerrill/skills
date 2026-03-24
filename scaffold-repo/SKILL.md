@@ -41,36 +41,36 @@ Upstream decisions eliminate downstream questions. Language gates tooling, frame
 
 ### Completeness tracking
 
-Track 7 domains. Check for gaps before generating blueprint.
+Track 7 domains. Exhaust every branch — each domain is a branch of the decision tree, not a checkbox. Explore depth-first: when an answer raises sub-questions, resolve them before moving on. Keep asking until fully resolved. If context answers a question, mark it resolved. No limit on question count. Questions stay concise; depth comes from more turns, not longer ones.
 
 ## Interview Domains
 
 Work roughly in order. Earlier domains constrain later ones. Follow user's energy.
 
-### 1. Product (1-2 questions)
+### 1. Product
 Project name, one-line description, users, problem, project type (web app, CLI, API, library, mobile, monorepo). Confirm if already described.
 
-### 2. Architecture (1-2 questions)
+### 2. Architecture
 Frontend/backend split, rendering strategy (if web), API style (if backend), service topology. Skip questions eliminated by project type.
 
-### 3. Tooling (2-3 questions)
+### 3. Tooling
 Language+runtime, framework, database+ORM, hosting target, auth approach.
 
-### 4. Patterns (1-2 questions)
+### 4. Patterns
 Architecture pattern (DDD, clean, feature-sliced, MVC, layered), validation, error handling, state management (if frontend), Effect library (if applicable).
 
-### 5. Structure (1-2 questions)
+### 5. Structure
 Monorepo vs single package, directory layout (feature/layer/domain-based), naming conventions. Follow framework conventions where strong.
 
-### 6. Terminology (1-2 questions)
+### 6. Terminology
 Core domain entities (3-7 nouns), key actions/verbs, naming alignment (code, UI, API). Keep lightweight for simple domains.
 
-### 7. Dev Environment (1-2 questions)
+### 7. Dev Environment
 Package manager, linter/formatter, testing framework, git hooks, CI/CD.
 
 ## Blueprint Generation
 
-When all domains resolved: "I have enough to draft the project blueprint."
+When every domain is fully resolved with no remaining sub-questions: "I have enough to draft the project blueprint."
 
 Generate `PROJECT_BLUEPRINT.md` (in `./plans/` if exists, else current directory). User reviews before scaffolding.
 

@@ -44,7 +44,7 @@ Track whether you've resolved decisions across these domains:
 5. **Key risks & assumptions** — Project-level risks? Assumptions that might not hold? External dependencies?
 6. **Recommendation** — Go, no-go, or needs investigation?
 
-Safety net, not a script. Check for gaps before producing the scope document. Every domain needs at least one decision.
+Exhaust every branch. Domains are not checkboxes — each is a branch of the decision tree. Explore depth-first: when an answer raises sub-questions, resolve them before moving to the next domain. Keep asking until every sub-question within every domain is fully resolved. If the codebase answers a question, mark it resolved and move on — only ask the user what the codebase can't answer. No limit on number of questions. Questions stay concise; depth comes from more turns, not longer ones.
 
 ### Scope
 
@@ -56,7 +56,7 @@ When code, docs, and intent conflict, surface it. Classify as stale docs, incomp
 
 ### Wrapping up
 
-When all domains are covered: "I think we have enough for the scope assessment."
+When every domain is fully resolved with no remaining sub-questions: "I think we have enough for the scope assessment."
 
 Derive feature name as kebab-case (2-3 words). Confirm: "I'll save as `plans/<name>-scope.md` — all pipeline docs will use this prefix."
 
