@@ -1,0 +1,142 @@
+{
+  "metadata": {
+    "skill_name": "explore",
+    "skill_path": "/Users/michaelmerrill/Code/skills/explore",
+    "executor_model": "claude-opus-4-6",
+    "analyzer_model": "claude-opus-4-6",
+    "timestamp": "2026-03-24T21:02:25Z",
+    "evals_run": [1, 2],
+    "runs_per_configuration": 1
+  },
+
+  "runs": [
+    {
+      "eval_id": 1,
+      "eval_name": "Digital Waivers",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 242.7,
+        "tokens": 48197,
+        "tool_calls": 41,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Output references specific rangeops files or patterns", "passed": true, "evidence": "References permissions.ts, proxy.ts, customer model, Drizzle schema conventions"},
+        {"text": "No functional requirements slip through", "passed": true, "evidence": "All 14 questions at capability level; data retention, approval flows, field-level decisions all deferred"},
+        {"text": "All 6 domains covered", "passed": true, "evidence": "Problem (T1-2), stakeholders (T3-4), scope (T5-8), feasibility (T9-10), risks (T11-12), recommendation (T13-14)"},
+        {"text": "Template structure followed", "passed": true, "evidence": "All sections present including in/out/investigate"},
+        {"text": "Clear Go/No-Go verdict with rationale", "passed": true, "evidence": "Verdict: Go with detailed rationale about technical readiness and operator demand"},
+        {"text": "Mentions /define as next step", "passed": true, "evidence": "Ends with 'When satisfied, run /define'"},
+        {"text": "Explicit likely in/out for v1", "passed": true, "evidence": "7 in-scope items, 6 out-of-scope items, 1 investigate item"}
+      ]
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "Digital Waivers",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.29,
+        "passed": 2,
+        "failed": 5,
+        "total": 7,
+        "time_seconds": 184.6,
+        "tokens": 46403,
+        "tool_calls": 38,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Output references specific rangeops files or patterns", "passed": true, "evidence": "References permissions.ts, entitlements.ts, id.ts, customer table"},
+        {"text": "No functional requirements slip through", "passed": false, "evidence": "Full column-level schema for 4 tables, ID prefixes, retention formulas, storage decisions, library recommendations"},
+        {"text": "All 6 domains covered", "passed": false, "evidence": "No Stakeholders section, no Assumptions section"},
+        {"text": "Template structure followed", "passed": false, "evidence": "Missing Problem Statement, Stakeholders, Pipeline Status, in/out/investigate format"},
+        {"text": "Clear Go/No-Go verdict with rationale", "passed": true, "evidence": "'Proceed' with rationale about codebase readiness"},
+        {"text": "Mentions /define as next step", "passed": false, "evidence": "No mention of /define or pipeline next step"},
+        {"text": "Explicit likely in/out for v1", "passed": false, "evidence": "Has out-of-scope list but in-scope is narrative, not a list"}
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "Lane Booking",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.86,
+        "passed": 6,
+        "failed": 1,
+        "total": 7,
+        "time_seconds": 268.3,
+        "tokens": 55135,
+        "tool_calls": 49,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Output references specific rangeops files or patterns", "passed": true, "evidence": "References resourceType.bookingUnit, bookingRules JSONB, entitlementGrant/Ledger/Balance, Stripe Connect, location timezone"},
+        {"text": "No functional requirements slip through", "passed": true, "evidence": "Cancellation as 'configurable window', pricing as 'discounted rates', slots as 'time slot durations per lane type' — no specifics"},
+        {"text": "All 6 domains covered", "passed": true, "evidence": "All 6 domains tracked in metrics with specific turn ranges"},
+        {"text": "Template structure followed", "passed": false, "evidence": "Has in/out but no 'investigate' section — clear-cut Go with nothing ambiguous"},
+        {"text": "Clear Go/No-Go verdict with rationale", "passed": true, "evidence": "Verdict: Go with rationale about strong technical foundation"},
+        {"text": "Mentions /define as next step", "passed": true, "evidence": "'Recommend proceeding to /define to nail down the functional requirements'"},
+        {"text": "Explicit likely in/out for v1", "passed": true, "evidence": "9 in-scope items, 6 out-of-scope items with rationales"}
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "Lane Booking",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.29,
+        "passed": 2,
+        "failed": 5,
+        "total": 7,
+        "time_seconds": 168.0,
+        "tokens": 43677,
+        "tool_calls": 29,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Output references specific rangeops files or patterns", "passed": true, "evidence": "References resourceType, bookingRules, entitlementGrant, organizationSetting by name"},
+        {"text": "No functional requirements slip through", "passed": false, "evidence": "4 new table schemas, cancellation 2hr cutoff, no-show 15min/3-in-30 rules, pricing formulas"},
+        {"text": "All 6 domains covered", "passed": false, "evidence": "No dedicated Stakeholders section, assumptions not called out separately"},
+        {"text": "Template structure followed", "passed": false, "evidence": "Missing Stakeholders, Pipeline Status, investigate category; risks nested under Feasibility"},
+        {"text": "Clear Go/No-Go verdict with rationale", "passed": true, "evidence": "'Go' with rationale about codebase alignment and manageable risks"},
+        {"text": "Mentions /define as next step", "passed": false, "evidence": "No /define mention anywhere; suggests implementation phasing instead"},
+        {"text": "Explicit likely in/out for v1", "passed": false, "evidence": "Uses definitive framing not exploratory 'likely' language; in-scope is detailed spec not list"}
+      ]
+    }
+  ],
+
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {"mean": 0.93, "stddev": 0.07, "min": 0.86, "max": 1.0},
+      "time_seconds": {"mean": 255.5, "stddev": 12.8, "min": 242.7, "max": 268.3},
+      "tokens": {"mean": 51666, "stddev": 3469, "min": 48197, "max": 55135}
+    },
+    "without_skill": {
+      "pass_rate": {"mean": 0.29, "stddev": 0.0, "min": 0.29, "max": 0.29},
+      "time_seconds": {"mean": 176.3, "stddev": 8.3, "min": 168.0, "max": 184.6},
+      "tokens": {"mean": 45040, "stddev": 1363, "min": 43677, "max": 46403}
+    },
+    "delta": {
+      "pass_rate": "+0.64",
+      "time_seconds": "+79.2",
+      "tokens": "+6626"
+    }
+  },
+
+  "notes": [
+    "Assertion 'codebase-explored' passes 100% in both configurations — both with and without skill explored the codebase well. Not a differentiator.",
+    "Assertion 'go-nogo-verdict' passes 100% in both configurations — both produce clear recommendations. Not a differentiator.",
+    "Assertion 'scope-altitude' (no functional requirements) is the strongest differentiator: 100% with_skill vs 0% without_skill. Without the skill, both runs produced full schema designs and implementation details.",
+    "Assertion 'template-followed' failed once with_skill due to missing 'investigate' section on clear-cut Go verdict — potentially a false failure. Consider making conditional.",
+    "With-skill runs take ~45% longer (255s vs 176s) and use ~15% more tokens (51.7k vs 45k). The time increase correlates with deeper interviews (14-16 questions vs 9-10).",
+    "Without-skill runs both scored exactly 2/7, failing on the same 5 assertions. Failure mode is consistent: scope creep into design territory.",
+    "Graders consistently suggest adding assertions for: interview question altitude, AskUserQuestion usage, codebase-before-questions ordering, and scope-to-transcript traceability."
+  ]
+}

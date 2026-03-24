@@ -1,13 +1,13 @@
 ---
 name: triage-issue
-description: "Investigate bug -> root cause analysis -> issue file with TDD fix plan. Triggers: 'bug,' 'broken,' 'not working,' 'regression,' 'error,' 'triage this.' Not for: new features (plan-feature), technical design (design-feature), code review."
+description: "Investigate bug -> root cause analysis -> issue file with TDD fix plan. Triggers: 'bug,' 'broken,' 'not working,' 'regression,' 'error,' 'triage this.' Not for: new features (explore), technical design (architect), code review."
 ---
 
 ## Purpose
 
 Bug investigation -> root cause analysis -> issue file with TDD fix plan. Parallel track to the feature pipeline -- for defects, not capabilities.
 
-Feature pipeline: plan-feature -> write-a-prd -> ... -> break-into-issues.
+Feature pipeline: explore -> define -> [design] -> architect -> plan.
 Bug track: **triage-issue** -> agent implementation.
 
 Output: `./issues/bugs/<slug>.md`
@@ -74,13 +74,13 @@ User expected behavior that was never built. Evidence: no tests exist because th
 
 **Simple** (1-3 files, clear pattern to follow): Create issue file with TDD fix plan. Note in the issue that this is net-new behavior, not a regression.
 
-**Complex** (new capability, multiple files, design decisions needed): "This looks like a missing feature rather than a bug -- [explanation]. I'd recommend `/plan-feature` to scope it properly."
+**Complex** (new capability, multiple files, design decisions needed): "This looks like a missing feature rather than a bug -- [explanation]. I'd recommend `/explore` to scope it properly."
 
 ### Systemic issue requiring design
 
 Root cause is architectural -- the fix requires new patterns, significant refactoring, or touches 8+ files.
 
-**Action**: "The root cause is systemic: [explanation]. A point fix would be fragile. I'd recommend `/design-feature` to design the proper solution." Create a lightweight issue documenting the investigation findings so the design has a head start.
+**Action**: "The root cause is systemic: [explanation]. A point fix would be fragile. I'd recommend `/architect` to design the proper solution." Create a lightweight issue documenting the investigation findings so the design has a head start.
 
 ## Issue Template
 
@@ -148,16 +148,16 @@ Save to `./issues/bugs/<slug>.md`. Use kebab-case slug derived from the symptom 
 
 ### Stay in triage
 - **One bug per invocation.** If user describes multiple bugs, triage the first, then: "I've filed that one. Describe the next bug and I'll triage it separately."
-- **Don't design solutions.** The fix plan is tactical -- minimal change to correct the defect. Architectural improvements go through `/design-feature`.
+- **Don't design solutions.** The fix plan is tactical -- minimal change to correct the defect. Architectural improvements go through `/architect`.
 - **Don't implement the fix.** Output is the issue file, not the code change.
 
 ### Redirect
-- Feature request: "This is new behavior, not a bug. Run `/plan-feature`."
-- Systemic issue: "This needs a design. Run `/design-feature`. I'll create a lightweight issue with my investigation findings."
+- Feature request: "This is new behavior, not a bug. Run `/explore`."
+- Systemic issue: "This needs a design. Run `/architect`. I'll create a lightweight issue with my investigation findings."
 - Vague report with no reproducible symptom: Ask for reproduction steps. If user can't provide them, create a lightweight issue with what you found and mark it "needs-reproduction."
 
 ## After Delivering
 
 After writing the issue file: "Issue saved to `./issues/bugs/<slug>.md`. The fix plan starts with a failing test in `<test-file>`. Hand this to an agent or start with the test."
 
-Answer follow-up questions about the root cause or fix approach. If user wants to expand the fix scope: "That's beyond a bug fix -- run `/design-feature` with this issue as context."
+Answer follow-up questions about the root cause or fix approach. If user wants to expand the fix scope: "That's beyond a bug fix -- run `/architect` with this issue as context."

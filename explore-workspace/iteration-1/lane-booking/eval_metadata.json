@@ -1,0 +1,42 @@
+{
+  "eval_id": 2,
+  "eval_name": "lane-booking",
+  "prompt": "We need online lane reservations. Members and walk-ins should be able to book a lane for a time slot. Our ranges have different lane types — pistol, rifle, etc.",
+  "assertions": [
+    {
+      "id": "codebase-explored",
+      "text": "Output references specific rangeops files or patterns (schema files, existing models, routes)",
+      "type": "evidence"
+    },
+    {
+      "id": "scope-altitude",
+      "text": "No functional requirements slip through (no booking validation rules, cancellation policies, specific time slot logic, pricing formulas, or data schema designs)",
+      "type": "absence"
+    },
+    {
+      "id": "six-domains-covered",
+      "text": "All 6 domains covered: problem/motivation, stakeholders/impact, feasibility, high-level scope, risks/assumptions, recommendation",
+      "type": "checklist"
+    },
+    {
+      "id": "template-followed",
+      "text": "Scope doc has these sections: Problem Statement, Stakeholders, Feasibility Assessment, High-Level Scope (with in/out/investigate), Key Risks & Assumptions, Recommendation with verdict, Pipeline Status",
+      "type": "checklist"
+    },
+    {
+      "id": "go-nogo-verdict",
+      "text": "Clear Go / No-Go / Investigate Further verdict with rationale",
+      "type": "evidence"
+    },
+    {
+      "id": "next-step-suggested",
+      "text": "Mentions /define as the next step",
+      "type": "evidence"
+    },
+    {
+      "id": "v1-boundary-clear",
+      "text": "Explicit 'likely in for v1' and 'likely out for v1' lists",
+      "type": "evidence"
+    }
+  ]
+}

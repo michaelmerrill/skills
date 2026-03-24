@@ -1,0 +1,118 @@
+{
+  "expectations": [
+    {
+      "text": "No scope doc found — starts from user's description, beginning with problem/motivation",
+      "passed": true,
+      "evidence": "Transcript shows assistant starts directly from user's description ('They want to add online lane reservations'). PRD opens with Problem Statement: 'Range operators currently manage lane assignments manually... This leads to double-bookings, no-shows without consequence, no advance visibility into demand.' No pre-existing scope document is referenced."
+    },
+    {
+      "text": "No technical implementation details (schemas, APIs, architecture, build phases, technology selection)",
+      "passed": false,
+      "evidence": "PRD includes a full 'Data Model (New Tables)' section specifying 5 database tables with columns, types, foreign keys, and database-level details (composite FK pattern, JSONB fields, enum types). Also references specific implementation details like 'createId(\"reservation\")', 'offering_price.amountCents', Stripe PaymentIntent IDs, and 'offeringTypeEnum'. This is architecture/schema-level detail that belongs in a technical design doc, not a PRD."
+    },
+    {
+      "text": "Covers all 9 PRD domains: problem, target users, user stories, functional requirements, non-functional requirements, success metrics, scope, dependencies, risks",
+      "passed": false,
+      "evidence": "Missing 3 of 9 domains. User Stories: completely absent -- PRD jumps from personas to 'Existing System Context' then functional requirements with no As-a/I-want/So-that stories. Dependencies & Constraints: no dedicated section (closest is 'Existing System Context' which lists prior art but not constraints). Risks: no risks section; 'Open Questions' partially covers this but questions are not risks. Present: problem (Problem Statement), target users (Users & Personas), functional requirements (FR-1 through FR-8), non-functional requirements (NFR-1 through NFR-6), success metrics (5 bullet points), scope (Out of Scope list only)."
+    },
+    {
+      "text": "User stories follow As-a/I-want/So-that format with acceptance criteria (checkboxes)",
+      "passed": false,
+      "evidence": "No user stories exist anywhere in the PRD. The document has no section titled 'User Stories' and no text follows the As-a/I-want/So-that pattern. Functional requirements are written in system-behavior style ('Operators configure...', 'Staff can create...') rather than user-story format."
+    },
+    {
+      "text": "Quality gate automatically runs after PRD — delivers Ready/Revise/Rethink verdict with strengths and issues",
+      "passed": true,
+      "evidence": "quality-gate.md exists with verdict 'READY FOR TECHNICAL DESIGN (with minor items to resolve)', 6 enumerated strengths, and 10 weaknesses/gaps categorized as 'Must Address Before Design' (3), 'Should Address' (4), and 'Nice to Clarify' (3). metrics.json confirms quality_review_performed: true. Verdict wording is 'Ready' variant rather than exact 'Ready/Revise/Rethink' taxonomy but delivers the same function."
+    },
+    {
+      "text": "Glossary conditions checked after quality gate — generates glossary if 3+ domain nouns or naming conflicts detected",
+      "passed": false,
+      "evidence": "No evidence of glossary condition checking in transcript or outputs. No glossary file produced. The PRD introduces numerous domain terms (entitlement grants, resource types, offerings, blackout periods, slot duration, booking rules, composite FK pattern) that would likely trigger a 3+ domain noun threshold. Neither the quality gate nor any other output mentions glossary evaluation."
+    },
+    {
+      "text": "Suggests /design (UI features) or /architect (backend-only) as next step",
+      "passed": false,
+      "evidence": "Quality gate recommendation says 'The PRD is substantive enough to begin technical design' but does not suggest /design or /architect as next steps. No slash commands appear anywhere in the outputs. The feature clearly has UI components (public booking page, timeline view, list view) that would warrant a /design suggestion, but this was not made."
+    },
+    {
+      "text": "PRD has key sections: Problem Statement, Target Users (with personas), User Stories, Functional Requirements (FR-N numbered), Non-Functional Requirements, Success Metrics table, Scope (in/out/future), Dependencies & Constraints, Risks & Open Questions, Pipeline Status",
+      "passed": false,
+      "evidence": "Missing sections: (1) User Stories -- entirely absent. (2) Success Metrics is a bulleted list, not a table as specified. (3) Scope only has 'Out of Scope'; no 'In Scope' or 'Future' delineation. (4) Dependencies & Constraints -- no dedicated section; 'Existing System Context' lists prior art but not constraints. (5) Risks -- only 'Open Questions' exists, no risks analysis. (6) Pipeline Status -- no such section. Present: Problem Statement, Target Users with 5 personas in a table, Functional Requirements with FR-N.N numbering, Non-Functional Requirements with NFR-N numbering."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 6,
+    "total": 8,
+    "pass_rate": 0.25
+  },
+  "execution_metrics": {
+    "questions_asked": 14,
+    "topics_covered": 16,
+    "quality_review_performed": true,
+    "functional_requirement_groups": 8,
+    "new_tables_proposed": 5,
+    "out_of_scope_items": 10,
+    "schema_files_read": 10,
+    "output_chars": 19359,
+    "transcript_chars": 8816
+  },
+  "timing": {
+    "total_tokens": 45182,
+    "executor_duration_seconds": 245.4,
+    "total_duration_seconds": 245.4
+  },
+  "claims": [
+    {
+      "claim": "14 questions asked during interview",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Counted approximately 14 distinct questions from the assistant in the transcript (time slots, pricing, public vs staff, per-location pages, operating hours, lane type overrides, blackouts, capacity, payment timing, cancellations, check-in, booking window, notifications, dashboard views)."
+    },
+    {
+      "claim": "PRD maps to 9 existing tables/systems",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Existing System Context section lists: locations, resource types, resources, customers, offerings/pricing, subscriptions, entitlements, organization settings, Stripe Connect, email package, multi-tenant routing -- actually 11 items, but some are grouped. Metrics says 9."
+    },
+    {
+      "claim": "5 new tables proposed in data model",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Data Model section defines: reservation, location_schedule, resource_type_schedule_override, schedule_blackout, location_booking_config -- exactly 5 tables."
+    },
+    {
+      "claim": "Quality gate found PRD ready for technical design",
+      "type": "quality",
+      "verified": true,
+      "evidence": "quality-gate.md verdict: 'READY FOR TECHNICAL DESIGN (with minor items to resolve)' with 3 must-address items, 4 should-address items, and 3 nice-to-clarify items."
+    },
+    {
+      "claim": "10 schema files read during codebase exploration",
+      "type": "process",
+      "verified": false,
+      "evidence": "metrics.json states schema_files_read: 10 but transcript does not show the codebase exploration steps. Cannot verify the actual file reads from the transcript provided."
+    }
+  ],
+  "user_notes_summary": null,
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Quality gate automatically runs after PRD — delivers Ready/Revise/Rethink verdict with strengths and issues",
+        "reason": "This assertion is loose enough that any quality review passes. A quality gate that uses a different taxonomy (e.g., 'READY FOR TECHNICAL DESIGN') satisfies it even though the expected skill behavior is a specific Ready/Revise/Rethink verdict. Consider tightening to require the exact verdict vocabulary."
+      },
+      {
+        "assertion": "No technical implementation details (schemas, APIs, architecture, build phases, technology selection)",
+        "reason": "This is a strong discriminating assertion -- the without-skill run produced a detailed 5-table data model with column types, which is exactly the kind of premature technical detail a PRD skill should prevent. Good eval."
+      },
+      {
+        "reason": "No assertion checks whether the interview used AskUserQuestion tool (the structured question tool required by CLAUDE.md conventions). Since this is a without_skill baseline, it naturally wouldn't, but future with_skill evals should verify this."
+      },
+      {
+        "reason": "No assertion checks the quality of the Problem Statement content -- whether it articulates the motivation from the user's perspective vs. being a generic description. The current problem statement is decent but this is an important PRD quality signal left unchecked."
+      }
+    ],
+    "overall": "Assertions are well-designed for distinguishing skill vs. no-skill behavior. The without-skill run predictably fails on structural requirements (user stories, glossary, next-step suggestion, section format) while producing substantive content. The schema/implementation detail assertion is particularly discriminating. Consider adding an assertion for interview quality (structured questions vs. freeform) to measure skill value in the discovery phase."
+  }
+}

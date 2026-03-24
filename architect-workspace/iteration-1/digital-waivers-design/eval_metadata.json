@@ -1,0 +1,47 @@
+{
+  "eval_id": 1,
+  "eval_name": "digital-waivers-design",
+  "prompt": "Let's design the technical architecture for digital waivers. PRD and scope doc are in plans/.",
+  "assertions": [
+    {
+      "id": "upstream-docs-read",
+      "text": "Reads PRD and scope doc before asking questions — references specific FRs, user stories, or scope decisions",
+      "type": "evidence"
+    },
+    {
+      "id": "ten-domains",
+      "text": "Covers all 10 technical domains: architecture, data/state, core behavior, edge cases, integration, operational, security, testing, code design, phased build",
+      "type": "checklist"
+    },
+    {
+      "id": "codebase-grounded",
+      "text": "Design references specific rangeops files, patterns, and conventions (schema patterns, service layer, auth, existing models)",
+      "type": "evidence"
+    },
+    {
+      "id": "adversarial-review-ran",
+      "text": "Adversarial review runs automatically after design — delivers Ready/Revise/Rethink verdict with strengths and issues",
+      "type": "evidence"
+    },
+    {
+      "id": "prd-coverage",
+      "text": "Design maps back to PRD requirements — FRs and user stories referenced in behavior specs or build phases",
+      "type": "evidence"
+    },
+    {
+      "id": "design-template",
+      "text": "Design doc has key sections: Decisions Log, Data Models, Behavior Specs, Edge Cases table, Phased Build Plan with acceptance criteria",
+      "type": "checklist"
+    },
+    {
+      "id": "next-step-suggested",
+      "text": "Suggests /plan as next step when Ready",
+      "type": "evidence"
+    },
+    {
+      "id": "glossary-check",
+      "text": "Glossary conditions checked — generates if needed, uses canonical terms in data models",
+      "type": "evidence"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "issue_count": 16,
+  "topics_covered": [
+    "database_schema",
+    "migrations",
+    "id_prefixes",
+    "error_types",
+    "validation_schemas",
+    "feature_flags",
+    "template_crud_service",
+    "template_management_ui",
+    "rich_text_editor",
+    "waiver_signing_service",
+    "customer_matching",
+    "customer_auto_creation",
+    "public_signing_page",
+    "minor_guardian_flow",
+    "progressive_enhancement",
+    "html_sanitization",
+    "rate_limiting",
+    "email_confirmation",
+    "waiver_status_badges",
+    "waiver_status_filtering",
+    "coverage_summary",
+    "permission_enforcement",
+    "unit_tests_templates",
+    "unit_tests_signing",
+    "unit_tests_status",
+    "e2e_tests"
+  ],
+  "phases": {
+    "phase_1_schema_and_templates": {
+      "issues": [1, 2, 3, 4, 5, 13],
+      "description": "Schema, validation, feature flag, template CRUD service + UI, template tests"
+    },
+    "phase_2_signing_and_customers": {
+      "issues": [6, 7, 8, 9, 14],
+      "description": "Signing service, public page, rate limiting, email, signing tests"
+    },
+    "phase_3_staff_ui": {
+      "issues": [10, 11, 12, 15, 16],
+      "description": "Waiver badges, filtering, coverage summary, status tests, e2e tests"
+    }
+  },
+  "design_decisions_covered": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+  "prd_functional_requirements_covered": [
+    "FR-1", "FR-2", "FR-3", "FR-4", "FR-5", "FR-6",
+    "FR-7", "FR-8", "FR-9", "FR-10", "FR-11", "FR-12",
+    "FR-13", "FR-14", "FR-15", "FR-16", "FR-17", "FR-18",
+    "FR-19", "FR-20", "FR-21", "FR-22", "FR-23", "FR-24",
+    "FR-25", "FR-26", "FR-27", "FR-28", "FR-29", "FR-30", "FR-31"
+  ],
+  "new_files": [
+    "apps/web/src/lib/db/schema/waivers.ts",
+    "apps/web/src/lib/waivers.ts",
+    "apps/web/src/app/[orgSlug]/waiver/page.tsx",
+    "apps/web/src/app/[orgSlug]/waiver/actions.ts",
+    "apps/web/src/app/[orgSlug]/settings/waivers/page.tsx",
+    "apps/web/src/app/[orgSlug]/settings/waivers/actions.ts",
+    "packages/email/src/templates/waiver-confirmation.tsx",
+    "apps/web/src/__tests__/waivers/waiver-templates.test.ts",
+    "apps/web/src/__tests__/waivers/waiver-signing.test.ts",
+    "apps/web/src/__tests__/waivers/waiver-status.test.ts",
+    "apps/web/e2e/waiver-signing.spec.ts"
+  ],
+  "modified_files": [
+    "apps/web/src/lib/id.ts",
+    "apps/web/src/lib/errors.ts",
+    "apps/web/src/lib/validation.ts",
+    "apps/web/src/lib/db/schema/index.ts",
+    "apps/web/src/lib/db/schema/customers.ts",
+    "apps/web/src/lib/customers.ts",
+    "apps/web/src/lib/queries.ts",
+    "apps/web/src/app/[orgSlug]/customers/page.tsx",
+    "apps/web/src/components/customers/customers-table.tsx"
+  ]
+}

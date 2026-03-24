@@ -1,0 +1,121 @@
+{
+  "expectations": [
+    {
+      "text": "Classifies input as technical design (not PRD or scope doc) and proceeds",
+      "passed": true,
+      "evidence": "Overview references 'design.md' as the source document. All issues link back to 'design.md' in architect-workspace. No confusion with PRD or scope — the skill treated the input as a technical design and decomposed it into implementation issues."
+    },
+    {
+      "text": "Issues reference actual file paths, line numbers, and type signatures from the rangeops codebase",
+      "passed": true,
+      "evidence": "Every issue cites specific rangeops file paths (e.g., 'apps/web/src/lib/db/schema/customers.ts', 'apps/web/src/lib/id.ts', 'apps/web/src/proxy.ts'). Line numbers are cited throughout — e.g., issue 01 references 'after line ~31' in id.ts, 'after line ~98' in customers.ts, 'before customer at line ~17' in db.ts. Issue 02 references 'lines 45-122' in customers.ts, 'lines 31-82' in settings.ts. Issue 06 references 'line ~84', 'line ~66', '~line 296', '~line 424'. Type signatures are present in every issue's Context section — e.g., issue 03 shows getOrgBySlug signature, SendEmailParams interface, etc."
+    },
+    {
+      "text": "Issues are vertical slices (thin end-to-end), not horizontal layers. Exception: a schema-only issue is acceptable when its tables serve 3+ downstream issues. Service + UI for the same capability must be in one issue.",
+      "passed": true,
+      "evidence": "Issue 01 is schema-only but its tables (waiver_template, waiver) serve issues 02, 03, 04, 05, and 06 — qualifying for the exception. Issue 02 is a full vertical slice: service (lib/waivers.ts), server actions, and Settings UI page with Tiptap editor. Issue 03 is a full vertical slice: extends service (signWaiver), creates public signing page + actions. Issue 04 extends service + UI together. Issue 05 is a vertical slice through email template + service wiring. Issue 06 extends the customer query, adds UI badges and filter — service + UI together."
+    },
+    {
+      "text": "Each issue touches 1-6 files (none exceeds 6)",
+      "passed": false,
+      "evidence": "Issue 02 (template-crud) touches 7 files: 3 files to modify (validation.ts, errors.ts, settings-tabs.tsx) + 4 files to create (waivers.ts, page.tsx, actions.ts, waiver-templates.test.ts) = 7 total. The metrics.json also reports issue 02 as having 7 files. The overview.md claims '6 files' for issue 02, which contradicts the actual content. All other issues are within bounds: 01=5, 03=5, 04=4, 05=4, 06=5."
+    },
+    {
+      "text": "Issues have explicit dependency ordering — schema before API, API before UI, cross-cutting after what it wires into",
+      "passed": true,
+      "evidence": "The dependency graph in overview.md and metrics.json shows: Issue 01 (schema) has no dependencies and is first. Issue 02 (template CRUD: service + UI) depends on 01. Issue 03 (public signing: page + service) depends on 01 and 02. Issues 04 and 05 depend on 03 and can run in parallel. Issue 06 (staff UI: badges/filter) depends on 01 and 03. Each issue's 'Blocked by' section explicitly states its prerequisites. Schema (01) precedes all API/service work; service issues precede UI that consumes them."
+    },
+    {
+      "text": "Each issue has: What to build, Files to modify/create (with paths), Context (patterns to follow, key types), Acceptance criteria (checkboxes), Verification commands",
+      "passed": true,
+      "evidence": "All 6 issues contain: 'What to build' section with description, 'Files to modify' and/or 'Files to create' tables with full paths, 'Context' section with 'Patterns to follow' (citing specific files and line ranges) and 'Key types' (TypeScript code blocks), 'Acceptance criteria' with checkbox items, and 'Verification' section with bash commands. Verified across all 6 issue files."
+    },
+    {
+      "text": "Overview includes dependency graph (mermaid), execution order table, and plan coverage map",
+      "passed": true,
+      "evidence": "overview.md contains: (1) a mermaid dependency graph ('```mermaid graph TD' block showing I1 through I6 with directed edges), (2) an execution order table with columns Order/Issue/Parallel with/Scope showing all 6 issues with parallel groupings, and (3) a plan coverage map table mapping design phases/sections to issue filenames."
+    },
+    {
+      "text": "Each issue classified as AFK (agent autonomous) or HITL (needs human review)",
+      "passed": true,
+      "evidence": "Every issue has a 'Type' field in its header. Issue 01: AFK, Issue 02: HITL, Issue 03: HITL, Issue 04: AFK, Issue 05: AFK, Issue 06: HITL. The metrics.json confirms the split: 3 AFK, 3 HITL. HITL issues include justification in Notes (e.g., issue 02: 'HITL because: Tiptap editor UX, template list layout, and preview modal all need visual review'; issue 06: 'HITL because: badge styling/colors, filter placement in toolbar, and coverage summary layout need visual review')."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 1,
+    "total": 8,
+    "pass_rate": 0.875
+  },
+  "execution_metrics": {
+    "issueCount": 6,
+    "avgFilesPerIssue": 4.8,
+    "classification": {
+      "AFK": 3,
+      "HITL": 3
+    },
+    "output_chars": 26830
+  },
+  "timing": {
+    "total_tokens": 95706,
+    "total_duration_seconds": 354.7
+  },
+  "claims": [
+    {
+      "claim": "Total issues: 6",
+      "type": "factual",
+      "verified": true,
+      "evidence": "6 issue files exist in the issues/ directory, confirmed by both file listing and metrics.json"
+    },
+    {
+      "claim": "Average files per issue: 4.8",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Actual file counts: 5+7+5+4+4+5=30, 30/6=5.0. Metrics.json claims 4.8, which is incorrect. The discrepancy likely comes from the overview.md claiming issue 02 has 6 files when it actually has 7."
+    },
+    {
+      "claim": "Issue 02 touches 6 files (per overview.md execution order table)",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Issue 02 lists 3 files to modify and 4 files to create = 7 files total. The overview claims '6 files, 3 layers' which understates by 1."
+    },
+    {
+      "claim": "Issues 04 and 05 can run in parallel",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Both depend only on issue 03. Neither depends on the other. The dependency graph confirms no edge between I4 and I5."
+    },
+    {
+      "claim": "File paths reference actual rangeops codebase structure",
+      "type": "factual",
+      "verified": "unverifiable",
+      "evidence": "Cannot verify against actual rangeops codebase (not present in this workspace). Paths follow consistent Next.js App Router + Drizzle ORM conventions (apps/web/src/app/, lib/db/schema/, packages/email/) and reference each other coherently across issues, suggesting they are real."
+    },
+    {
+      "claim": "All design decisions are covered across the 6 issues",
+      "type": "quality",
+      "verified": true,
+      "evidence": "metrics.json's designDecisionsCovered maps decisions 1-16 across issues. coverageMap maps all 3 design phases to issues. The plan coverage table in overview.md covers schema, template management, public signing (adult + minor), email confirmation, and staff UI."
+    }
+  ],
+  "user_notes_summary": null,
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Issues reference actual file paths, line numbers, and type signatures from the rangeops codebase",
+        "reason": "Without the rangeops codebase available for cross-reference, we can only verify internal consistency of paths, not that they actually exist. A stronger eval would provide the codebase (or a file tree) so the grader can verify paths resolve to real files. The line numbers could be fabricated and this assertion would still pass."
+      },
+      {
+        "assertion": "Each issue touches 1-6 files (none exceeds 6)",
+        "reason": "Good discriminating assertion — it caught a real violation. However, the instruction to count 'Files to create AND Files to modify' was essential context. Without that explicit instruction, a grader could count only one section and miss the violation."
+      },
+      {
+        "reason": "No assertion checks whether test files are included in the file counts. All 6 issues include test files in 'Files to create', which inflates counts. The eval could test whether the 6-file limit is meant to include or exclude test files — this ambiguity means the threshold could be wrong."
+      },
+      {
+        "reason": "No assertion checks for overlap/conflicts between issues modifying the same file. Issues 02, 03, and 04 all modify validation.ts and waivers.ts. Issues 03 and 04 both modify page.tsx. The dependency ordering handles this correctly (sequential), but an assertion verifying no two parallel issues modify the same file would catch merge conflicts."
+      }
+    ],
+    "overall": "Assertions cover structure and format well. Main gap is inability to verify codebase references without the source repo. The file-count assertion proved its worth by catching a real violation."
+  }
+}

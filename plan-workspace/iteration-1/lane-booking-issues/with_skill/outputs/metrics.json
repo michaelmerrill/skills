@@ -1,0 +1,131 @@
+{
+  "issueCount": 11,
+  "avgFilesPerIssue": 4.27,
+  "afkCount": 8,
+  "hitlCount": 3,
+  "dependencyGraphIncluded": true,
+  "planCoverageMapIncluded": true,
+  "issues": [
+    {
+      "number": 1,
+      "slug": "01-booking-schema-enums",
+      "title": "Booking Schema + ID Prefixes + Enums",
+      "type": "AFK",
+      "fileCount": 5,
+      "dependsOn": [],
+      "parallelWith": [],
+      "designPhases": ["Phase 1: Schema + Staff Booking"],
+      "designSections": ["Data Models: booking", "Data Models: bookingEvent"]
+    },
+    {
+      "number": 2,
+      "slug": "02-booking-service-core",
+      "title": "Booking Service Core + Confirmation Codes",
+      "type": "AFK",
+      "fileCount": 4,
+      "dependsOn": [1],
+      "parallelWith": [],
+      "designPhases": ["Phase 1: Schema + Staff Booking"],
+      "designSections": ["Code Design: Key interfaces", "Edge Cases: confirmation code collision"]
+    },
+    {
+      "number": 3,
+      "slug": "03-staff-booking-actions",
+      "title": "Staff Booking Actions + Dashboard Page",
+      "type": "AFK",
+      "fileCount": 5,
+      "dependsOn": [2],
+      "parallelWith": [5],
+      "designPhases": ["Phase 1: Schema + Staff Booking"],
+      "designSections": ["Behavior: Create Booking (Staff)", "Security: Permissions"]
+    },
+    {
+      "number": 4,
+      "slug": "04-feature-flag-sidebar",
+      "title": "Feature Flag Gate + Sidebar Navigation",
+      "type": "HITL",
+      "fileCount": 3,
+      "dependsOn": [3],
+      "parallelWith": [],
+      "designPhases": ["Phase 1: Schema + Staff Booking"],
+      "designSections": ["Operational: Feature flag", "Documentation Impact: Sidebar"]
+    },
+    {
+      "number": 5,
+      "slug": "05-availability-engine",
+      "title": "Availability Engine + Booking Rules Type",
+      "type": "AFK",
+      "fileCount": 3,
+      "dependsOn": [2],
+      "parallelWith": [3],
+      "designPhases": ["Phase 2: Member Self-Service"],
+      "designSections": ["Data Models: bookingRules JSONB", "Behavior: slot availability", "Source-of-Truth Conflicts: bookingRules"]
+    },
+    {
+      "number": 6,
+      "slug": "06-member-booking-page",
+      "title": "Member Self-Service Booking Page + Actions",
+      "type": "HITL",
+      "fileCount": 5,
+      "dependsOn": [4, 5],
+      "parallelWith": [],
+      "designPhases": ["Phase 2: Member Self-Service"],
+      "designSections": ["Behavior: Create Booking (Member)", "Decisions: #3 auto-assign", "Decisions: #4 pricing"]
+    },
+    {
+      "number": 7,
+      "slug": "07-entitlement-booking",
+      "title": "Entitlement Integration for Member Bookings",
+      "type": "AFK",
+      "fileCount": 3,
+      "dependsOn": [6],
+      "parallelWith": [8],
+      "designPhases": ["Phase 2: Member Self-Service"],
+      "designSections": ["Behavior: entitlement consumption", "Edge Cases: entitlement expires between selection and submit"]
+    },
+    {
+      "number": 8,
+      "slug": "08-walkin-public-route",
+      "title": "Walk-in Public Booking Route + Customer Upsert",
+      "type": "HITL",
+      "fileCount": 6,
+      "dependsOn": [5],
+      "parallelWith": [7],
+      "designPhases": ["Phase 3: Walk-in Online Booking"],
+      "designSections": ["Behavior: Create Booking (Walk-in)", "Decisions: #5 walk-in customer", "Decisions: #2 public routes"]
+    },
+    {
+      "number": 9,
+      "slug": "09-stripe-checkout-webhook",
+      "title": "Stripe Checkout + Webhook for Booking Payment",
+      "type": "AFK",
+      "fileCount": 5,
+      "dependsOn": [8],
+      "parallelWith": [],
+      "designPhases": ["Phase 3: Walk-in Online Booking"],
+      "designSections": ["Behavior: Stripe Webhook", "Decisions: #6 Stripe Checkout", "Edge Cases: double webhook", "Edge Cases: abandoned checkout"]
+    },
+    {
+      "number": 10,
+      "slug": "10-checkin-cancellation",
+      "title": "Check-in + Cancellation + No-show Operations",
+      "type": "AFK",
+      "fileCount": 5,
+      "dependsOn": [9],
+      "parallelWith": [11],
+      "designPhases": ["Phase 4: Check-in + Operations"],
+      "designSections": ["Behavior: Check-in", "Behavior: Cancel Booking", "Decisions: #9 confirmation code", "Edge Cases: cancellation after refund window"]
+    },
+    {
+      "number": 11,
+      "slug": "11-confirmation-email-qr",
+      "title": "Confirmation Email with QR Code",
+      "type": "AFK",
+      "fileCount": 4,
+      "dependsOn": [9],
+      "parallelWith": [10],
+      "designPhases": ["Phase 3: Walk-in Online Booking"],
+      "designSections": ["Behavior: confirmation email", "Decisions: #9 QR code"]
+    }
+  ]
+}

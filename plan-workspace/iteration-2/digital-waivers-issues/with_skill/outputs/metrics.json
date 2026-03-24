@@ -1,0 +1,59 @@
+{
+  "issueCount": 7,
+  "avgFilesPerIssue": 3.86,
+  "afkCount": 6,
+  "hitlCount": 1,
+  "dependencyGraphIncluded": true,
+  "planCoverageMapIncluded": true,
+  "issueDetails": [
+    {
+      "id": "01",
+      "title": "Schema + ID prefixes + errors",
+      "files": 5,
+      "type": "AFK",
+      "dependsOn": []
+    },
+    {
+      "id": "02",
+      "title": "Template CRUD service + validation",
+      "files": 4,
+      "type": "AFK",
+      "dependsOn": ["01"]
+    },
+    {
+      "id": "03",
+      "title": "Settings waivers tab",
+      "files": 4,
+      "type": "HITL",
+      "dependsOn": ["02"]
+    },
+    {
+      "id": "04",
+      "title": "Public signing page + customer integration",
+      "files": 5,
+      "type": "AFK",
+      "dependsOn": ["02"]
+    },
+    {
+      "id": "05",
+      "title": "Email confirmation",
+      "files": 3,
+      "type": "AFK",
+      "dependsOn": ["04"]
+    },
+    {
+      "id": "06",
+      "title": "Waiver status badges + filtering",
+      "files": 4,
+      "type": "AFK",
+      "dependsOn": ["04"]
+    },
+    {
+      "id": "07",
+      "title": "Coverage summary + feature flag wiring",
+      "files": 3,
+      "type": "AFK",
+      "dependsOn": ["06"]
+    }
+  ]
+}

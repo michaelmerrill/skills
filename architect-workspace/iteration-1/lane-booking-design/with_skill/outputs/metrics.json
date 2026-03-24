@@ -1,0 +1,111 @@
+{
+  "interview": {
+    "questionsAsked": 16,
+    "domainsCovered": [
+      "architecture_and_patterns",
+      "data_and_state",
+      "core_behavior",
+      "edge_cases_and_failure_modes",
+      "integration_and_dependencies",
+      "operational_and_rollout",
+      "security_and_access",
+      "testing_strategy",
+      "code_design_and_boundaries",
+      "phased_build_plan"
+    ],
+    "domainsCount": 10,
+    "allDomainsCovered": true,
+    "prdExists": false,
+    "uxSpecExists": false,
+    "glossaryExists": false,
+    "scopeDocExists": false,
+    "existingDesignFound": false,
+    "rollbackFileFound": false,
+    "noPrdNoted": true
+  },
+  "codebaseExploration": {
+    "filesExplored": 28,
+    "schemaTablesAnalyzed": [
+      "auth (user, session, account, verification, organization, member, invitation)",
+      "customers",
+      "entitlements (entitlementGrant, entitlementLedger, entitlementBalance)",
+      "locations",
+      "offerings (offering, offeringPrice, offeringRule, offeringLocation)",
+      "organization-settings (organizationSetting, organizationSaasSubscription, organizationPaymentAccount)",
+      "resources (resourceType, resource)",
+      "staff-profile",
+      "subscription-events",
+      "subscriptions"
+    ],
+    "existingPatternsIdentified": [
+      "Effect-based service functions",
+      "Zod validation schemas",
+      "Server actions with Effect.match error handling",
+      "Composite foreign keys for tenant isolation",
+      "Append-only event tables",
+      "Prefixed ID generation (nanoid)",
+      "Cached RSC queries",
+      "Layer-based dependency injection"
+    ],
+    "stripeIntegrationFound": true,
+    "entitlementSystemFound": true,
+    "resourceModelFound": true,
+    "bookingRulesJsonbFound": true,
+    "sourceOfTruthConflictsDetected": 2
+  },
+  "glossary": {
+    "generated": false,
+    "reason": "No PRD exists; no naming conflicts detected between verbal requirements and codebase terms"
+  },
+  "adversarialReview": {
+    "ran": true,
+    "verdict": "Ready",
+    "issuesFound": 2,
+    "issuesBySeverity": {
+      "critical": 0,
+      "medium": 1,
+      "low": 1
+    },
+    "strengthsIdentified": 4,
+    "lensesApplied": [
+      "assumptions_that_may_not_hold",
+      "failure_modes_and_edge_cases",
+      "overengineering",
+      "code_design_and_coupling",
+      "scope_creep",
+      "implementation_readiness"
+    ],
+    "lensesSkipped": [
+      "prd_coverage_gaps",
+      "security_and_access",
+      "operational_readiness",
+      "maintenance_burden",
+      "simpler_alternatives",
+      "should_this_be_solved_at_all",
+      "feasibility_and_phasing"
+    ]
+  },
+  "output": {
+    "designDocProduced": true,
+    "designDocPath": "./plans/lane-booking-design.md",
+    "sectionsIncluded": [
+      "Decisions Log",
+      "Data Models",
+      "Behavior Specs",
+      "Edge Cases & Failure Modes",
+      "Scope",
+      "Assumptions & Unknowns",
+      "Documentation Impact",
+      "Source-of-Truth Conflicts",
+      "Operational Considerations",
+      "Security & Access",
+      "Code Design & Boundaries",
+      "Testing Strategy",
+      "Phased Build Plan",
+      "Pipeline Status"
+    ],
+    "phasesInBuildPlan": 4,
+    "planSuggested": true,
+    "planSuggestionText": "Spec is ready. Run /plan to decompose into implementation issues."
+  }
+}

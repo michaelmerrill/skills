@@ -1,0 +1,20 @@
+{
+  "questions_asked": 9,
+  "topics_covered": [
+    "current workflow and pain points",
+    "session duration and time slot options",
+    "walk-in vs reservation capacity split",
+    "lane types and pricing differentiation",
+    "member benefits (included sessions and discounts)",
+    "cancellation and no-show policy",
+    "user types and guest checkout",
+    "payment flow and Stripe integration",
+    "operating hours and maintenance blocks",
+    "advance booking window and future pricing"
+  ],
+  "clear_go_no_go_recommendation": true,
+  "recommendation": "go",
+  "recommendation_rationale": "Existing resource model, entitlements system, Stripe Connect, and multi-tenant architecture align well. No architectural changes needed. Main risk (double-booking) is solvable with DB constraints.",
+  "estimated_effort_days": "20-27",
+  "suggested_phases": 3
+}

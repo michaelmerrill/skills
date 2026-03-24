@@ -1,0 +1,146 @@
+{
+  "metadata": {
+    "skill_name": "define",
+    "skill_path": "/Users/michaelmerrill/Code/skills/define",
+    "executor_model": "claude-opus-4-6",
+    "analyzer_model": "claude-opus-4-6",
+    "timestamp": "2026-03-24T22:00:00Z",
+    "evals_run": [1, 2],
+    "runs_per_configuration": 1
+  },
+
+  "runs": [
+    {
+      "eval_id": 1,
+      "eval_name": "Digital Waivers PRD (with scope doc)",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 467.8,
+        "tokens": 77979,
+        "tool_calls": 47,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Reads scope doc, skips problem/motivation", "passed": true, "evidence": "Referenced scope doc, skipped domain 1"},
+        {"text": "No technical implementation details", "passed": true, "evidence": "0 technical leakage; codebase findings presented as product behavior"},
+        {"text": "All 9 PRD domains covered", "passed": true, "evidence": "8 domains interviewed + problem resolved by scope = 9/9"},
+        {"text": "User stories in As-a/I-want/So-that with acceptance criteria", "passed": true, "evidence": "Multiple stories with checkbox acceptance criteria"},
+        {"text": "Quality gate runs with verdict", "passed": true, "evidence": "Ready verdict with 2 minor issues"},
+        {"text": "Glossary conditions checked and generated", "passed": true, "evidence": "10+ domain nouns, 3 naming conflicts resolved"},
+        {"text": "Suggests /design or /architect", "passed": true, "evidence": "Suggested /design (UI-heavy feature)"},
+        {"text": "PRD has all key template sections", "passed": true, "evidence": "All 10 sections present with substantive content"}
+      ]
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "Digital Waivers PRD (with scope doc)",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.125,
+        "passed": 1,
+        "failed": 7,
+        "total": 8,
+        "time_seconds": 233.4,
+        "tokens": 38621,
+        "tool_calls": 33,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Reads scope doc, skips problem/motivation", "passed": false, "evidence": "No scope doc integration, no domain skipping"},
+        {"text": "No technical implementation details", "passed": false, "evidence": "Full DB schema with column types, API action table, URL routing, phased rollout"},
+        {"text": "All 9 PRD domains covered", "passed": false, "evidence": "Missing user stories, success metrics, dependencies"},
+        {"text": "User stories in As-a/I-want/So-that with acceptance criteria", "passed": false, "evidence": "No user stories anywhere in the PRD"},
+        {"text": "Quality gate runs with verdict", "passed": true, "evidence": "Quality review ran with Ready verdict"},
+        {"text": "Glossary conditions checked and generated", "passed": false, "evidence": "No glossary check attempted"},
+        {"text": "Suggests /design or /architect", "passed": false, "evidence": "No pipeline next-step suggested"},
+        {"text": "PRD has all key template sections", "passed": false, "evidence": "Missing 5 of 10 required sections"}
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "Lane Booking PRD (cold start)",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 360.7,
+        "tokens": 67427,
+        "tool_calls": 41,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "No scope doc, starts from problem/motivation", "passed": true, "evidence": "No plans/ directory found, started with problem domain"},
+        {"text": "No technical implementation details", "passed": true, "evidence": "Codebase framed as product behavior, tech redirected to architect phase"},
+        {"text": "All 9 PRD domains covered", "passed": true, "evidence": "All 9 domains with labeled sections in transcript and PRD"},
+        {"text": "User stories in As-a/I-want/So-that with acceptance criteria", "passed": true, "evidence": "5 stories with 3-8 checkbox criteria each"},
+        {"text": "Quality gate runs with verdict", "passed": true, "evidence": "Ready verdict, 4 strengths, 2 minor issues"},
+        {"text": "Glossary conditions checked and generated", "passed": true, "evidence": "All 3 conditions met, 14 terms, 3 ambiguity resolutions"},
+        {"text": "Suggests /design or /architect", "passed": true, "evidence": "Recommends /design, notes /architect also relevant"},
+        {"text": "PRD has all key template sections", "passed": true, "evidence": "25 FRs, 6 NFRs, success metrics table, in/out/future scope, pipeline status"}
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "Lane Booking PRD (cold start)",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.25,
+        "passed": 2,
+        "failed": 6,
+        "total": 8,
+        "time_seconds": 245.4,
+        "tokens": 45182,
+        "tool_calls": 30,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "No scope doc, starts from problem/motivation", "passed": true, "evidence": "Started from user description with problem context"},
+        {"text": "No technical implementation details", "passed": false, "evidence": "5-table data model with columns, types, and FKs"},
+        {"text": "All 9 PRD domains covered", "passed": false, "evidence": "Missing user stories, dedicated dependencies, risks sections"},
+        {"text": "User stories in As-a/I-want/So-that with acceptance criteria", "passed": false, "evidence": "No user stories in the PRD"},
+        {"text": "Quality gate runs with verdict", "passed": true, "evidence": "Quality gate ran with Ready verdict and categorized issues"},
+        {"text": "Glossary conditions checked and generated", "passed": false, "evidence": "No glossary condition checking"},
+        {"text": "Suggests /design or /architect", "passed": false, "evidence": "No pipeline next-step"},
+        {"text": "PRD has all key template sections", "passed": false, "evidence": "Missing user stories, success metrics table, scope breakdown, pipeline status"}
+      ]
+    }
+  ],
+
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {"mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0},
+      "time_seconds": {"mean": 414.3, "stddev": 53.6, "min": 360.7, "max": 467.8},
+      "tokens": {"mean": 72703, "stddev": 5276, "min": 67427, "max": 77979}
+    },
+    "without_skill": {
+      "pass_rate": {"mean": 0.19, "stddev": 0.06, "min": 0.125, "max": 0.25},
+      "time_seconds": {"mean": 239.4, "stddev": 6.0, "min": 233.4, "max": 245.4},
+      "tokens": {"mean": 41902, "stddev": 3281, "min": 38621, "max": 45182}
+    },
+    "delta": {
+      "pass_rate": "+0.81",
+      "time_seconds": "+174.9",
+      "tokens": "+30801"
+    }
+  },
+
+  "notes": [
+    "With-skill runs achieve 100% pass rate across both evals — every assertion satisfied in both with-scope and cold-start scenarios.",
+    "Without-skill runs fail primarily on: technical altitude (schemas in PRD), missing user stories, missing glossary, and missing pipeline integration. The 'write a PRD' task without guidance produces a technical design doc, not a product requirements doc.",
+    "Assertion 'quality-gate-ran' passes in both configs (3/4 runs) — baseline Claude does attempt a quality review when asked. However, the baseline quality gate doesn't check glossary conditions or suggest pipeline next steps.",
+    "The strongest differentiators are: user stories (0% baseline vs 100% skill), glossary generation (0% vs 100%), and technical altitude (0% vs 100%).",
+    "With-skill runs take ~73% longer (414s vs 239s) and use ~74% more tokens (73k vs 42k). The increase comes from deeper interviews (24-27 questions vs 12-14), quality gate, and glossary generation.",
+    "Cold start (no scope doc) works cleanly — skill correctly starts with problem/motivation and covers all 9 domains.",
+    "Scope-aware start works cleanly — skill correctly skips problem/motivation and references scope findings."
+  ]
+}

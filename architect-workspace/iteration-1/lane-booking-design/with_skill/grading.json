@@ -1,0 +1,127 @@
+{
+  "expectations": [
+    {
+      "text": "Notes no PRD exists — mentions that defined requirements would make for a better design",
+      "passed": true,
+      "evidence": "Transcript preamble: \"No PRD, UX spec, or glossary found -- working from your verbal requirements. That's fine, but note that defined requirements make for a better design.\" Design doc header: \"Technical design for lane booking feature (no PRD -- requirements from verbal discussion).\" Review also states: \"No PRD exists. Cannot verify requirement coverage.\""
+    },
+    {
+      "text": "Covers all 10 technical domains: architecture, data/state, core behavior, edge cases, integration, operational, security, testing, code design, phased build",
+      "passed": true,
+      "evidence": "Transcript has explicit sections for all 10 domains: Domain 1 (Architecture & Patterns), Domain 2 (Data & State), Domain 3 (Core Behavior), Domain 4 (Edge Cases & Failure Modes), Domain 5 (Integration & Dependencies), Domain 6 (Operational & Rollout), Domain 7 (Security & Access), Domain 8 (Testing Strategy), Domain 9 (Code Design & Boundaries), Domain 10 (Phased Build Plan). metrics.json confirms: \"domainsCount\": 10, \"allDomainsCovered\": true."
+    },
+    {
+      "text": "Design references specific rangeops files, patterns, and conventions (schema patterns, service layer, auth, existing models)",
+      "passed": true,
+      "evidence": "Transcript and design doc reference numerous specific files and patterns: src/lib/db/schema/ for table definitions, src/lib/bookings.ts and src/lib/booking-availability.ts as new modules, src/app/[orgSlug]/bookings/actions.ts following server action pattern, src/lib/entitlements.ts with consumeEntitlement() and reverseConsumption(), src/lib/stripe.ts with Stripe Connect, src/lib/permissions.ts for access control, src/lib/id.ts for ID prefixes, src/lib/validation.ts for Zod schemas, src/app/api/webhooks/stripe/route.ts with handleConnectEvent(), @workspace/email for email templates, src/__tests__/helpers/ for test data patterns. Existing models explicitly referenced: organization, location, customer, resource, resourceType (with capacity, bookingUnit, parentResourceId, sortOrder), offering, offeringPrice, offeringRule, subscription, entitlementGrant/entitlementLedger/entitlementBalance, organizationSetting.bookingRules, organizationPaymentAccount. Patterns: Effect-based services, Zod validation, server actions, composite foreign keys, append-only event tables (subscriptionChangeEvent precedent), prefixed ID generation, cached RSC queries."
+    },
+    {
+      "text": "Adversarial review runs automatically after design — delivers Ready/Revise/Rethink verdict with strengths and issues",
+      "passed": true,
+      "evidence": "review.md contains a full adversarial review. Verdict: \"Ready\". Strengths section lists 4 items (builds on existing infrastructure, clear state machine, well-ordered phasing, thorough edge cases). Issues section lists 2 items (entitlement-to-resource-type mapping undefined; availability query must filter expired pending bookings). Also includes Risks section. Transcript end: \"Proceeding to produce the design document and then run adversarial review.\" metrics.json confirms: adversarialReview.ran = true, verdict = \"Ready\", issuesFound = 2."
+    },
+    {
+      "text": "Design doc has key sections: Decisions Log, Data Models, Behavior Specs, Edge Cases table, Phased Build Plan with acceptance criteria",
+      "passed": true,
+      "evidence": "design.md contains all required sections: Decisions Log (10 numbered decisions with rationales), Data Models (booking table with fields/indexes/constraints, bookingEvent table, bookingRules JSONB schema), Behavior Specs (Create Booking Member, Create Booking Walk-in Online, Stripe Webhook, Create Booking Staff, Cancel Booking, Check-in — each with Trigger/Steps/Result/Variations), Edge Cases & Failure Modes (table with 10 rows including Scenario/Expected Behavior/Severity columns), Phased Build Plan (4 phases, each with Depends on/Decisions/What/Acceptance criteria as checkbox lists). metrics.json confirms all sections listed."
+    },
+    {
+      "text": "Suggests /plan as next step when Ready",
+      "passed": true,
+      "evidence": "review.md final line: \"Recommended next step -- Spec is ready. Run /plan to decompose into implementation issues.\" metrics.json confirms: planSuggested = true, planSuggestionText = \"Spec is ready. Run /plan to decompose into implementation issues.\""
+    },
+    {
+      "text": "Glossary conditions checked — generates if needed, uses canonical terms in data models",
+      "passed": true,
+      "evidence": "glossary.md explicitly documents the check: \"Glossary generation was skipped. The skill's glossary trigger conditions were not met.\" Lists three reasons: (1) no PRD exists so the 3+ domain nouns condition can't fire, (2) no naming conflicts — maps verbal terms to codebase: lane -> resource, member -> customer with subscription, walk-in -> customer with status 'lead', time slot -> computed from bookingRules.operatingHours, (3) new design nouns (booking, bookingEvent, confirmationCode, bookerType) are implementation-level. metrics.json: glossary.generated = false with reason noted. The design doc data models use codebase-canonical names: booking references resource, resourceType, customer, organization, location, offeringPrice, entitlementGrant — all matching existing table names."
+    },
+    {
+      "text": "Edge cases table includes race conditions, concurrent booking, and failure modes specific to scheduling",
+      "passed": true,
+      "evidence": "design.md Edge Cases table includes: (1) \"Two users book last lane simultaneously\" — SELECT FOR UPDATE serialization, critical severity. (2) \"Stripe Checkout abandoned (walk-in closes tab)\" — pending expiration, warning severity. (3) \"Member entitlement expires between slot selection and submit\" — InsufficientEntitlement with Stripe fallback. (4) \"Cancellation after refund window\" — no refund, metadata records reason. (5) \"Double webhook delivery\" — idempotent status check. (6) \"Walk-in email matches existing customer\" — upsert. (7) \"Org has no Stripe Connect account\" — graceful degradation. (8) \"Location closed on requested day\" — no slots returned. (9) \"Booking for past time slot\" — validation rejection. (10) \"confirmationCode collision\" — retry loop. The transcript Domain 4 also details the race condition with SELECT FOR UPDATE, Stripe webhook delay handling, partial entitlement scenario, and timezone handling."
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "questionsAsked": 16,
+    "domainsCovered": 10,
+    "filesExplored": 28,
+    "adversarialReview": {
+      "verdict": "Ready",
+      "issuesFound": 2,
+      "strengthsIdentified": 4,
+      "lensesApplied": 6,
+      "lensesSkipped": 7
+    },
+    "output_chars": 55820,
+    "transcript_chars": 22767
+  },
+  "timing": {
+    "total_tokens": 94758,
+    "executor_duration_seconds": 433.7,
+    "total_duration_seconds": 433.7
+  },
+  "claims": [
+    {
+      "claim": "28 files explored during codebase analysis",
+      "type": "process",
+      "verified": false,
+      "evidence": "metrics.json states filesExplored: 28 but transcript is a simulated interview so actual file reads cannot be verified from the transcript itself"
+    },
+    {
+      "claim": "organizationSetting.bookingRules JSONB column already exists with empty default",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Both the design doc and adversarial review reference this. review.md: \"organizationSetting.bookingRules JSONB column confirmed empty {} default -- design correctly extends this.\""
+    },
+    {
+      "claim": "subscriptionChangeEvent table exists as precedent for append-only event pattern",
+      "type": "factual",
+      "verified": true,
+      "evidence": "review.md: \"the codebase already uses this pattern for subscriptionChangeEvent. Consistency outweighs the small overhead. Verdict: not overengineered.\""
+    },
+    {
+      "claim": "All 6 adversarial lenses applied found no critical issues",
+      "type": "quality",
+      "verified": true,
+      "evidence": "review.md applies lenses: assumptions_that_may_not_hold (1 medium issue), failure_modes_and_edge_cases (1 low), overengineering (none), code_design_and_coupling (low), scope_creep (none), implementation_readiness (none). metrics.json: issuesBySeverity.critical = 0"
+    },
+    {
+      "claim": "7 adversarial lenses were skipped",
+      "type": "factual",
+      "verified": true,
+      "evidence": "metrics.json lensesSkipped lists 7: prd_coverage_gaps, security_and_access, operational_readiness, maintenance_burden, simpler_alternatives, should_this_be_solved_at_all, feasibility_and_phasing"
+    },
+    {
+      "claim": "Design has zero new third-party dependencies except qrcode",
+      "type": "quality",
+      "verified": true,
+      "evidence": "review.md Strengths: \"Zero new dependencies except qrcode for email.\" Confirmed by design doc which only mentions qrcode library for QR generation in email."
+    }
+  ],
+  "user_notes_summary": null,
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Covers all 10 technical domains: architecture, data/state, core behavior, edge cases, integration, operational, security, testing, code design, phased build",
+        "reason": "This assertion checks domain count but not depth. A design that asks one shallow question per domain would pass. Consider adding a depth check, e.g., 'At least 2 interview questions per domain' or 'Data model includes field-level detail with types and constraints.'"
+      },
+      {
+        "assertion": "Design references specific rangeops files, patterns, and conventions",
+        "reason": "This is subjective — 'specific' is doing a lot of work. A design that mentions 2 file paths would technically pass. Consider a minimum threshold, e.g., 'references at least 5 specific file paths from the codebase' or 'references at least 3 existing table names in data model foreign keys.'"
+      },
+      {
+        "reason": "No assertion checks the adversarial review's quality or whether it catches real issues. The review skipped 7 of 13 lenses (more than half). An assertion like 'adversarial review applies at least 8 lenses' or 'adversarial review identifies at least 1 issue' would ensure the review is substantive rather than rubber-stamping."
+      },
+      {
+        "reason": "No assertion verifies that the design doc's phased build plan has acceptance criteria that are actually testable/specific. The current assertion checks they exist but not their quality. For instance, 'each phase has at least 3 acceptance criteria' would add discriminating power."
+      }
+    ],
+    "overall": "Assertions cover the right topics but mostly check for presence rather than quality/depth. The 8/8 pass rate partially reflects assertions that are easy to satisfy once the skill produces output at all. The strongest assertions are #1 (PRD note) and #8 (specific edge cases) because they check for concrete content. Consider tightening the others with quantitative thresholds."
+  }
+}

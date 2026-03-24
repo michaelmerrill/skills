@@ -1,0 +1,47 @@
+{
+  "eval_id": 2,
+  "eval_name": "lane-booking-prd",
+  "prompt": "We need to define the requirements for online lane reservations. Members and walk-ins should be able to book a lane for a time slot. Our ranges have different lane types — pistol, rifle, etc. No scope doc.",
+  "assertions": [
+    {
+      "id": "cold-start",
+      "text": "No scope doc found — starts from user's description, beginning with problem/motivation",
+      "type": "evidence"
+    },
+    {
+      "id": "product-altitude",
+      "text": "No technical implementation details (schemas, APIs, architecture, build phases, technology selection)",
+      "type": "absence"
+    },
+    {
+      "id": "nine-domains",
+      "text": "Covers all 9 PRD domains: problem, target users, user stories, functional requirements, non-functional requirements, success metrics, scope, dependencies, risks",
+      "type": "checklist"
+    },
+    {
+      "id": "user-stories-quality",
+      "text": "User stories follow As-a/I-want/So-that format with acceptance criteria (checkboxes)",
+      "type": "evidence"
+    },
+    {
+      "id": "quality-gate-ran",
+      "text": "Quality gate automatically runs after PRD — delivers Ready/Revise/Rethink verdict with strengths and issues",
+      "type": "evidence"
+    },
+    {
+      "id": "glossary-check",
+      "text": "Glossary conditions checked after quality gate — generates glossary if 3+ domain nouns or naming conflicts detected",
+      "type": "evidence"
+    },
+    {
+      "id": "next-step-suggested",
+      "text": "Suggests /design (UI features) or /architect (backend-only) as next step",
+      "type": "evidence"
+    },
+    {
+      "id": "prd-template",
+      "text": "PRD has key sections: Problem Statement, Target Users (with personas), User Stories, Functional Requirements (FR-N numbered), Non-Functional Requirements, Success Metrics table, Scope (in/out/future), Dependencies & Constraints, Risks & Open Questions, Pipeline Status",
+      "type": "checklist"
+    }
+  ]
+}

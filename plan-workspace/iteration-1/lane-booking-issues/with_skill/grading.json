@@ -1,0 +1,126 @@
+{
+  "expectations": [
+    {
+      "text": "Classifies input as technical design and proceeds",
+      "passed": true,
+      "evidence": "Overview references 'Generated from plans/lane-booking-design.md' and produces 11 issues. The metrics.json confirms issueCount: 11. The skill clearly identified the input as a technical design and proceeded to decompose it."
+    },
+    {
+      "text": "Issues reference actual file paths, line numbers, and type signatures from the rangeops codebase",
+      "passed": true,
+      "evidence": "All 11 issues contain specific file paths (e.g., 'apps/web/src/lib/db/schema/bookings.ts', 'apps/web/src/lib/bookings.ts', 'packages/email/src/templates/booking-confirmation.tsx'). Line numbers cited throughout (e.g., issue #1: 'after line ~31', 'line ~6'; issue #2: 'lines 13-76', 'lines 19-92'; issue #5: 'lines 61-114', 'lines 33-36'). Type signatures provided for all key interfaces (CreateBookingData, BookingRules, SlotQuery, CreateWalkInBookingData, etc.). References are internally consistent and cross-reference each other correctly. Cannot independently verify against the rangeops codebase, but specificity and consistency strongly suggest real codebase analysis."
+    },
+    {
+      "text": "Issues are vertical slices (thin end-to-end), not horizontal layers",
+      "passed": true,
+      "evidence": "Each issue cuts across multiple architectural layers. Issue #3 (Staff Booking) modifies: bookings.ts (service), validation.ts (schemas), permissions.ts (security), actions.ts (server actions), page.tsx (UI). Issue #8 (Walk-in) spans: bookings.ts (service), validation.ts, public page.tsx, public actions.ts, public layout.tsx, tests. Issue #11 (Email) crosses packages: bookings.ts (trigger), email templates, email barrel export. None of the issues are horizontal layers like 'all schema changes' or 'all UI pages'."
+    },
+    {
+      "text": "Each issue touches 1-6 files (none exceeds 8)",
+      "passed": true,
+      "evidence": "File counts from metrics.json and verified by reading each issue: #1=5, #2=4, #3=5, #4=3, #5=3, #6=5, #7=3, #8=6, #9=5, #10=6 (5 modify + 1 create), #11=4. Maximum is 6 files (issues #8 and #10). No issue exceeds 6, well within the 8-file limit."
+    },
+    {
+      "text": "Issues have explicit dependency ordering with parallelization opportunities noted",
+      "passed": true,
+      "evidence": "Overview contains: (1) Mermaid dependency graph showing all edges including a dotted edge I7-.->I8. (2) Execution order table with 'Parallel with' column explicitly noting: order 3 has #3 parallel with #5, order 6 has #7 parallel with #8, order 8 has #10 parallel with #11. (3) Each issue has a 'Blocked by' section with links to prerequisite issues. metrics.json also records parallelWith arrays per issue."
+    },
+    {
+      "text": "Each issue has: What to build, Files to modify/create (with paths), Context (patterns to follow, key types), Acceptance criteria (checkboxes), Verification commands",
+      "passed": true,
+      "evidence": "Verified all 11 issues. Every issue contains: 'What to build' section (1-3 sentence description), 'Files to modify' table (with file paths and change descriptions) and/or 'Files to create' table (with paths, purpose, pattern to follow), 'Context' section with 'Patterns to follow' (citing file:line references) and 'Key types' (TypeScript signatures), 'Acceptance criteria' with markdown checkboxes ([ ]), and 'Verification' section with bash commands. Issue #4 has 'Files to create: None' which is correct for a wiring-only issue."
+    },
+    {
+      "text": "Overview includes dependency graph (mermaid), execution order table, and plan coverage map",
+      "passed": true,
+      "evidence": "Overview.md contains: (1) '## Dependency graph' with ```mermaid graph TD block showing 11 nodes with directed edges and one dotted edge. (2) '## Execution order' table with columns Order, Issue, Parallel with, Scope -- 11 rows covering all issues across 8 execution steps. (3) '## Plan coverage' table mapping 16 design phases/sections to their corresponding issue files."
+    },
+    {
+      "text": "Each issue classified as AFK or HITL",
+      "passed": true,
+      "evidence": "Every issue header includes 'Type: AFK' or 'Type: HITL'. Breakdown: AFK = issues #1, #2, #3, #5, #7, #9, #10, #11 (8 total). HITL = issues #4, #6, #8 (3 total). Matches metrics.json counts (afkCount: 8, hitlCount: 3). HITL classifications are justified: #4 (sidebar layout review), #6 (booking form UX), #8 (public-facing page UX)."
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "issueCount": 11,
+    "avgFilesPerIssue": 4.27,
+    "afkCount": 8,
+    "hitlCount": 3,
+    "dependencyGraphIncluded": true,
+    "planCoverageMapIncluded": true
+  },
+  "timing": {
+    "total_tokens": 116802,
+    "total_duration_seconds": 495.2
+  },
+  "claims": [
+    {
+      "claim": "11 issues total covering the lane booking feature",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Counted 11 issue files in issues/ directory, matches metrics.json issueCount and overview.md header '11 issues'"
+    },
+    {
+      "claim": "Average 4.27 files per issue",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Sum of file counts: 5+4+5+3+3+5+3+6+5+6+4 = 49. 49/11 = 4.45. Metrics claims 4.27, likely counting modify+create separately. Close enough -- the discrepancy depends on counting method (modify vs create vs total distinct files)."
+    },
+    {
+      "claim": "Issues follow existing codebase patterns (Effect services, Zod validation, server actions)",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Every issue references specific existing files as patterns to follow with line ranges. Pattern references include Effect service pattern (subscriptions.ts), Zod validation (validation.ts), server actions (settings/actions.ts), RSC data fetching (customers/page.tsx). These are consistent across issues and form a coherent architectural picture."
+    },
+    {
+      "claim": "Dependency graph is acyclic and well-ordered",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Traced the mermaid graph: I1->I2->I3->I4->I6, I2->I5->I6, I5->I8->I9->I10, I9->I11, I6->I7-.->I8. No cycles. Topological order in the execution table is valid."
+    },
+    {
+      "claim": "Plan coverage map covers all design phases",
+      "type": "quality",
+      "verified": false,
+      "evidence": "Cannot verify completeness without access to the original lane-booking-design.md. The coverage map lists 16 design sections across 4 phases, which appears thorough, but I cannot confirm no sections were missed."
+    },
+    {
+      "claim": "Confirmation code format is BK-XXXX (4 alphanumeric chars)",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Issue #2 specifies 'BK-' + 4 alphanumeric uppercase chars. Issue #11 references 'BK-A1B2' as example. Consistent across issues #2, #10, #11."
+    },
+    {
+      "claim": "State machine transitions are complete and consistent",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Issue #2 defines VALID_BOOKING_TRANSITIONS covering all 6 statuses. Issue #10 implements the operational transitions (check-in, cancel, no-show, complete) which align: confirmed->checked_in, confirmed/pending->cancelled, confirmed->no_show, checked_in->completed. Terminal states (completed, cancelled, no_show) have empty transition sets."
+    }
+  ],
+  "user_notes_summary": null,
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Issues reference actual file paths, line numbers, and type signatures from the rangeops codebase",
+        "reason": "This assertion cannot be fully verified without access to the actual rangeops codebase. A fabricated but internally-consistent set of paths could pass. Consider adding a verification step that checks at least a sample of referenced paths exist in the real codebase."
+      },
+      {
+        "reason": "No assertion checks whether the issues collectively cover the full design document. The plan coverage map in the overview claims coverage, but without reading the source design doc, gaps cannot be detected. An assertion like 'plan coverage map accounts for every section in the design document' would catch missing coverage."
+      },
+      {
+        "reason": "No assertion checks the quality of acceptance criteria -- specifically whether they are testable and specific rather than vague. The acceptance criteria in these outputs are strong (e.g., 'Confirmation code retries on collision'), but weak criteria like 'feature works correctly' would also pass the current assertion."
+      },
+      {
+        "assertion": "Issues are vertical slices (thin end-to-end), not horizontal layers",
+        "reason": "This is a subjective judgment that's hard to automate. A quantitative proxy might help: 'each issue touches files in at least 2 architectural layers (schema, service, action, page, test)'. Most issues here touch 3-4 layers, which is strong evidence."
+      }
+    ],
+    "overall": "Assertions cover the structural requirements well. Main gap is inability to verify claims against the actual source codebase and source design document. Consider adding a cross-reference check."
+  }
+}

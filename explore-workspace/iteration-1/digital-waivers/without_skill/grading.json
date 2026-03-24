@@ -1,0 +1,127 @@
+{
+  "expectations": [
+    {
+      "text": "Output references specific rangeops files or patterns (schema files, existing models, routes)",
+      "passed": true,
+      "evidence": "Scope doc references permissions.ts (waiver_template and waiver resources), entitlements.ts (immutable grant + append-only ledger pattern), id.ts (prefix system), the customer table, Resend email integration, multi-tenant compound FK pattern with organizationId, and proposes specific file paths like apps/web/src/lib/db/schema/waivers.ts and route patterns like [orgSlug]/settings/waivers."
+    },
+    {
+      "text": "No functional requirements slip through (no approval workflows, field-level rules, permission models, specific validation logic, or data schema designs)",
+      "passed": false,
+      "evidence": "The scope doc includes detailed schema designs with full column definitions (waiver_template, waiver_template_version, signed_waiver, waiver_requirement tables with every field specified), new ID prefix assignments (wtm, wtv, wrq, swv), specific route definitions, a retention computation formula (expiresAt + 7 years or signerDob + 25 years), storage decisions (base64 vs S3), a template status workflow (draft/published/archived), and a library recommendation (signature_pad). This crosses well into functional requirements and technical design territory."
+    },
+    {
+      "text": "All 6 domains covered: problem/motivation, stakeholders/impact, feasibility, high-level scope, risks/assumptions, recommendation",
+      "passed": false,
+      "evidence": "Problem/motivation is present (Vision section). Feasibility has a dedicated table. High-level scope is covered in Proposed Scope. Risks has its own section with 5 items. Recommendation is present with rationale. However, there is no Stakeholders/impact section -- customers, staff, insurance companies, and lawyers are mentioned in passing but never analyzed as a stakeholder group with their specific concerns and impact. Assumptions are also not explicitly called out separately from risks."
+    },
+    {
+      "text": "Scope doc has these sections: Problem Statement, Stakeholders, Feasibility Assessment, High-Level Scope (with in/out/investigate), Key Risks & Assumptions, Recommendation with verdict, Pipeline Status",
+      "passed": false,
+      "evidence": "Actual sections are: Vision, Current State of the Codebase, Proposed Scope, Technical Design Sketch, Feasibility Assessment, Risks, Out of Scope for v1, Effort Estimate, Recommendation. Missing sections: 'Problem Statement' (has 'Vision' instead), 'Stakeholders' (absent entirely), 'Key Risks & Assumptions' (has 'Risks' but no assumptions subsection), 'Pipeline Status' (absent entirely). The in/out/investigate breakdown is also missing -- there's an 'Out of Scope' list but no 'investigate' category and no explicit 'in-scope' list format."
+    },
+    {
+      "text": "Clear Go / No-Go / Investigate Further verdict with rationale",
+      "passed": true,
+      "evidence": "Recommendation section states 'Proceed.' with clear rationale: 'This feature is clearly on the product roadmap (permissions are already defined), has strong user demand (replacing a manual paper process), fits cleanly into the existing architecture, and carries manageable technical risk.' While it uses 'Proceed' rather than 'Go', the verdict is unambiguous and well-supported."
+    },
+    {
+      "text": "Mentions /define as the next step",
+      "passed": false,
+      "evidence": "Neither the scope doc nor the transcript mention /define. The Recommendation section suggests an implementation ordering (schema -> template management -> signing page -> status indicators) but does not reference /define or any pipeline next step."
+    },
+    {
+      "text": "Explicit 'likely in for v1' and 'likely out for v1' lists",
+      "passed": false,
+      "evidence": "There is an explicit 'Out of Scope for v1' bulleted list with 7 items (kiosk mode, SMS, rich text editor, booking integration, offline, object storage, automated gating). However, there is no corresponding explicit 'likely in for v1' list -- the in-scope items are described across narrative subsections (Core Entities, Customer-Facing Flow, Staff-Facing Flow, Access Gating) rather than as a concise in/out list pair. The expectation calls for explicit lists for both in and out."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 5,
+    "total": 7,
+    "pass_rate": 0.29
+  },
+  "execution_metrics": {
+    "questions_asked": 10,
+    "topics_covered": [
+      "customer signing flow (pre-visit, walk-in, kiosk)",
+      "waiver template structure (single vs multiple per location)",
+      "version control and immutability of signed records",
+      "waiver expiration and renewal cadence",
+      "signature capture method (drawn vs checkbox)",
+      "minor/guardian consent requirements",
+      "age restrictions and configurability",
+      "staff-facing UX (status indicators, audit history)",
+      "offline capability requirements",
+      "data retention and compliance timelines"
+    ],
+    "clear_go_no_go_recommendation": true,
+    "recommendation": "go",
+    "output_chars": 9821,
+    "transcript_chars": 5421
+  },
+  "timing": {
+    "total_tokens": 46403,
+    "executor_duration_seconds": 184.6,
+    "total_duration_seconds": 184.6
+  },
+  "claims": [
+    {
+      "claim": "permissions.ts declares waiver_template and waiver resources with role-based access",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Cannot verify against actual codebase from available materials. Plausible given the feature is listed in the README, but no direct evidence in transcript or outputs."
+    },
+    {
+      "claim": "Customer table has name, email, phone, DOB, location, status fields",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Stated in scope doc but no codebase evidence available to verify specific field list."
+    },
+    {
+      "claim": "Resend integration exists for transactional emails",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Stated in scope doc, unverifiable from available materials."
+    },
+    {
+      "claim": "signature_pad library is MIT licensed and 30KB",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Plausible but not verified against npm registry."
+    },
+    {
+      "claim": "Signature images are typically 10-30KB",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Reasonable estimate for simple drawn signatures exported as PNG from HTML5 canvas."
+    },
+    {
+      "claim": "10 questions asked during discovery",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Counted approximately 10 distinct questions from the assistant in the transcript (signing flow, waiver content, versioning, expiration, signature type, minors, minimum age, staff needs, offline, data retention)."
+    }
+  ],
+  "user_notes_summary": null,
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "No functional requirements slip through (no approval workflows, field-level rules, permission models, specific validation logic, or data schema designs)",
+        "reason": "This is the strongest and most discriminating assertion in the set -- it correctly catches the scope doc's drift into technical design. However, 'permission models' is ambiguous: mentioning that existing permissions cover waivers (a codebase observation) is different from designing new permission rules. Consider splitting 'referencing existing permissions' (acceptable) from 'designing new permission schemes' (not acceptable)."
+      },
+      {
+        "assertion": "Explicit 'likely in for v1' and 'likely out for v1' lists",
+        "reason": "The phrasing 'likely in' and 'likely out' implies specific label text. The scope doc uses 'Proposed Scope (v1)' and 'Out of Scope for v1' which convey the same intent. Consider testing for the concept (explicit in-scope and out-of-scope delineation) rather than specific label wording. Also, the 'investigate' category is tested in expectation 4 but not here -- consider consolidating."
+      },
+      {
+        "reason": "No assertion checks whether the discovery conversation itself was well-conducted -- whether it asked open-ended questions, avoided leading the user, covered edge cases, or probed assumptions. The transcript shows good discovery technique (10 questions, natural follow-ups) but this quality goes unmeasured."
+      },
+      {
+        "reason": "No assertion checks whether the scope doc avoids effort estimates or timeline commitments. The output includes a detailed effort estimate table (12-17 days broken into components) which is arguably premature at the explore/scope phase and could anchor expectations before requirements are defined."
+      }
+    ],
+    "overall": "The assertions lean toward structural/formatting checks (correct sections, correct labels) rather than content quality checks. The strongest assertion (#2, no functional requirements leakage) is the only one testing substance. Consider adding assertions for: discovery quality, altitude discipline (no premature detail), and whether codebase references are accurate vs fabricated."
+  }
+}

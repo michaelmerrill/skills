@@ -1,0 +1,134 @@
+{
+  "expectations": [
+    {
+      "text": "No scope doc found — starts from user's description, beginning with problem/motivation",
+      "passed": true,
+      "evidence": "Transcript Domain 1 opens with problem/motivation questions. metrics.json confirms: \"scope_doc_existed\": false and \"problem_motivation_reason\": \"No scope doc, so problem/motivation domain was required\". The interview starts by asking how customers currently reserve time, then digs into pain points (lost revenue, member churn, staff time). Pipeline Status row in PRD confirms: \"explore | skipped | -- | No scope doc; started from user description\"."
+    },
+    {
+      "text": "No technical implementation details (schemas, APIs, architecture, build phases, technology selection)",
+      "passed": true,
+      "evidence": "The transcript never exposes code-level details to the user. Codebase references are framed in product terms: \"The app currently tracks 'customers' with statuses like active, lead, inactive\" and \"Your lanes would be resources grouped by type.\" metrics.json confirms: \"technical_leakage\": { \"slipped_through\": false }. The PRD itself contains no schema definitions, API endpoints, build phases, or technology selections. FR-5 mentions Stripe but only as a product-level payment mechanism, not an implementation prescription. The quality gate notes that double-booking prevention is \"correctly deferred to architect.\""
+    },
+    {
+      "text": "Covers all 9 PRD domains: problem, target users, user stories, functional requirements, non-functional requirements, success metrics, scope, dependencies, risks",
+      "passed": true,
+      "evidence": "Transcript has clearly labeled sections: Domain 1 (Problem & Motivation), Domain 2 (Target Users & Personas), Domain 3 (User Stories & JTBD), Domain 4 (Functional Requirements), Domain 5 (Non-Functional Requirements), Domain 6 (Success Metrics & KPIs), Domain 7 (Scope Definition), Domain 8 (Dependencies & Constraints), Domain 9 (Risks & Open Questions). metrics.json confirms: \"domains_covered_count\": 9, \"all_domains_covered\": true. The PRD output has corresponding sections for every domain."
+    },
+    {
+      "text": "User stories follow As-a/I-want/So-that format with acceptance criteria (checkboxes)",
+      "passed": true,
+      "evidence": "PRD contains 5 user stories, all in As-a/I-want/So-that format. Examples: \"As a member, I want to pick a lane type, date, time, and duration on my phone, so that I have a guaranteed lane when I arrive.\" Each story has \"Acceptance criteria:\" followed by checkbox items (\"- [ ]\"). Member story has 6 criteria, Guest story has 8, Front Desk has 5, Cancel has 5, Operator has 3."
+    },
+    {
+      "text": "Quality gate automatically runs after PRD — delivers Ready/Revise/Rethink verdict with strengths and issues",
+      "passed": true,
+      "evidence": "quality-gate.md exists with verdict \"Ready\". It includes a Strengths section with 4 bullet points (e.g., \"Problem statement is grounded in real cost\") and an Issues section with 2 items marked as minor. It also includes a Risks section. metrics.json confirms: \"quality_gate\": { \"ran\": true, \"verdict\": \"Ready\", \"issues_count\": 2, \"issues_severity\": [\"minor\", \"minor\"] }."
+    },
+    {
+      "text": "Glossary conditions checked after quality gate — generates glossary if 3+ domain nouns or naming conflicts detected",
+      "passed": true,
+      "evidence": "glossary.md begins with a \"Glossary Condition Check\" section that explicitly evaluates three conditions: (1) 3+ domain nouns not in codebase — Met (lists 7 new terms), (2) Naming conflicts — Met (lane vs resource, guest vs customer), (3) Crosses bounded-context boundaries — Met. It then states \"All three conditions met. Proceeding with glossary.\" The glossary itself contains 14 terms and 3 resolved ambiguities. metrics.json confirms: \"conditions_checked\": true, \"glossary_produced\": true."
+    },
+    {
+      "text": "Suggests /design (UI features) or /architect (backend-only) as next step",
+      "passed": true,
+      "evidence": "metrics.json pipeline_suggestion field shows: \"suggested_next_step\": \"/design\", \"reason\": \"PRD is Ready. Feature has significant UI surface (customer booking flow, front-desk schedule view, operator visibility). /design is appropriate before /architect.\", \"architect_also_relevant\": true. The after_delivering_message also says: \"When satisfied, run `/design` (UI features) or `/architect` (backend-only).\""
+    },
+    {
+      "text": "PRD has key sections: Problem Statement, Target Users (with personas), User Stories, Functional Requirements (FR-N numbered), Non-Functional Requirements, Success Metrics table, Scope (in/out/future), Dependencies & Constraints, Risks & Open Questions, Pipeline Status",
+      "passed": true,
+      "evidence": "PRD contains all listed sections: (1) \"## Problem Statement\" — specific pain points with numbers. (2) \"## Target Users\" — 4 personas (Member, Walk-in Guest, Front-Desk Staff, Range Operator), each with Who/Current behavior/Key need/Usage frequency. (3) \"## User Stories\" — 5 stories with acceptance criteria. (4) \"## Functional Requirements\" — 25 requirements numbered FR-1 through FR-25, organized into subsections. (5) \"## Non-Functional Requirements\" — 6 items (NFR-1 through NFR-6). (6) \"## Success Metrics\" — markdown table with Metric/Target/Measurement/Timeframe columns, 6 rows. (7) \"## Scope\" — In scope (v1), Out of scope, Future (conditional) subsections. (8) \"## Dependencies & Constraints\" — 3 dependencies, 2 constraints with status. (9) \"## Risks & Open Questions\" — 4 risks with mitigations, 2 open questions with impact. (10) \"## Pipeline Status\" — table with Step/Date/Verdict/Key Findings."
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": {
+      "note": "Transcript is simulated interview format; individual tool calls not itemized"
+    },
+    "total_tool_calls": null,
+    "total_steps": null,
+    "errors_encountered": 0,
+    "output_chars": 44205,
+    "transcript_chars": 17305
+  },
+  "timing": {
+    "executor_duration_seconds": 360.7,
+    "total_duration_seconds": 360.7
+  },
+  "claims": [
+    {
+      "claim": "24 questions were asked during the interview",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Counted question-answer pairs in transcript: Domain 1 (2), Domain 2 (3), Domain 3 (2), Domain 4 (7), Domain 5 (3), Domain 6 (2), Domain 7 (2), Domain 8 (2), Domain 9 (2) = 25 questions total. Close to the claimed 24; minor discrepancy depending on whether the scope confirmation at the end of Domain 3 counts as a question or a story discussion prompt. Essentially accurate."
+    },
+    {
+      "claim": "PRD has 25 functional requirements",
+      "type": "factual",
+      "verified": true,
+      "evidence": "PRD lists FR-1 through FR-25 under Functional Requirements. Counted: FR-1 to FR-7 (Booking Flow), FR-8 to FR-10 (Slot Configuration), FR-11 to FR-13 (Operating Hours & Blocks), FR-14 to FR-15 (Confirmation & Communication), FR-16 to FR-19 (Cancellation), FR-20 to FR-23 (Front-Desk Management), FR-24 to FR-25 (Schedule Visibility). Total: 25."
+    },
+    {
+      "claim": "PRD has 6 NFRs",
+      "type": "factual",
+      "verified": true,
+      "evidence": "PRD lists NFR-1 through NFR-6 under Non-Functional Requirements."
+    },
+    {
+      "claim": "4 personas identified",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Target Users section has 4 subsections: Member, Walk-in Guest, Front-Desk Staff, Range Operator (Owner)."
+    },
+    {
+      "claim": "Glossary has 14 terms",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Glossary table has 14 rows: Booking, Lane, Lane Type, Time Slot, Slot Duration, Operating Hours, Time Block, Booking Window, Cancellation Cutoff, No-Show, Shooter Count, Guest, Member, Prepayment."
+    },
+    {
+      "claim": "No technical leakage to the user during interview",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Reviewed all assistant messages in transcript. Codebase knowledge is always framed in product terms: 'The app currently tracks customers with statuses,' 'resources with resource types,' 'Stripe Connect for payment processing.' No schema names, API patterns, or code snippets are exposed. One reference to 'resource type' could be borderline, but it's used as a product concept, not a code entity."
+    },
+    {
+      "claim": "Quality gate found only minor issues",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Two issues listed, both marked minor: (1) Guest booking page access model is an open question, (2) Refund policy assumed as full refund before cutoff. Neither blocks PRD readiness."
+    },
+    {
+      "claim": "All interview options used AskUserQuestion format with header and options",
+      "type": "process",
+      "verified": false,
+      "evidence": "Transcript is a simulated markdown rendering of the interview. Every assistant turn shows [Header: X] and numbered options, consistent with AskUserQuestion tool usage. However, since this is a transcript (not raw tool call logs), actual tool usage cannot be independently verified."
+    }
+  ],
+  "user_notes_summary": null,
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Covers all 9 PRD domains: problem, target users, user stories, functional requirements, non-functional requirements, success metrics, scope, dependencies, risks",
+        "reason": "This assertion checks domain coverage but not domain depth. A PRD that had a single sentence under each domain header would pass. Consider adding assertions like 'at least 3 user stories' or 'at least 15 functional requirements' to ensure substance, not just section presence."
+      },
+      {
+        "assertion": "Quality gate automatically runs after PRD — delivers Ready/Revise/Rethink verdict with strengths and issues",
+        "reason": "This checks that a quality gate ran with the right structure but not whether it caught real issues. A rubber-stamp 'Ready' with no analysis would pass. Consider asserting the quality gate references specific PRD content (e.g., cites a functional requirement or user story by name)."
+      },
+      {
+        "reason": "No assertion checks whether the interview questions were adaptive to user responses. A skill that asks the same 9 canned questions regardless of answers would pass all current assertions. Consider checking that follow-up questions reference prior user answers (e.g., if user mentions 'members,' next question builds on that)."
+      },
+      {
+        "reason": "No assertion checks PRD-to-transcript traceability — that every major PRD requirement traces back to something the user actually said. A PRD that hallucinated requirements not discussed in the interview would pass all current assertions. Consider spot-checking that 2-3 specific FRs correspond to transcript content."
+      }
+    ],
+    "overall": "Assertions cover structural completeness well but could be stronger on content quality and interview-to-output traceability. The current set would pass a well-structured but shallow PRD."
+  }
+}

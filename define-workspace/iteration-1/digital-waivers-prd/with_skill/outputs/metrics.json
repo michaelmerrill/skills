@@ -1,0 +1,63 @@
+{
+  "interview": {
+    "questions_asked": 27,
+    "domains_covered": [
+      "target_users_and_personas",
+      "user_stories_and_jtbd",
+      "functional_requirements",
+      "non_functional_requirements",
+      "success_metrics_and_kpis",
+      "scope_definition",
+      "dependencies_and_constraints",
+      "risks_and_open_questions"
+    ],
+    "domains_skipped": [
+      "problem_and_motivation"
+    ],
+    "skip_reason": "Scope doc already resolved problem statement and motivation",
+    "domains_count": 8
+  },
+  "technical_leakage": {
+    "instances": 0,
+    "details": "No schemas, APIs, architecture, or implementation details surfaced in interview questions. Codebase was explored silently; findings presented as product behavior (e.g., 'The app currently has three roles' not 'The permissions.ts file defines ac.newRole'). Customer model fields referenced by product name (first name, email) not by column name."
+  },
+  "quality_gate": {
+    "ran": true,
+    "verdict": "Ready",
+    "issues_count": 2,
+    "issues_severity": ["minor", "very_minor"],
+    "issues": [
+      "Public waiver route must bypass authenticated org layout -- acknowledged constraint, not a PRD defect",
+      "NFR-6 (no-JS degradation) may be unrealistic for rich text display -- suggest softening"
+    ]
+  },
+  "glossary": {
+    "produced": true,
+    "trigger_conditions_met": [
+      "PRD introduces 10+ domain nouns not in codebase (waiver template, template version, signed waiver, waiver status, expiration period, e-signature, audit metadata, guardian, minor, waiver coverage, signing page)",
+      "Naming conflict: 'waiver' refers to both template and signed record",
+      "Naming conflict: 'member' overloaded between staff role and customer membership",
+      "Feature crosses bounded context: authenticated staff area to public customer-facing area"
+    ],
+    "terms_defined": 17,
+    "ambiguities_resolved": 3
+  },
+  "next_step": {
+    "suggested": "/design",
+    "reason": "Feature has significant UI surface area: public signing page (first public-facing page), template editor with rich text, waiver status badges in existing customer table, guardian/minor flow. UI design decisions needed before architecture."
+  },
+  "codebase_exploration": {
+    "files_examined": 18,
+    "product_findings": [
+      "Multi-tenant via subdomain routing (slug.rangeops.com -> /[orgSlug]/...)",
+      "Three roles: owner, admin, member with granular permissions",
+      "waiver_template and waiver already defined as permission resources",
+      "Customer model has all fields needed for waiver signer info",
+      "No public-facing pages exist yet -- all routes require auth",
+      "Settings uses tabbed layout pattern (locations, team, billing)",
+      "UI: shadcn/Radix components, Card-based layouts, Badge for status",
+      "Email via Resend already integrated",
+      "Organization has name, logo, branding JSON in settings"
+    ]
+  }
+}

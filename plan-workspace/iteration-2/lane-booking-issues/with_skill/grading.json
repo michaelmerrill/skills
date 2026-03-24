@@ -1,0 +1,110 @@
+{
+  "expectations": [
+    {
+      "text": "Classifies input as technical design and proceeds",
+      "passed": true,
+      "evidence": "overview.md line 1 states 'Generated from plans/lane-booking-design.md' and proceeds to generate 7 implementation issues. No transcript available to verify classification step, but the output clearly treats the input as a technical design document."
+    },
+    {
+      "text": "Issues reference actual file paths, line numbers, and type signatures from the rangeops codebase",
+      "passed": true,
+      "evidence": "Extensive codebase-specific references throughout all issues. Examples: 'apps/web/src/lib/db/schema/subscription-events.ts lines 36-68' (issue 01), 'apps/web/src/lib/subscriptions.ts lines 13-20' with VALID_TRANSITIONS pattern (issue 02), 'apps/web/src/lib/entitlements.ts lines 94-175: consumeEntitlement' (issue 04), 'apps/web/src/app/api/webhooks/stripe/route.ts lines 154-188: handleConnectEvent' (issue 06), 'apps/web/src/lib/entitlements.ts lines 302-371: reverseConsumption' (issue 07). Type signatures include DbService, CurrentSession, SendEmailParams, ConsumeEntitlementData with import paths. Line-number specificity (e.g., 'after InsufficientEntitlement at line ~72', 'resource.sortOrder line 75') suggests genuine codebase analysis."
+    },
+    {
+      "text": "Issues are vertical slices (thin end-to-end), not horizontal layers",
+      "passed": false,
+      "evidence": "Issue 01 (booking-schema) is a horizontal layer: it only touches schema/config files (bookings.ts schema, index.ts re-export, id.ts prefixes, permissions.ts, test cleanup db.ts). No service logic, no API actions, no UI. This is purely database schema + configuration. Issue 03 (staff-booking-ui) is debatable but still vertical since it spans UI components (page, form, table) plus data flow changes (layout.tsx fetching feature flags, sidebar.tsx conditional rendering). Issues 02, 04, 05, 06, 07 are clearly vertical slices spanning service + action + UI or service + webhook + email layers."
+    },
+    {
+      "text": "Each issue touches 1-6 files (none exceeds 6)",
+      "passed": true,
+      "evidence": "Counted all files (create + modify) per issue: Issue 01: 1+4=5, Issue 02: 3+3=6, Issue 03: 3+2=5, Issue 04: 3+3=6, Issue 05: 3+3=6, Issue 06: 2+3=5, Issue 07: 2+4=6. Maximum is 6, no issue exceeds the limit."
+    },
+    {
+      "text": "Issues have explicit dependency ordering with parallelization opportunities noted",
+      "passed": true,
+      "evidence": "Overview mermaid graph shows linear chain with one fork: I2 --> I3 and I2 --> I4 in parallel. Execution order table explicitly lists 'Parallel with' column: issues 03 and 04 are parallel at order 3. Each issue has a 'Blocked by' section naming its predecessor (e.g., issue 05 blocked by 04, issue 06 blocked by 05)."
+    },
+    {
+      "text": "Each issue has: What to build, Files to modify/create (with paths), Context (patterns to follow, key types), Acceptance criteria (checkboxes), Verification commands",
+      "passed": true,
+      "evidence": "All 7 issues contain: 'What to build' section (prose description), 'Files to create' table (path + purpose + pattern to follow), 'Files to modify' table (path + what changes), 'Context' section with 'Patterns to follow' (file:line references) and 'Key types' (TypeScript code blocks), 'Acceptance criteria' (markdown checkboxes, ranging from 10-16 items per issue), 'Verification' section with bash commands (bun run lint/build/test). Issues 02-07 also include 'Manual verification' steps."
+    },
+    {
+      "text": "Overview includes dependency graph (mermaid), execution order table, and plan coverage map",
+      "passed": true,
+      "evidence": "overview.md contains: (1) mermaid dependency graph (lines 8-16) with 7 nodes and directed edges, (2) execution order table (lines 20-28) with columns Order/Issue/Parallel-with/Scope, (3) plan coverage map (lines 32-40) mapping design phases to issues."
+    },
+    {
+      "text": "Each issue classified as AFK or HITL",
+      "passed": true,
+      "evidence": "Every issue header includes 'Type: AFK' or 'Type: HITL'. Issue 03 (Staff Booking UI) is HITL with justification in Notes: 'This is HITL because the booking form UX (date picker, time slot selector, customer search) requires human review for usability.' All other 6 issues are AFK. metrics.json confirms: afkCount: 6, hitlCount: 1."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 1,
+    "total": 8,
+    "pass_rate": 0.875
+  },
+  "execution_metrics": {
+    "issueCount": 7,
+    "avgFilesPerIssue": 5.57,
+    "afkCount": 6,
+    "hitlCount": 1,
+    "total_tokens": 96746,
+    "output_chars": 28750
+  },
+  "timing": {
+    "total_duration_seconds": 415.3
+  },
+  "claims": [
+    {
+      "claim": "Total issues: 7",
+      "type": "factual",
+      "verified": true,
+      "evidence": "7 issue files exist in issues/ directory, overview lists 7, metrics.json confirms issueCount: 7"
+    },
+    {
+      "claim": "Average files per issue: 5.57",
+      "type": "factual",
+      "verified": true,
+      "evidence": "File counts: 5+6+5+6+6+5+6=39, 39/7=5.57"
+    },
+    {
+      "claim": "Issues 03 and 04 can run in parallel",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Both depend only on issue 02 (no cross-dependency). Issue 03 creates UI for staff booking; issue 04 creates availability service + member booking. They touch different files with no overlap."
+    },
+    {
+      "claim": "Plan covers all 4 design phases",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Coverage map lists Phase 1 (issues 01-03), Phase 2 (issue 04), Phase 3 (issues 05-06), Phase 4 (issue 07)"
+    },
+    {
+      "claim": "Issue 01 needs no dependencies and can start immediately",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Issue 01 creates new schema files and modifies only config/setup files (index.ts, id.ts, permissions.ts, test helpers). No dependency on other new code."
+    }
+  ],
+  "user_notes_summary": null,
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Issues reference actual file paths, line numbers, and type signatures from the rangeops codebase",
+        "reason": "Without access to the actual rangeops codebase during grading, this assertion cannot be fully verified. The paths and line numbers look highly specific and plausible, but a grader cannot confirm they are real without checking the source repo. Consider adding a verification step that cross-references a sample of cited paths against the actual codebase."
+      },
+      {
+        "assertion": "Issues are vertical slices (thin end-to-end), not horizontal layers",
+        "reason": "This assertion is good but the grading instruction could be more nuanced. A foundational schema issue (like 01) is arguably necessary as a prerequisite — you cannot build a vertical slice without tables existing first. The question is whether the eval should penalize a pragmatic schema-first issue or require every issue to be strictly vertical even when that would mean duplicating schema work across issues."
+      },
+      {
+        "reason": "No assertion checks whether the issues are collectively complete — i.e., whether all capabilities described in the design document are covered by at least one issue. The plan coverage map claims coverage but there's no way to verify without reading the source design doc."
+      }
+    ],
+    "overall": "Assertions are generally well-targeted. The vertical-slice check is the most discriminating assertion and correctly caught a horizontal-layer issue. Consider adding a completeness check against the source design document."
+  }
+}

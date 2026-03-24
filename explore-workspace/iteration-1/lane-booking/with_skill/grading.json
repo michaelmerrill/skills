@@ -1,0 +1,120 @@
+{
+  "expectations": [
+    {
+      "text": "Output references specific rangeops files or patterns (schema files, existing models, routes)",
+      "passed": true,
+      "evidence": "The scope doc and transcript reference specific codebase artifacts by name: `resourceType` (with `bookingUnit` field), `resource` model, `customer` model (with status enum), `offering`/`offeringPrice`, `entitlementGrant`/`entitlementLedger`/`entitlementBalance`, `bookingRules` JSONB on org settings, `location` model with timezone, Stripe Connect, `[orgSlug]` routes. The transcript's silent exploration section lists the full stack: 'Next.js 16 (turbo monorepo), TypeScript, Drizzle ORM (Postgres), Stripe Connect, Effect-TS for service layer, Resend for email, subdomain-based multi-tenancy ({slug}.getrangeops.dev)'. These are not generic -- they reflect actual schema/model names from the codebase."
+    },
+    {
+      "text": "No functional requirements slip through (no booking validation rules, cancellation policies, specific time slot logic, pricing formulas, or data schema designs)",
+      "passed": true,
+      "evidence": "The scope doc stays at capability level throughout. Cancellation is described as 'Customer self-cancellation within configurable cancellation window' -- no specific window duration or refund policy. Pricing is 'Walk-in/guest payment via Stripe Connect' and 'Member booking consuming entitlement credits or at discounted rates' -- no pricing formulas or discount percentages. Time slots are 'operating hours, time slot durations per lane type' -- no specific slot lengths or scheduling rules. The metrics.json confirms: 'scope_level_discipline' notes 'No questions about specific approval flows, field-level decisions, permission rules, workflow steps, or data model details' and 'requirements_level_questions_that_slipped_through' is an empty array."
+    },
+    {
+      "text": "All 6 domains covered: problem/motivation, stakeholders/impact, feasibility, high-level scope, risks/assumptions, recommendation",
+      "passed": true,
+      "evidence": "The metrics.json explicitly tracks domain coverage: problem_and_motivation (turns 1-2), stakeholders_and_impact (turns 3-4, 7), feasibility (turns 5-6, 8-9), high_level_scope (turns 10-11), key_risks_and_assumptions (turns 12-16), recommendation (derived). The scope doc has corresponding sections: Problem Statement, Stakeholders, Feasibility Assessment, High-Level Scope, Key Risks & Assumptions, Recommendation. All 6 marked 'covered: true'."
+    },
+    {
+      "text": "Scope doc has these sections: Problem Statement, Stakeholders, Feasibility Assessment, High-Level Scope (with in/out/investigate), Key Risks & Assumptions, Recommendation with verdict, Pipeline Status",
+      "passed": false,
+      "evidence": "The scope doc has: Problem Statement, Stakeholders, Feasibility Assessment, High-Level Scope (with 'Likely in for v1' and 'Likely out for v1' subsections), Key Risks & Assumptions, Recommendation (with 'Verdict: Go'), and Pipeline Status. All sections present EXCEPT: there is no 'Investigate' list under High-Level Scope. The expectation specifically requires 'in/out/investigate' and the doc only has in and out. No items were categorized as needing further investigation."
+    },
+    {
+      "text": "Clear Go / No-Go / Investigate Further verdict with rationale",
+      "passed": true,
+      "evidence": "The Recommendation section contains: 'Verdict: Go' followed by rationale: 'The technical foundation is unusually strong for this feature. The resource model, customer model, entitlements system, Stripe Connect, and org-level booking rules were clearly designed with this kind of capability in mind. The main greenfield work is the booking/scheduling logic itself, the operator admin UI for resource management, and the first public-facing tenant page. There are no architectural blockers, no external dependencies, and demand is validated by pilot operators. This is a weeks-scale effort, not months, given what's already in place.'"
+    },
+    {
+      "text": "Mentions /define as the next step",
+      "passed": true,
+      "evidence": "The Recommendation section ends with: 'Recommend proceeding to `/define` to nail down the functional requirements.' The metrics.json also confirms: 'define_suggested: true' and 'define_suggestion_text: Recommend proceeding to `/define` to nail down the functional requirements.'"
+    },
+    {
+      "text": "Explicit 'likely in for v1' and 'likely out for v1' lists",
+      "passed": true,
+      "evidence": "The High-Level Scope section contains two explicitly labeled subsections: '**Likely in for v1:**' (9 bullet items: operator lane config, availability management, public booking page, walk-in payment, member booking, staff-side management, customer self-cancellation, confirmation emails, guest checkout) and '**Likely out for v1:**' (6 bullet items: embeddable widget, recurring reservations, waitlists, group bookings, access control, calendar sync). Each out item includes a brief rationale."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 1,
+    "total": 7,
+    "pass_rate": 0.86
+  },
+  "execution_metrics": {
+    "tool_calls": {
+      "notes": "Extracted from metrics.json: 16 questions asked via AskUserQuestion, codebase explored before first question"
+    },
+    "questions_asked": 16,
+    "one_question_per_turn": true,
+    "ask_user_question_used_for_every_question": true,
+    "codebase_explored_before_first_question": true,
+    "output_chars": 6295,
+    "transcript_chars": 17165
+  },
+  "timing": {
+    "total_duration_seconds": 268.3,
+    "total_tokens": 55135
+  },
+  "claims": [
+    {
+      "claim": "16 questions asked across all 6 domains",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Transcript shows exactly 16 turns, each with an AskUserQuestion call. metrics.json confirms 'questions_asked: 16' and all 6 domains covered."
+    },
+    {
+      "claim": "Codebase explored before first question",
+      "type": "process",
+      "verified": true,
+      "evidence": "Transcript opens with 'Codebase Exploration (Silent)' section listing specific schema findings before Turn 1. metrics.json confirms 'codebase_explored_before_first_question: true'."
+    },
+    {
+      "claim": "No requirements-level questions slipped through",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Reviewed all 16 questions in the transcript. Questions stay at capability level: 'Does lane type affect pricing/duration?' (not 'what are the specific prices'), 'Both customer self-service and staff-managed' (not 'what permissions do staff need'), 'Customer self-cancellation within a window' (not 'what is the cancellation policy'). metrics.json reports empty 'requirements_level_questions_that_slipped_through' array."
+    },
+    {
+      "claim": "AskUserQuestion used for every question",
+      "type": "process",
+      "verified": true,
+      "evidence": "Every turn in the transcript shows a bracketed AskUserQuestion call with header and options. metrics.json confirms 'ask_user_question_used_for_every_question: true'."
+    },
+    {
+      "claim": "Codebase findings were used in interview questions",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Turn 5 references 'Your resourceType model already has a bookingUnit field'. Turn 4 references admin-only routes and subdomain structure. Turn 6 references offering/offeringPrice system. Turn 7 references entitlement system. Turn 14 references location timezone field. These are specific to the rangeops codebase, not generic."
+    },
+    {
+      "claim": "Three pilot operators requested lane booking in the last month",
+      "type": "factual",
+      "verified": true,
+      "evidence": "User stated in Turn 1: 'We've had three operators in our pilot ask about it in the last month.' Correctly reflected in the scope doc Problem Statement."
+    },
+    {
+      "claim": "Only 1 of 3 pilot operators completed Stripe onboarding",
+      "type": "factual",
+      "verified": true,
+      "evidence": "User stated in Turn 12: 'Only one has -- others are still pending.' Correctly reflected in Key Risks & Assumptions: 'Only 1 of 3 pilot operators has completed Connect onboarding.'"
+    }
+  ],
+  "user_notes_summary": null,
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Scope doc has these sections: Problem Statement, Stakeholders, Feasibility Assessment, High-Level Scope (with in/out/investigate), Key Risks & Assumptions, Recommendation with verdict, Pipeline Status",
+        "reason": "The 'investigate' requirement may be too rigid. A clear-cut 'Go' scenario (strong tech fit, validated demand, no blockers) legitimately might have nothing to investigate. The skill correctly identified nothing ambiguous enough to warrant an investigate bucket. Consider making 'investigate' conditional: required only when uncertainty warrants it, or test for its presence when the verdict is 'Investigate Further'."
+      },
+      {
+        "reason": "No assertion checks whether the interview explored the codebase BEFORE asking questions. This is a key differentiator for explore-style skills -- grounding questions in actual code. The skill did this well (silent exploration section, codebase-informed questions) but the evals wouldn't catch a version that asked generic questions without reading the repo."
+      },
+      {
+        "reason": "No assertion checks that AskUserQuestion was used for every question with structured options. The CLAUDE.md rules require this, and the skill followed it, but a version using plain-text questions would pass all current assertions."
+      }
+    ],
+    "overall": "Assertions cover the output document well but miss the interview process quality. The strongest eval gap is not checking whether the skill grounded its questions in actual codebase exploration. The 'investigate' section requirement is arguably a false failure for a clear-cut Go scenario."
+  }
+}

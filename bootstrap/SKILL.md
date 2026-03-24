@@ -1,6 +1,6 @@
 ---
 name: bootstrap
-description: "Initialize new codebases — standalone project, monorepo, or new app/package/service within existing repo. Interview + convention inheritance + scaffold + foundation docs. Triggers: 'new project,' 'bootstrap,' 'init,' 'scaffold,' 'add app,' 'add package,' 'new service,' greenfield, empty directory. Not for: adding features (plan-feature), deploying (deploy-to-vercel), hooks on existing repos (setup-pre-commit)."
+description: "Initialize new codebases — standalone project, monorepo, or new app/package/service within existing repo. Interview + convention inheritance + scaffold + foundation docs. Triggers: 'new project,' 'bootstrap,' 'init,' 'scaffold,' 'add app,' 'add package,' 'new service,' greenfield, empty directory. Not for: adding features (explore), deploying (deploy-to-vercel), hooks on existing repos (setup-pre-commit)."
 ---
 
 ## Purpose
@@ -23,7 +23,7 @@ Before asking anything, inspect the working directory and classify into one of f
 | **A. Empty directory** | No files, or only `.git`/README/LICENSE | New standalone project |
 | **B. Monorepo root** | Monorepo markers present at cwd | Offer: add new app, package, or service. Run Convention Inheritance. |
 | **C. Inside monorepo workspace** | Ancestor has monorepo markers, cwd within `apps/` or `packages/` tree | Adding to this specific workspace location. Run Convention Inheritance. |
-| **D. Existing standalone project** | Framework config, deps, substantial source, no monorepo markers | Warn. Suggest `/plan-feature`, or offer to add a new module/service within. |
+| **D. Existing standalone project** | Framework config, deps, substantial source, no monorepo markers | Warn. Suggest `/explore`, or offer to add a new module/service within. |
 | **E. Near-empty** | `.git` + README only, no real code | New project (same as A, note existing files) |
 
 ### Opening message per context
@@ -31,7 +31,7 @@ Before asking anything, inspect the working directory and classify into one of f
 - **A/E**: "I'll walk you through questions to understand what we're building. I'll recommend along the way. Let's start."
 - **B**: "This is a [Turborepo/Nx/pnpm] monorepo. I'll read its conventions and then help you add a new app, package, or service."
 - **C**: "You're inside `[path]` in a [tool] monorepo. I'll inherit the workspace conventions and scaffold here."
-- **D**: "This directory has an existing [framework] project. Did you mean `/plan-feature`? Or I can add a new module/service within this project."
+- **D**: "This directory has an existing [framework] project. Did you mean `/explore`? Or I can add a new module/service within this project."
 
 ## Convention Inheritance
 
@@ -258,7 +258,7 @@ Build agreed structure beyond what CLI created. Only create directories + placeh
 1. **Run quality gates** — lint, build, test. Fix issues.
 2. **Summarize** — key files/directories, quality gate commands, foundation docs.
 3. **Suggest next steps**:
-   - Standalone: "Run `/plan-feature` to scope your first feature," "Set up DB in `.env`," "Push to GitHub."
-   - Monorepo app: "Run `/plan-feature` to scope the first feature for `<app-name>`."
-   - Monorepo package: "Start building the package API, or run `/plan-feature` if it needs planning."
-   - Module in existing: "Run `/plan-feature` to plan the first capability for this module."
+   - Standalone: "Run `/explore` to scope your first feature," "Set up DB in `.env`," "Push to GitHub."
+   - Monorepo app: "Run `/explore` to scope the first feature for `<app-name>`."
+   - Monorepo package: "Start building the package API, or run `/explore` if it needs planning."
+   - Module in existing: "Run `/explore` to plan the first capability for this module."

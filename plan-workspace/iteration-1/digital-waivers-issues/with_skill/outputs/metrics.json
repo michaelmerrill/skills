@@ -1,0 +1,66 @@
+{
+  "issue_count": 7,
+  "avg_files_per_issue": 4.4,
+  "afk_count": 6,
+  "hitl_count": 1,
+  "dependency_graph_included": true,
+  "plan_coverage_map_included": true,
+  "issues": [
+    {
+      "number": 1,
+      "slug": "waiver-schema",
+      "files": 4,
+      "type": "AFK",
+      "depends_on": [],
+      "parallel_with": []
+    },
+    {
+      "number": 2,
+      "slug": "template-service",
+      "files": 4,
+      "type": "AFK",
+      "depends_on": [1],
+      "parallel_with": []
+    },
+    {
+      "number": 3,
+      "slug": "template-management-ui",
+      "files": 8,
+      "type": "HITL",
+      "depends_on": [2],
+      "parallel_with": [4]
+    },
+    {
+      "number": 4,
+      "slug": "public-signing-page",
+      "files": 7,
+      "type": "AFK",
+      "depends_on": [2],
+      "parallel_with": [3]
+    },
+    {
+      "number": 5,
+      "slug": "confirmation-email",
+      "files": 3,
+      "type": "AFK",
+      "depends_on": [4],
+      "parallel_with": [6, 7]
+    },
+    {
+      "number": 6,
+      "slug": "staff-badges-filters",
+      "files": 5,
+      "type": "AFK",
+      "depends_on": [4],
+      "parallel_with": [5, 7]
+    },
+    {
+      "number": 7,
+      "slug": "e2e-signing-flow",
+      "files": 2,
+      "type": "AFK",
+      "depends_on": [4],
+      "parallel_with": [5, 6]
+    }
+  ]
+}

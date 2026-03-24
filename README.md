@@ -10,63 +10,108 @@ npx skills update <owner/repo>  # Update to latest version
 npx skills remove <owner/repo>  # Remove installed skills
 ```
 
-## SDLC Planning Pipeline
+## SDLC Pipeline
 
-Some skills form a structured planning pipeline:
+Skills form a structured pipeline across three phases:
 
 ```
-plan-feature → write-a-prd → review-prd → [glossary] → [design-ux] → design-feature → review-plan → break-into-issues
+Phase 1 — Product        Phase 2 — Design    Phase 3 — Engineering
+explore             →    [design]        →    architect
+define                                        plan
 ```
 
-| Skill              | Phase             | Purpose                                                                    |
-| ------------------ | ----------------- | -------------------------------------------------------------------------- |
-| `plan-feature`     | Planning          | Vision & scope interview — elaborate concept, feasibility, risks, go/no-go |
-| `write-a-prd`      | Requirements      | Product requirements — users, stories, metrics                             |
-| `review-prd`       | Requirements gate | Assess PRD completeness and clarity                                        |
-| `glossary`         | Terminology       | Domain glossary — canonical terms, ambiguity resolution                    |
-| `design-ux`        | UX design         | User flows, screens, states, components, accessibility                     |
-| `design-feature`   | Technical design  | Architecture, data models, APIs, phasing                                   |
-| `review-plan`      | Design gate       | Verify design against codebase, pressure-test assumptions, deliver verdict |
-| `break-into-issues`| Decomposition     | Break reviewed design into agent-sized implementation issues               |
+| Skill       | Phase                   | Purpose                                                    |
+| ----------- | ----------------------- | ---------------------------------------------------------- |
+| `explore`   | 1 — Product             | Vision & scope — elaborate concept, feasibility, go/no-go  |
+| `define`    | 1 — Product             | PRD + quality gate + domain glossary                       |
+| `design`    | 2 — Design (optional)   | UX flows, screens, states, components, accessibility       |
+| `architect` | 3 — Engineering         | Technical design + adversarial review                      |
+| `plan`      | 3 — Engineering         | Decompose into agent-sized implementation issues           |
+
+**Phase audiences**: Phase 1 questions are product-level — user need not be technical. Agent reads codebase silently, asks about intent/goals/constraints. Phase 2 translates product decisions into design artifacts; user may or may not be technical. Phase 3 assumes a technical user.
 
 ### When to Use What
 
 Not every change needs the full pipeline. Pick your entry point based on the change:
 
-| Change type                                                           | Entry point       | Steps                                                                      |
-| --------------------------------------------------------------------- | ----------------- | -------------------------------------------------------------------------- |
-| New user-facing capability                                            | `/plan-feature`   | Full pipeline including design-ux                                          |
-| New backend-only capability (API, data pipeline, no UI)               | `/plan-feature`   | Full pipeline, skip design-ux                                              |
-| Feature already greenlit, has user-facing UI                          | `/write-a-prd`    | write-a-prd → review-prd → design-ux → design-feature → review-plan       |
-| Requirements clear, need UX + technical design                        | `/design-ux`      | design-ux → design-feature → review-plan                                   |
-| Requirements and UX clear (spec exists, ticket has detailed AC)       | `/design-feature` | design-feature → review-plan                                               |
-| Bug fix, regression, something broken                                 | `/triage-issue`   | triage-issue → agent implementation                                        |
-| Config change, copy update, refactor with no behavior change          | None              | Just build it                                                              |
+| Change type                                                           | Entry point  | Steps                                           |
+| --------------------------------------------------------------------- | ------------ | ----------------------------------------------- |
+| New user-facing capability                                            | `/explore`   | Full pipeline including design                  |
+| New backend-only capability (API, data pipeline, no UI)               | `/explore`   | Full pipeline, skip design                      |
+| Feature already greenlit, has user-facing UI                          | `/define`    | define → design → architect → plan              |
+| Requirements clear, need UX + technical design                        | `/design`    | design → architect → plan                       |
+| Requirements and UX clear (spec exists, ticket has detailed AC)       | `/architect` | architect → plan                                |
+| Bug fix, regression, something broken                                 | `/triage-issue` | triage-issue → agent implementation          |
+| Tech debt / refactoring (no behavior change)                          | `/architect` | architect → plan (scope is known, need design)  |
+| Dependency migration / major upgrade                                  | `/architect` | architect → plan (or `/explore` if scope unclear)|
+| Performance optimization                                              | `/triage-issue` | If regression. `/architect` if systemic       |
+| Security hardening                                                    | `/architect` | architect → plan                                |
+| Config change, copy update, minor refactor                            | None         | Just build it                                   |
+| Prototype / throwaway exploration                                     | None         | Just build it — don't plan throwaway code       |
 
-**glossary** is optional. Use it when the feature introduces new domain concepts or the codebase shows terminology drift (e.g., PRD says "workspace," code says "org," UI says "team"). Skip it for straightforward features.
+**design** is optional. Use it when the feature introduces new user-facing interactions — screens, flows, or components. Skip it for API-only features, backend changes, CLI tools, or features that exactly replicate an existing UI pattern.
 
-**design-ux** is optional. Use it when the feature introduces new user-facing interactions — screens, flows, or components. Skip it for API-only features, backend changes, CLI tools, or features that exactly replicate an existing UI pattern. If design-ux discovers gaps in the PRD, it tracks them and may recommend revisiting `/write-a-prd` or `/review-prd` before continuing.
+**define** includes a built-in quality gate and conditional glossary. After producing the PRD, it automatically reviews it (Ready/Revise/Rethink) and generates a domain glossary when naming conflicts or new domain concepts are detected.
 
-### Revision Workflow
+**architect** includes a built-in adversarial review. After producing the technical spec, it automatically pressure-tests assumptions, verifies against the codebase, and delivers a verdict.
 
-When a review gate returns **Revise**:
+### Revision & Rollback
 
-1. The review skill walks through each issue with suggested resolutions
+When a built-in quality gate returns **Revise**:
+
+1. The skill walks through each issue with suggested resolutions
 2. Accept, modify, or skip each resolution
-3. The review skill updates the document with all accepted changes
-4. Re-run the review skill (`/review-prd` or `/review-plan`) to verify if needed
+3. The skill updates the document with all accepted changes
+4. Re-runs the quality gate to verify
 
-When a review gate returns **Rethink**:
+When a quality gate returns **Rethink**:
 
-1. Re-run the authoring skill (`/write-a-prd` or `/design-feature`) to re-interview from scratch
+1. The skill recommends rolling back to an earlier stage (e.g., `/explore` if scope is wrong)
+
+**Cross-phase rollback**: Any skill can trigger rollback when it discovers a blocking issue from an earlier phase. The triggering skill writes `./plans/<feature>-rollback.md` before directing the user upstream. The receiving skill reads it, resumes only affected domains, and deletes it after resolving.
+
+Rollback file format:
+```markdown
+# Rollback: <Feature Name>
+> From: <triggering skill> → To: <target skill>
+> Date: <date>
+## Trigger
+<The specific conflict/gap/blocker>
+## Affected Domains
+<Which domains in the target skill need rework>
+## Preserve
+<Decisions already made that should NOT be re-interviewed>
+## Context
+<Additional context the target skill needs>
+```
 
 ## Other Skills
 
 | Skill           | Purpose                                                                          |
 | --------------- | -------------------------------------------------------------------------------- |
-| `triage-issue`  | Investigate bugs — root cause analysis → issue file with TDD fix plan                             |
-| `bootstrap` | Initialize new codebases — standalone project, monorepo app/package, or service in existing repo |
+| `triage-issue`  | Investigate bugs — root cause analysis → issue file with TDD fix plan            |
+| `bootstrap`     | Initialize new codebases — standalone project, monorepo app/package, or service  |
+
+## Checking Pipeline Status
+
+Each artifact's **Pipeline Status** table (at the bottom) shows which steps have run and their verdicts. To check where a feature stands:
+
+```bash
+ls ./plans/<feature-name>-*     # Which artifacts exist?
+tail -20 ./plans/<feature-name>-<latest>.md   # Pipeline Status table
+ls ./issues/<feature-name>/     # Issues generated?
+```
 
 ## Structure
 
-Each skill has a `SKILL.md` definition. Pipeline skills also include `evals/evals.json` test cases. Pipeline outputs go to `./plans/` with suffixes: `-scope.md`, `-prd.md`, `-glossary.md`, `-ux.md`, `-design.md`. Issue decomposition outputs go to `./issues/<plan-name>/`. Bug triage outputs go to `./issues/bugs/`.
+Each skill has a `SKILL.md` definition. Pipeline skills also include `evals/evals.json` test cases. Pipeline outputs go to `./plans/` with suffixes: `-scope.md`, `-prd.md`, `-glossary.md`, `-ux.md`, `-design.md`. Cross-phase rollbacks produce a temporary `-rollback.md` file (deleted after resolving). Issue decomposition outputs go to `./issues/<plan-name>/`. Bug triage outputs go to `./issues/bugs/`.
+
+## Future Stages
+
+The pipeline will expand to cover the full SDLC:
+
+```
+explore → define → [design] → architect → plan → build → validate → operate
+```
+
+`build`, `validate`, and `operate` are not yet implemented.

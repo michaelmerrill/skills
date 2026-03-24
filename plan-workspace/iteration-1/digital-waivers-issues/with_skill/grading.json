@@ -1,0 +1,125 @@
+{
+  "expectations": [
+    {
+      "text": "Classifies input as technical design (not PRD or scope doc) and proceeds",
+      "passed": true,
+      "evidence": "The overview.md header reads 'Generated from plans/digital-waivers-design.md' and the output is a set of implementation issues. There is no transcript (plan skill doesn't interview), but the output clearly treats the input as a technical design and proceeds directly to decompose it into issues. No evidence of rejecting the input or requesting a different document type."
+    },
+    {
+      "text": "Issues reference actual file paths, line numbers, and type signatures from the rangeops codebase",
+      "passed": true,
+      "evidence": "All 7 issues include specific file paths with the apps/web/src prefix (e.g., 'apps/web/src/lib/db/schema/customers.ts', 'apps/web/src/lib/id.ts'). Line numbers are cited extensively -- e.g., Issue 01: 'after line ~31, before } as const' in id.ts, 'customers.ts lines 22-113', 'organization-settings.ts lines 15-44', 'id.ts lines 3-33'. Issue 02 cites 'customers.ts lines 45-122', 'customers.ts lines 124-158', 'settings.ts lines 31-82', 'errors.ts lines 1-72'. Issue 06 cites 'customers.ts lines 84-106', 'customers.ts lines 60-68'. Type signatures are included in every issue's 'Key types' section -- e.g., 'export type Prefix = keyof typeof prefixes', 'export function createId(prefix: Prefix): string', Effect service tags like 'DbService extends Context.Tag(\"DbService\")', Drizzle pgEnum patterns, SendEmailParams interface. Cannot independently verify these paths/lines exist in an actual rangeops codebase (not available in this workspace), but the level of specificity (exact line ranges, exact import paths, exact variable names) strongly suggests genuine codebase reading rather than fabrication."
+    },
+    {
+      "text": "Issues are vertical slices (thin end-to-end), not horizontal layers (all schema, then all API, then all UI)",
+      "passed": false,
+      "evidence": "The issues are mostly organized by horizontal layer, not as vertical slices. Issue 01 is purely schema/DB. Issue 02 is purely service/validation layer. Issue 03 is purely UI. Issue 04 is the closest to a vertical slice (page + action + service + tests), but even it depends on the schema (issue 01) and service layer (issue 02) already existing. Compare with the 'without_skill' variant which has even more granular horizontal slices (16 issues). The with_skill output is better chunked but the first three issues follow the classic horizontal pattern: all schema -> all service -> all UI. A true vertical slice approach would have a single issue like 'Template create-to-display: schema + service + UI for creating and viewing a template' touching all layers. The fact that the dependency graph is strictly linear (01->02->03, 01->02->04) with no parallelism until tier 3 confirms the horizontal layering."
+    },
+    {
+      "text": "Each issue touches 1-6 files (none exceeds 8)",
+      "passed": false,
+      "evidence": "Issue 03 (Template Management UI) touches 8 files (5 create + 3 modify), which is at the boundary. Issue 04 (Public Signing Page) touches 9 files by actual count: 6 files to create (page.tsx, actions.ts, signing-form.tsx, confirmation.tsx, waiver-signing.test.ts, waiver-status.test.ts) plus 3 files to modify (waivers.ts, validation.ts, queries.ts). The metrics.json claims issue 04 has 7 files, but counting the tables in the actual issue content yields 9, exceeding the 8-file cap. The expectation says 'none exceeds 8' and issue 04 exceeds it. Issue 03 is exactly at 8, which also exceeds the stated 1-6 range in the expectation text."
+    },
+    {
+      "text": "Issues have explicit dependency ordering — schema before API, API before UI, cross-cutting after what it wires into",
+      "passed": true,
+      "evidence": "Every issue has a 'Blocked by' section. Issue 01 (schema) says 'None -- can start immediately.' Issue 02 (service) depends on 01. Issue 03 (UI) depends on 02. Issue 04 (public page) depends on 02. Issues 05, 06, 07 all depend on 04. The overview's execution order table and mermaid dependency graph confirm: schema (01) -> service (02) -> UI (03/04, parallelizable) -> cross-cutting email/badges/e2e (05/06/07, parallelizable). This matches the expected ordering: schema before API, API before UI, cross-cutting (email, staff badges, e2e tests) after the features they wire into."
+    },
+    {
+      "text": "Each issue has: What to build, Files to modify/create (with paths), Context (patterns to follow, key types), Acceptance criteria (checkboxes), Verification commands",
+      "passed": true,
+      "evidence": "All 7 issues contain every required section. Checked each: (1) 'What to build' section present in all (e.g., Issue 01: 'Create the waiver_template and waiver Drizzle schema tables...'). (2) 'Files to create' and/or 'Files to modify' tables with full paths in all (e.g., Issue 01: 'apps/web/src/lib/db/schema/waivers.ts', 'apps/web/src/lib/id.ts'). (3) Context section with 'Patterns to follow' and 'Key types' subsections in all (e.g., Issue 02: 'customers.ts lines 45-122: listCustomers shows the standard pattern', type signatures for Effect services). (4) 'Acceptance criteria' with checkbox markdown in all (e.g., Issue 01 has 13 checkboxes, Issue 04 has 20). (5) 'Verification' section with bash commands in all (e.g., Issue 01: 'bun run db:generate', 'bun run lint', 'bun run build'; Issue 07: 'bunx playwright test e2e/waiver-signing.spec.ts'). Several also include 'Manual verification' subsections and 'Wiring notes'. Complete template compliance across all issues."
+    },
+    {
+      "text": "Overview includes dependency graph (mermaid), execution order table, and plan coverage map",
+      "passed": true,
+      "evidence": "The overview.md contains all three components: (1) Mermaid dependency graph in a ```mermaid code block with 'graph TD' showing I1 through I7 with directed edges (I1-->I2, I2-->I3, I2-->I4, I4-->I5, I4-->I6, I4-->I7). (2) Execution order table with columns: Order, Issue, Parallel with, Scope -- showing 4 execution tiers (orders 1-4) with parallel groupings (03||04 at tier 3, 05||06||07 at tier 4). (3) Plan coverage map table mapping 'Design phase / section' to Issue -- covering all 3 phases plus cross-cutting, with 7 rows mapping to all 7 issues."
+    },
+    {
+      "text": "Each issue classified as AFK (agent autonomous) or HITL (needs human review)",
+      "passed": true,
+      "evidence": "Every issue has a 'Type: AFK' or 'Type: HITL' designation in its YAML-style header. Issues 01, 02, 04, 05, 06, 07 are Type: AFK. Issue 03 (Template Management UI) is Type: HITL with justification in the Notes section: 'This is HITL because Tiptap integration and the preview modal layout need human review for visual quality.' The metrics.json confirms: afk_count: 6, hitl_count: 1. The classification reasoning is sensible -- schema/service/test issues are autonomous, but the rich-text editor UI integration warrants human review."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 2,
+    "total": 8,
+    "pass_rate": 0.75
+  },
+  "execution_metrics": {
+    "issue_count": 7,
+    "avg_files_per_issue": 4.4,
+    "afk_count": 6,
+    "hitl_count": 1,
+    "output_chars": 21950,
+    "metrics_source": "metrics.json"
+  },
+  "timing": {
+    "total_tokens": 92016,
+    "executor_duration_seconds": 440.1,
+    "total_duration_seconds": 440.1
+  },
+  "claims": [
+    {
+      "claim": "Average files per issue is 4.4",
+      "type": "factual",
+      "verified": false,
+      "evidence": "metrics.json claims avg_files_per_issue: 4.4. Actual file counts from issue content: 01=4, 02=4, 03=8, 04=9, 05=3, 06=5, 07=2. Sum=35, avg=5.0. The discrepancy comes from issue 04 being counted as 7 in metrics but actually listing 9 files (6 create + 3 modify). Issue 03 is also counted as 5 in the overview but lists 8 files. The metrics file-counts don't match the actual issue content."
+    },
+    {
+      "claim": "Issue 03 touches 5 files (overview) / 8 files (metrics.json)",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Overview says '5 files, UI + actions layer' but metrics.json says files: 8. The actual issue lists 5 files to create + 3 files to modify = 8 total. The overview is inconsistent with the issue content and with metrics.json."
+    },
+    {
+      "claim": "Issue 04 touches 7 files",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Both overview and metrics.json claim 7 files. Actual count from issue tables: 6 files to create + 3 files to modify = 9 files. The metrics undercount by 2."
+    },
+    {
+      "claim": "Dependency ordering is correct and acyclic",
+      "type": "factual",
+      "verified": true,
+      "evidence": "The mermaid graph shows a DAG: 01->02->03, 02->04, 04->05/06/07. No cycles. Each issue's 'Blocked by' section is consistent with the graph. Execution order respects the dependencies."
+    },
+    {
+      "claim": "Plan coverage spans all design phases",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The coverage map lists Phase 1 (schema, service, UI), Phase 2 (signing, email), Phase 3 (staff UI), and cross-cutting (e2e tests). All 7 issues are mapped. Without the original design doc to compare, cannot verify completeness, but the coverage appears comprehensive for a digital waivers feature."
+    },
+    {
+      "claim": "HITL classification for Issue 03 is justified",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Issue 03 integrates a third-party rich text editor (Tiptap), creates a preview modal, and involves subjective UI layout decisions. The justification ('Tiptap integration and the preview modal layout need human review for visual quality') is reasonable."
+    }
+  ],
+  "user_notes_summary": null,
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Issues reference actual file paths, line numbers, and type signatures from the rangeops codebase",
+        "reason": "This assertion cannot be truly verified without access to the rangeops codebase. The paths and line numbers look plausible and specific, but could be hallucinated. A stronger eval would run the executor against the actual codebase and verify that cited files and line numbers exist (e.g., 'apps/web/src/lib/id.ts lines 3-33' actually contains a prefix registry). Without ground truth, this assertion tests specificity of output, not accuracy."
+      },
+      {
+        "assertion": "Issues are vertical slices (thin end-to-end), not horizontal layers (all schema, then all API, then all UI)",
+        "reason": "This assertion is somewhat ambiguous. The first 3 issues are unambiguously horizontal layers (schema -> service -> UI). Issues 4-7 are more vertical. The assertion could be made more precise: e.g., 'No issue is purely a single architectural layer (only schema, only validation, only UI)' or 'At least 50% of issues span 2+ architectural layers.' As written, the judgment depends on how strictly 'vertical slice' is interpreted."
+      },
+      {
+        "assertion": "Each issue touches 1-6 files (none exceeds 8)",
+        "reason": "The assertion text says '1-6 files' but the parenthetical says 'none exceeds 8'. These are two different thresholds. The expectation should pick one. Also, file counting should distinguish 'files to create' from 'files to modify' since the cognitive load differs. A create-heavy 8-file issue may be simpler than a modify-heavy 6-file issue."
+      },
+      {
+        "reason": "No assertion checks whether the issues are actually implementable in the stated order -- i.e., whether issue N provides everything issue N+1 needs. For example, issue 04 depends on 02 for signWaiver service function, but signWaiver is actually added in issue 04 itself (in the 'Files to modify' section for waivers.ts). This kind of dependency coherence is critical but untested."
+      },
+      {
+        "reason": "No assertion checks for duplicate or overlapping file modifications across issues. For example, both issue 02 and issue 04 modify waivers.ts and validation.ts. This is expected (additive changes to shared files), but verifying that the modifications are non-conflicting would be valuable."
+      }
+    ],
+    "overall": "The assertions cover structure well but struggle with verification of accuracy (file paths, line numbers) without access to the source codebase. The vertical-slice assertion is the weakest -- it's hard to satisfy strictly for a feature that genuinely needs schema-first work. Consider reframing as 'issues minimize cross-layer dependencies' rather than demanding pure vertical slices."
+  }
+}

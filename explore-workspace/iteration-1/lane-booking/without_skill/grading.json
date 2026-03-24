@@ -1,0 +1,112 @@
+{
+  "expectations": [
+    {
+      "text": "Output references specific rangeops files or patterns (schema files, existing models, routes)",
+      "passed": true,
+      "evidence": "Section 2 'Current State of the Codebase' references specific model/table names: `location`, `resourceType`, `resource`, `customer`, `offering`/`offeringPrice`, `entitlementGrant`/`entitlementLedger`/`entitlementBalance`, `organizationSetting.bookingRules` (JSONB), `organizationPaymentAccount`, `subscription`. Also references `bookingUnit` field on `resourceType`, `packages/email` package, composite FK patterns with `organizationId`, and `lead` status on customer. These demonstrate genuine codebase inspection. However, no actual file paths (e.g., `src/schema/...`) are cited -- only table/model names."
+    },
+    {
+      "text": "No functional requirements slip through (no booking validation rules, cancellation policies, specific time slot logic, pricing formulas, or data schema designs)",
+      "passed": false,
+      "evidence": "The scope doc is dense with functional requirements: Section 3.1 has column-level schema designs for 4 new tables (booking, booking_schedule, booking_block, booking_capacity_config). Section 3.2 specifies cancellation policy (2-hour cutoff, full refund before / no refund after), no-show rules (15-min auto-flag, 3+ in 30 days triggers alert), pricing formulas (flat per slot, percentage discounts from subscription, entitlement balance consumption). Section 3.3 specifies UI flows. Section 3.4 details Stripe integration patterns. This is a detailed design doc, not an exploratory scope doc."
+    },
+    {
+      "text": "All 6 domains covered: problem/motivation, stakeholders/impact, feasibility, high-level scope, risks/assumptions, recommendation",
+      "passed": false,
+      "evidence": "Problem/motivation: covered in Section 1 (Vision). Stakeholders/impact: mentioned in passing (range operators, RSOs, customers) but no dedicated section analyzing impact per stakeholder. Feasibility: Section 4 covers this. High-level scope: Section 3, though it's far too detailed to be 'high-level'. Risks/assumptions: Technical risks are in Section 4 table, but assumptions are not explicitly called out as a category. Recommendation: Section 6. The 'stakeholders/impact' domain lacks a dedicated section, and assumptions are not distinguished from risks."
+    },
+    {
+      "text": "Scope doc has these sections: Problem Statement, Stakeholders, Feasibility Assessment, High-Level Scope (with in/out/investigate), Key Risks & Assumptions, Recommendation with verdict, Pipeline Status",
+      "passed": false,
+      "evidence": "Actual sections are: 1. Vision, 2. Current State of the Codebase, 3. Proposed Scope (v1), 4. Feasibility Assessment, 5. Dependencies, 6. Recommendation. Missing entirely: 'Stakeholders' section, 'Pipeline Status' section. 'Key Risks & Assumptions' is not a named section (risks are nested under Feasibility). High-level scope has in/out but no 'investigate' category. 'Problem Statement' is called 'Vision' instead. The structural template does not match."
+    },
+    {
+      "text": "Clear Go / No-Go / Investigate Further verdict with rationale",
+      "passed": true,
+      "evidence": "Section 6 opens with '**Go.**' and provides rationale: 'This feature is a natural next step for the platform and the codebase is well-positioned for it. The resource model, entitlements system, Stripe Connect integration, and multi-tenant architecture all align. The main engineering risk (double-booking race conditions) is a solved problem with database constraints. No architectural changes are needed -- this is additive schema + new routes.'"
+    },
+    {
+      "text": "Mentions /define as the next step",
+      "passed": false,
+      "evidence": "Neither the transcript nor the scope doc mention '/define' or any pipeline next-step command. Section 6 suggests a 3-phase approach but frames it as implementation phasing, not a skill pipeline progression."
+    },
+    {
+      "text": "Explicit 'likely in for v1' and 'likely out for v1' lists",
+      "passed": false,
+      "evidence": "Section 3.5 'Out of Scope (v1)' provides a bulleted list of 8 items excluded from v1. Section 3 details what's in scope. However, the framing is as firm decisions, not exploratory ('likely'). There is no 'investigate' or 'maybe' category. The in/out distinction exists but uses definitive rather than exploratory language, and the in-scope items are not presented as a concise list but as a detailed design spec."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 5,
+    "total": 7,
+    "pass_rate": 0.29
+  },
+  "execution_metrics": {
+    "questions_asked": 9,
+    "topics_covered": 10,
+    "clear_go_no_go_recommendation": true,
+    "recommendation": "go",
+    "estimated_effort_days": "20-27",
+    "suggested_phases": 3,
+    "output_chars": 8892,
+    "transcript_chars": 5922
+  },
+  "timing": {
+    "total_tokens": 43677,
+    "executor_duration_seconds": 168.0
+  },
+  "claims": [
+    {
+      "claim": "The existing resourceType model has a bookingUnit field",
+      "type": "factual",
+      "verified": "unverifiable",
+      "evidence": "Referenced in scope doc Section 4: 'The existing resource/resourceType model was clearly designed with bookability in mind (`bookingUnit` field on `resourceType`)'. Cannot verify against actual codebase from available outputs, but the specificity suggests genuine codebase inspection."
+    },
+    {
+      "claim": "organizationSetting.bookingRules JSONB field already exists",
+      "type": "factual",
+      "verified": "unverifiable",
+      "evidence": "Referenced in Section 2 table and Section 4. Cannot verify against actual schema files, but this is a very specific claim unlikely to be hallucinated."
+    },
+    {
+      "claim": "Stripe Connect is already wired for payment collection",
+      "type": "factual",
+      "verified": "unverifiable",
+      "evidence": "Referenced via organizationPaymentAccount table in Section 2. Plausible given the interview discussion, but actual Stripe integration state cannot be verified from outputs alone."
+    },
+    {
+      "claim": "The effort estimate is 20-27 days for one developer",
+      "type": "quality",
+      "verified": false,
+      "evidence": "This is a rough estimate. The detailed breakdown in Section 4 sums to 20-27 days, which is internally consistent. Whether the estimate is accurate for the actual scope cannot be verified."
+    },
+    {
+      "claim": "No architectural changes are needed",
+      "type": "quality",
+      "verified": "unverifiable",
+      "evidence": "Claimed in Section 6. The scope doc shows the new tables follow existing patterns (composite FKs, organizationId). Plausible but cannot be fully verified without deeper codebase analysis."
+    }
+  ],
+  "user_notes_summary": null,
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Output references specific rangeops files or patterns (schema files, existing models, routes)",
+        "reason": "This assertion passed with model/table name references, but a stronger version would require actual file paths (e.g., 'src/db/schema/resource.ts') rather than just table names. Table names could be inferred from the interview conversation alone without reading the codebase."
+      },
+      {
+        "assertion": "No functional requirements slip through (no booking validation rules, cancellation policies, specific time slot logic, pricing formulas, or data schema designs)",
+        "reason": "This is a strong discriminating assertion -- it correctly caught the main failure mode of the without-skill run, which produced a detailed design doc rather than an exploratory scope doc."
+      },
+      {
+        "assertion": "Explicit 'likely in for v1' and 'likely out for v1' lists",
+        "reason": "The word 'likely' is doing important work here, testing whether the output maintains appropriate uncertainty at the explore stage. But the assertion could be clearer that it's testing for exploratory framing vs. definitive decisions. A run that uses 'in for v1' / 'out for v1' without 'likely' still demonstrates good scope thinking."
+      },
+      {
+        "reason": "No assertion checks whether the conversation stayed at the right altitude -- i.e., whether the assistant asked exploratory/strategic questions vs. diving into implementation details. The transcript shows the assistant asking about cancellation time windows, no-show thresholds, and payment mechanics, which are detail-level questions more appropriate for a /define phase. An assertion like 'Interview questions focus on problem space, stakeholders, and feasibility rather than implementation specifics' would catch this."
+      }
+    ],
+    "overall": "The assertions effectively catch the main failure mode: producing a detailed design doc instead of an exploratory scope doc. The 'no functional requirements' assertion is particularly strong. Consider adding an assertion about interview question altitude to catch the root cause earlier in the conversation."
+  }
+}
