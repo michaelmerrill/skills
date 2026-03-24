@@ -1,11 +1,11 @@
 ---
 name: plan-feature
-description: "Scoping interview for new features -> scope doc with go/no-go. Triggers: user wants to add/build/implement any new capability. First pipeline step. Not for: bugs, PRDs (write-a-prd), design (design-feature), executing existing specs."
+description: "Vision & scope interview for new features -> scope doc with go/no-go. Elaborates vague ideas into clear concepts at the capability level. Triggers: user wants to add/build/implement any new capability. First pipeline step. Not for: bugs, functional requirements (write-a-prd), design (design-feature), executing existing specs."
 ---
 
 ## Purpose
 
-Scoping interview -> scope document with go/no-go recommendation. Pipeline: **plan-feature** -> write-a-prd -> review-prd -> glossary -> (design-ux) -> design-feature -> review-plan.
+Vision & scope interview -> scope document with go/no-go recommendation. Elaborates vague ideas into clear concepts at the capability level, then assesses feasibility and risks. Pipeline: **plan-feature** -> write-a-prd -> review-prd -> glossary -> (design-ux) -> design-feature -> review-plan.
 
 ## Starting
 
@@ -19,7 +19,7 @@ Ground your first question in what you found. Start with problem and motivation.
 
 ## Interview Protocol
 
-Scoping interview, not design session. Focus on whether to proceed, not how to build.
+Vision & scope interview, not requirements or design session. Elaborate the user's idea into a clear concept, then assess whether to proceed. Stay at the capability level — write-a-prd handles functional requirements.
 
 ### One question per turn
 
@@ -31,16 +31,16 @@ State your recommendation, record as assumption, move on.
 
 ### Code-first
 
-Explore the codebase before asking questions it could answer. Present as confirmation: "I found [X] in `[file]`. This looks feasible to extend — unless you see a constraint?"
+Explore the codebase before asking questions it could answer. Use findings for feasibility/sizing and to elaborate the user's vision — not to drill into behavioral details. Present as confirmation: "I found [X] in `[file]`. This looks feasible to extend — unless you see a constraint?"
 
 ### Completeness tracking
 
 Track whether you've resolved decisions across these domains:
 
 1. **Problem & motivation** — What problem? Why now? What if we don't build it? Validated by feedback, metrics, or intuition?
-2. **Stakeholders & impact** — Who cares? Users? Business justification? Internal stakeholders?
+2. **Stakeholders & impact** — Who cares? Who benefits? Business justification? Don't drill into permissions or access control — that's PRD territory.
 3. **Feasibility** — Technically possible with current stack? Constraints or prerequisites? Buy/integrate before build?
-4. **High-level scope** — Roughly in for v1? Clearly out? Natural phase boundaries?
+4. **High-level scope** — Roughly in for v1? Clearly out? How big — days, weeks, months? "Roughly in" means capabilities (e.g., "candidate profiles"), not behaviors (e.g., "profiles lock during voting").
 5. **Key risks & assumptions** — Project-level risks? Assumptions that might not hold? External dependencies?
 6. **Recommendation** — Go, no-go, or needs investigation?
 
@@ -48,7 +48,10 @@ Exhaust every branch. Domains are not checkboxes — each is a branch of the dec
 
 ### Scope
 
-No implementation details (data models, APIs, architecture, edge cases, testing, rollout). Redirect: "Captured for PRD/design — let's stay on scope."
+Stay at the concept/capability level. No functional requirements (behaviors, rules, permissions, workflows, field-level decisions) — those belong in write-a-prd. No implementation details (data models, APIs, architecture). Redirect: "Good question for the PRD — let's stay on scope."
+
+**Scope-level** (ask): "Is this text-only or do you need media?" / "Is this self-service, admin-managed, or both?"
+**PRD-level** (defer): "Should profiles lock during voting?" / "What approval flow?" / "Per-candidacy or per-user?"
 
 ### Dependencies and conflicts
 
@@ -56,7 +59,7 @@ When code, docs, and intent conflict, surface it. Classify as stale docs, incomp
 
 ### Wrapping up
 
-When every domain is fully resolved with no remaining sub-questions: "I think we have enough for the scope assessment."
+When every domain is fully resolved with no remaining sub-questions: "I think we have enough for the scope assessment." Before wrapping, confirm you explored risks/assumptions with the user — don't invent them.
 
 Derive feature name as kebab-case (2-3 words). Confirm: "I'll save as `plans/<name>-scope.md` — all pipeline docs will use this prefix."
 

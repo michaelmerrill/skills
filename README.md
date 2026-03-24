@@ -20,7 +20,7 @@ plan-feature → write-a-prd → review-prd → [glossary] → [design-ux] → d
 
 | Skill              | Phase             | Purpose                                                                    |
 | ------------------ | ----------------- | -------------------------------------------------------------------------- |
-| `plan-feature`     | Planning          | Scoping interview — feasibility, risks, go/no-go                           |
+| `plan-feature`     | Planning          | Vision & scope interview — elaborate concept, feasibility, risks, go/no-go |
 | `write-a-prd`      | Requirements      | Product requirements — users, stories, metrics                             |
 | `review-prd`       | Requirements gate | Assess PRD completeness and clarity                                        |
 | `glossary`         | Terminology       | Domain glossary — canonical terms, ambiguity resolution                    |
@@ -67,4 +67,4 @@ When a review gate returns **Rethink**:
 
 ## Structure
 
-Each skill has `SKILL.md` (definition) and `evals/evals.json` (test cases). Pipeline outputs go to `./plans/` with suffixes: `-scope.md`, `-prd.md`, `-glossary.md`, `-ux.md`, `-design.md`. Issue decomposition outputs go to `./issues/<plan-name>/`.
+Each skill has a `SKILL.md` definition. Pipeline skills also include `evals/evals.json` test cases. Pipeline outputs go to `./plans/` with suffixes: `-scope.md`, `-prd.md`, `-glossary.md`, `-ux.md`, `-design.md`. Issue decomposition outputs go to `./issues/<plan-name>/`.
