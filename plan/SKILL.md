@@ -39,7 +39,7 @@ Break into **vertical slices** (tracer bullets). Each issue delivers one working
 
 **Sizing**: 1-6 files per issue, hard cap 8. If exceeding 6, split by feature boundary — not by layer. A capability's service and UI belong in the same issue. Cross-cutting concerns (email, notifications, cron) get own issues after the code they wire into. Each issue includes its own tests. Zero design decisions remaining.
 
-Classify each: **AFK** (agent implements autonomously) or **HITL** (needs human review — UX layout, visual design, open tradeoffs).
+Classify each: **Auto** (agent implements autonomously) or **HITL** (needs human review — UX layout, visual design, open tradeoffs).
 
 ### 3. Present breakdown
 
@@ -59,7 +59,7 @@ Write `## Implementation Plan` into the living doc using the template in `assets
 
 ### 6. Finish
 
-Print overview table. Note AFK vs HITL. Suggest: "To start, hand `01-...` to an agent. Parallelizable issues can run concurrently in separate worktrees. Run `/publish-linear` to sync this feature to Linear for team visibility."
+Print overview table. Note Auto vs HITL. Suggest: "To start, hand `01-...` to an agent. Parallelizable issues can run concurrently in separate worktrees. Run `/publish-linear` to sync this feature to Linear for team visibility."
 
 ## Rollback
 

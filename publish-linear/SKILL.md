@@ -52,11 +52,11 @@ Read `## Pipeline Status` table. Find last row with a verdict. Map stage to Line
 
 Check if `./issues/<feature-name>/` exists (kebab-case from living doc filename). If not, skip.
 
-**Ensure labels exist**: `list_issue_labels` with `team=<linear-team>`. If `AFK` or `HITL` missing, `create_issue_label` for each.
+**Ensure labels exist**: `list_issue_labels` with `team=<linear-team>`. If `Auto` or `HITL` missing, `create_issue_label` for each.
 
 Read each `NN-slug.md` file in order. For each:
 1. Parse title from `# <Title>` heading
-2. Parse `Type: AFK` or `Type: HITL` from header
+2. Parse `Type: Auto` or `Type: HITL` from header
 3. Parse `## Blocked by` references (extract filenames like `01-slug.md`)
 4. `list_issues` with `project=<project-id>`, `query=<title>`. Match by exact title.
 5. **Exists**: `save_issue` with `id=<issue-id>`, `description=<full file content>` (only if changed)

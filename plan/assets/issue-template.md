@@ -6,7 +6,7 @@
 
 > Part of: [<feature-name>](../../plans/<feature-name>.md)
 > Issue: <N> of <total>
-> Type: AFK | HITL
+> Type: Auto | HITL
 
 ## Blocked by
 

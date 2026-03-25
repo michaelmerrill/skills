@@ -26,7 +26,7 @@
 |---|---|
 | `# Title` | `title` |
 | Full file content | `description` (markdown) |
-| `Type: AFK` | `labels: ["AFK"]` |
+| `Type: Auto` | `labels: ["Auto"]` |
 | `Type: HITL` | `labels: ["HITL"]` |
 | `## Blocked by` references | `blockedBy: [<issue-ids>]` |
 
@@ -34,5 +34,5 @@
 
 | Name | Color | Description |
 |---|---|---|
-| AFK | `#22c55e` | Agent implements autonomously |
+| Auto | `#22c55e` | Agent implements autonomously |
 | HITL | `#f59e0b` | Needs human review |
