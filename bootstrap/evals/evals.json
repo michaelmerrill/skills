@@ -1,0 +1,29 @@
+{
+  "skill_name": "bootstrap",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to start a new Next.js project for a task management app. The directory is empty.",
+      "expected_output": "Detects empty directory (Context A). Conducts full 7-domain interview (product, architecture, tooling, patterns, structure, terminology, dev environment) with recommendations. Generates PROJECT_BLUEPRINT.md. After approval, scaffolds using `npx create-next-app`, installs additional dependencies, configures quality gates, creates directory skeleton, generates foundation docs (CLAUDE.md, GLOSSARY.md, README.md, .env.example), and creates initial git commit. Should run quality gates (lint, build, test) and fix issues. Should suggest '/explore' to scope the first feature.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "bootstrap: I want to add a new app to our monorepo. We use Turborepo with pnpm workspaces.",
+      "expected_output": "Detects monorepo root (Context B) via turbo.json or pnpm-workspace.yaml. Runs Convention Inheritance — reads CLAUDE.md, package.json, tsconfig.json, linter config, test framework config, monorepo tool config. Presents inherited conventions summary via AskUserQuestion. Skips resolved interview domains from inheritance. Conducts interview for remaining domains. Generates blueprint with inherited conventions table. Scaffolds at correct workspace location, registers in pnpm-workspace.yaml and turbo.json pipeline, inherits git hooks. Should NOT re-configure tools already set up at monorepo root.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "bootstrap: I'm in the apps/ directory of our Nx monorepo and want to scaffold a new service here.",
+      "expected_output": "Detects inside monorepo (Context C) — ancestor directory has nx.json. Runs Convention Inheritance from monorepo root. Presents inherited conventions. Scaffolds at cwd (apps/ subdirectory). Should use Nx generators if applicable. Registers in workspace configuration. Inherits shared configs. Should NOT create a new monorepo structure or modify root-level configs beyond registration.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "bootstrap: Initialize this project. It already has a package.json and some source files.",
+      "expected_output": "Detects existing project (Context D) — framework config and dependencies present. Warns the user that this is an existing project. Suggests '/explore' to scope new features or offers to add a module/service within the existing structure. Should NOT overwrite existing configuration or scaffold on top of existing code. Should explain why bootstrapping an existing project is risky.",
+      "files": []
+    }
+  ]
+}

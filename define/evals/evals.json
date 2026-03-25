@@ -3,8 +3,8 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "I want to write a PRD for adding team billing to our SaaS app. We've already scoped it — the scope doc is in plans/team-billing-scope.md.",
-      "expected_output": "Reads the scope document first and acknowledges its contents. Conducts a structured product interview covering all 9 product domains (problem confirmation, target users, user stories, functional requirements, non-functional requirements, success metrics, scope, dependencies, risks) one question at a time with recommendations. Produces a PRD with user stories with acceptance criteria, functional requirements, success metrics table, and detailed scope. Then automatically runs a quality gate — delivering a Ready/Revise/Rethink verdict. If Ready, checks glossary conditions and produces a glossary if needed. Should NOT include data models, API designs, architecture decisions, build phases, or technical implementation details. Should reference the scope document in the PRD header. Should end by suggesting '/design' (UI features) or '/architect' (backend-only).",
+      "prompt": "I want to write requirements for adding team billing to our SaaS app. We've already scoped it — the living doc is at plans/team-billing.md.",
+      "expected_output": "Reads the living doc (which has ## Scope) and acknowledges its contents. Conducts a structured product interview covering all 9 product domains (problem confirmation, target users, user stories, functional requirements, non-functional requirements, success metrics, scope, dependencies, risks) one question at a time with recommendations. Writes ## Requirements into the living doc with user stories with acceptance criteria, functional requirements, success metrics table, and detailed scope. Then automatically runs a quality gate — delivering a Ready/Revise/Rethink verdict. If Ready, checks glossary conditions and writes ### Glossary under ## Requirements if needed. Should NOT include data models, API designs, architecture decisions, build phases, or technical implementation details. Should end by suggesting '/design' (UI features) or '/architect' (backend-only).",
       "files": []
     },
     {
@@ -21,38 +21,38 @@
     },
     {
       "id": 4,
-      "prompt": "review the PRD in plans/team-billing-prd.md — are the requirements ready for technical design?",
-      "expected_output": "Detects existing PRD in plans/ and skips interview, going directly to quality gate. Delivers a structured verdict (Ready/Revise/Rethink) with strengths, issues grounded in product analysis and codebase verification, risks, and next step. Should check for matching scope doc and verify alignment. Should NOT re-interview the user during analysis. If Revise, should enter Resolution Phase — walking through issue-groups with suggested resolutions, updating the PRD. If Ready, checks glossary conditions. Should end by suggesting '/design' or '/architect'.",
+      "prompt": "review the requirements in plans/team-billing.md — are they ready for technical design?",
+      "expected_output": "Detects existing ## Requirements in the living doc and skips interview, going directly to quality gate. Delivers a structured verdict (Ready/Revise/Rethink) with strengths, issues grounded in product analysis and codebase verification, risks, and next step. Should check ## Scope section and verify alignment. Should NOT re-interview the user during analysis. If Revise, should enter Resolution Phase — walking through issue-groups with suggested resolutions, updating ## Requirements. If Ready, checks glossary conditions. Should end by suggesting '/design' or '/architect'.",
       "files": []
     },
     {
       "id": 5,
-      "prompt": "define: The auth flows PRD in plans/auth-flows-prd.md needs a review. I suspect the acceptance criteria are vague and the success metrics aren't measurable.",
-      "expected_output": "Detects existing PRD and goes to quality gate. Delivers a Revise verdict with numbered issues. Transitions into Resolution Phase: groups related issues by PRD section, presents concrete suggested resolutions, asks user to accept/modify/skip each group. After all groups addressed, updates PRD. Re-runs quality gate on updated PRD. Should batch aggressively if user accepts without modification.",
+      "prompt": "define: The auth flows requirements in plans/auth-flows.md need a review. I suspect the acceptance criteria are vague and the success metrics aren't measurable.",
+      "expected_output": "Detects existing ## Requirements in the living doc and goes to quality gate. Delivers a Revise verdict with numbered issues. Transitions into Resolution Phase: groups related issues by section, presents concrete suggested resolutions, asks user to accept/modify/skip each group. After all groups addressed, updates ## Requirements. Re-runs quality gate on updated requirements. Should batch aggressively if user accepts without modification.",
       "files": []
     },
     {
       "id": 6,
-      "prompt": "define: Look at plans/gamification-prd.md. The feature is about adding a points and badges system but I'm not sure the problem statement even makes sense for our B2B product.",
-      "expected_output": "Detects existing PRD and goes to quality gate. Likely delivers a Rethink verdict due to fundamental problems (unclear problem-market fit for B2B). Should NOT enter Resolution Phase on Rethink. Should recommend rolling back to /explore to re-scope. Should explain why patching individual issues won't fix a fundamentally misaligned PRD.",
+      "prompt": "define: Look at plans/gamification.md. The feature is about adding a points and badges system but I'm not sure the problem statement even makes sense for our B2B product.",
+      "expected_output": "Detects existing ## Requirements in the living doc and goes to quality gate. Likely delivers a Rethink verdict due to fundamental problems (unclear problem-market fit for B2B). Should NOT enter Resolution Phase on Rethink. Should recommend rolling back to /explore to re-scope. Should explain why patching individual issues won't fix fundamentally misaligned requirements.",
       "files": []
     },
     {
       "id": 7,
-      "prompt": "I just finished the PRD for team billing. Can you define the domain terms before we start the technical design? The PRD is in plans/team-billing-prd.md",
-      "expected_output": "Detects existing PRD, runs quality gate (should be Ready if well-written). Then checks glossary conditions — team billing likely introduces domain nouns (subscription, plan, seat, invoice). Produces glossary with terms, definitions, aliases, code names, and status. Should flag ambiguities like 'plan' (billing plan vs project plan). Should save to plans/team-billing-glossary.md. Should NOT modify the PRD. Should end by suggesting '/architect'.",
+      "prompt": "I just finished the requirements for team billing. Can you define the domain terms before we start the technical design? The living doc is plans/team-billing.md",
+      "expected_output": "Detects existing ## Requirements in the living doc, runs quality gate (should be Ready if well-written). Then checks glossary conditions — team billing likely introduces domain nouns (subscription, plan, seat, invoice). Writes ### Glossary under ## Requirements with terms, definitions, aliases, code names, and status. Should flag ambiguities like 'plan' (billing plan vs project plan). Should NOT modify the requirements content above the glossary. Should end by suggesting '/architect'.",
       "files": []
     },
     {
       "id": 8,
-      "prompt": "define: We've scoped team billing already (plans/team-billing-scope.md exists). Let's write the PRD.",
-      "expected_output": "Reads scope doc. Skips Problem & motivation domain entirely (already resolved in scope). Opens interview at Target users & personas (domain 2). Should NOT re-ask about what the problem is, why now, or what happens if we don't build it. Should reference scope findings naturally: 'The scope identifies [stakeholders]. Let's define the target user personas more precisely.'",
+      "prompt": "define: We've scoped team billing already (plans/team-billing.md has ## Scope). Let's write the requirements.",
+      "expected_output": "Reads the living doc's ## Scope section. Skips Problem & motivation domain entirely (already resolved in scope). Opens interview at Target users & personas (domain 2). Should NOT re-ask about what the problem is, why now, or what happens if we don't build it. Should reference scope findings naturally: 'The scope identifies [stakeholders]. Let's define the target user personas more precisely.'",
       "files": []
     },
     {
       "id": 9,
-      "prompt": "define: The architect skill hit a requirements gap. There's a rollback file at plans/team-billing-rollback.md that says the billing model assumption (per-seat vs per-org) wasn't resolved in the PRD.",
-      "expected_output": "Reads rollback file for trigger, affected domains, and decisions to preserve. Reads existing PRD. Resumes interview ONLY for the affected domain (functional requirements around billing model) — does NOT re-interview target users, user stories, or other resolved domains. After resolving the billing model question, updates PRD and re-runs quality gate. Deletes rollback file after resolving.",
+      "prompt": "define: The architect skill hit a requirements gap. The living doc plans/team-billing.md has ## Rollback Notes saying the billing model assumption (per-seat vs per-org) wasn't resolved in requirements.",
+      "expected_output": "Reads ## Rollback Notes for trigger, affected domains, and decisions to preserve. Reads existing ## Requirements. Resumes interview ONLY for the affected domain (functional requirements around billing model) — does NOT re-interview target users, user stories, or other resolved domains. After resolving the billing model question, updates ## Requirements and re-runs quality gate. Clears ## Rollback Notes after resolving.",
       "files": []
     }
   ]

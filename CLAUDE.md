@@ -18,3 +18,7 @@ SKILL.md files are injected verbatim into user prompts. Every token in a skill c
 ## Key Convention
 
 All interview-style skills must use the `AskUserQuestion` tool for every question — never plain text. Each call needs: `question`, `header` (≤12 chars), and `options` (2–4 choices, recommended option marked with "(Recommended)" suffix).
+
+## Interview Checkpointing
+
+Interview skills that write to a living doc should save progress incrementally. After resolving each domain, append a `<!-- progress: domain-N resolved -->` HTML comment to the target section in the living doc. On resume, detect these markers and skip resolved domains. Remove markers when writing the final section.

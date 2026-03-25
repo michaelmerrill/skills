@@ -3,26 +3,26 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "I want to design the technical architecture for team billing. The PRD is in plans/team-billing-prd.md and the scope doc is in plans/team-billing-scope.md.",
-      "expected_output": "Reads both the PRD and scope document before asking questions. Conducts a structured technical interview exploring existing billing/user models in depth, resolves all 10 technical domains (architecture, data, behavior, edge cases, integration, operational, security, testing, code design, phasing) one question at a time with recommendations. Produces a technical design saved as plans/team-billing-design.md. Then automatically runs adversarial review — delivering a Ready/Revise/Rethink verdict with strengths, issues grounded in codebase verification, and risks. The design header should reference both PRD and scope. Should end by suggesting '/plan' when Ready.",
+      "prompt": "I want to design the technical architecture for team billing. The living doc is at plans/team-billing.md with ## Scope and ## Requirements.",
+      "expected_output": "Reads the living doc's ## Scope and ## Requirements before asking questions. Conducts a structured technical interview exploring existing billing/user models in depth, resolves all 10 technical domains (architecture, data, behavior, edge cases, integration, operational, security, testing, code design, phasing) one question at a time with recommendations. Writes ## Technical Design into the living doc. Then automatically runs adversarial review — delivering a Ready/Revise/Rethink verdict with strengths, issues grounded in codebase verification, and risks. Should end by suggesting '/plan' when Ready.",
       "files": []
     },
     {
       "id": 2,
-      "prompt": "Let's design how to build the dashboard sharing feature. I have a PRD at plans/dashboard-sharing-prd.md.",
-      "expected_output": "Reads the PRD before asking questions. Conducts a technical interview that addresses security concerns around external sharing (token generation, link expiration implementation, data filtering queries), explores existing dashboard/permissions architecture, and produces a technical design with clear dependency chain, data models, edge cases, and phased build plan. Then runs adversarial review. Should end by suggesting '/plan' when Ready.",
+      "prompt": "Let's design how to build the dashboard sharing feature. The living doc is at plans/dashboard-sharing.md with ## Requirements.",
+      "expected_output": "Reads the living doc's ## Requirements before asking questions. Conducts a technical interview that addresses security concerns around external sharing (token generation, link expiration implementation, data filtering queries), explores existing dashboard/permissions architecture, and writes ## Technical Design into the living doc with clear dependency chain, data models, edge cases, and phased build plan. Then runs adversarial review. Should end by suggesting '/plan' when Ready.",
       "files": []
     },
     {
       "id": 3,
-      "prompt": "architect: I need to design the technical implementation for AI-powered search. The PRD is at plans/search-prd.md.",
-      "expected_output": "Reads the PRD before asking questions. Conducts a technical interview exploring existing search infrastructure, addressing integration questions (embedding model, vector DB, indexing pipeline), operational concerns (cost, latency, freshness), and produces a technical design with architecture decisions, phased build plan, and testing strategy. Then runs adversarial review. Should end by suggesting '/plan' when Ready.",
+      "prompt": "architect: I need to design the technical implementation for AI-powered search. The living doc is at plans/search.md with ## Requirements.",
+      "expected_output": "Reads the living doc's ## Requirements before asking questions. Conducts a technical interview exploring existing search infrastructure, addressing integration questions (embedding model, vector DB, indexing pipeline), operational concerns (cost, latency, freshness), and writes ## Technical Design into the living doc with architecture decisions, phased build plan, and testing strategy. Then runs adversarial review. Should end by suggesting '/plan' when Ready.",
       "files": []
     },
     {
       "id": 4,
-      "prompt": "review the plan in plans/team-billing-design.md — is it ready to build?",
-      "expected_output": "Detects existing design in plans/ and skips interview, going directly to adversarial review. Delivers a structured verdict (Ready/Revise/Rethink) with strengths, issues grounded in actual codebase verification, risks, and next step. Should check for matching PRD and scope doc and verify alignment — does design cover all PRD requirements? Stay within scope? Should NOT re-interview. If Revise, enters Resolution Phase with grouped issues. Should end by suggesting '/plan' when Ready.",
+      "prompt": "review the technical design in plans/team-billing.md — is it ready to build?",
+      "expected_output": "Detects existing ## Technical Design in the living doc and skips interview, going directly to adversarial review. Delivers a structured verdict (Ready/Revise/Rethink) with strengths, issues grounded in actual codebase verification, risks, and next step. Should check ## Requirements and ## Scope sections and verify alignment — does design cover all requirements? Stay within scope? Should NOT re-interview. If Revise, enters Resolution Phase with grouped issues. Should end by suggesting '/plan' when Ready.",
       "files": []
     },
     {
@@ -40,8 +40,8 @@
     },
     {
       "id": 6,
-      "prompt": "Our plan is to build a custom ORM because Prisma is too slow. PRD at plans/custom-orm-prd.md, scope at plans/custom-orm-scope.md. Review this plan.",
-      "expected_output": "Detects existing design and runs adversarial review. Sharp critique questioning whether the performance issue has been profiled, suggesting lighter alternatives (Kysely, Knex, raw SQL), flagging maintenance burden. Checks for scope drift and PRD coverage gaps. Likely recommends Rethink — should NOT enter Resolution Phase. Should suggest rolling back to /explore or /define to reconsider approach.",
+      "prompt": "Our plan is to build a custom ORM because Prisma is too slow. The living doc is at plans/custom-orm.md with ## Scope and ## Requirements. Review this.",
+      "expected_output": "Detects existing ## Technical Design in the living doc and runs adversarial review. Sharp critique questioning whether the performance issue has been profiled, suggesting lighter alternatives (Kysely, Knex, raw SQL), flagging maintenance burden. Checks ## Scope and ## Requirements for drift and coverage gaps. Likely recommends Rethink — should NOT enter Resolution Phase. Should suggest rolling back to /explore or /define to reconsider approach.",
       "files": [],
       "expectations": [
         "Response ends with a clear verdict: Ready, Revise, or Rethink",
@@ -58,14 +58,14 @@
     },
     {
       "id": 8,
-      "prompt": "architect: The PRD at plans/team-billing-prd.md introduces terms like 'subscription', 'seat', 'plan', 'invoice', and 'billing cycle' but no glossary exists. Design the technical architecture.",
-      "expected_output": "Detects no glossary exists. Identifies 5+ domain nouns in the PRD that aren't in the codebase. Generates a glossary silently — extracting terms, checking codebase naming (e.g., 'plan' might conflict with existing project plan concept), detecting ambiguities, proposing canonical terms. Saves to plans/team-billing-glossary.md. Then proceeds with the technical interview using canonical terms for data models, APIs, and modules. Should NOT skip glossary generation just because /define wasn't run.",
+      "prompt": "architect: The living doc plans/team-billing.md has ## Requirements introducing terms like 'subscription', 'seat', 'plan', 'invoice', and 'billing cycle' but no ### Glossary exists. Design the technical architecture.",
+      "expected_output": "Detects no ### Glossary under ## Requirements. Identifies 5+ domain nouns in the requirements that aren't in the codebase. Generates a glossary silently — extracting terms, checking codebase naming (e.g., 'plan' might conflict with existing project plan concept), detecting ambiguities, proposing canonical terms. Writes ### Glossary under ## Requirements in the living doc. Then proceeds with the technical interview using canonical terms for data models, APIs, and modules. Should NOT skip glossary generation just because /define wasn't run.",
       "files": []
     },
     {
       "id": 9,
-      "prompt": "architect: The plan skill hit issues decomposing the design. There's a rollback file at plans/search-rollback.md saying the indexing strategy section is underspecified — missing file paths and acceptance criteria for the vector DB integration.",
-      "expected_output": "Reads rollback file for trigger, affected domains, and decisions to preserve. Reads existing design. Resumes interview ONLY for the affected domains (integration & dependencies, phased build plan) — does NOT re-interview architecture patterns, data models, security, or other resolved domains. After resolving the underspecified sections, updates design and re-runs adversarial review. Deletes rollback file after resolving.",
+      "prompt": "architect: The plan skill hit issues decomposing the design. The living doc plans/search.md has ## Rollback Notes saying the indexing strategy section is underspecified — missing file paths and acceptance criteria for the vector DB integration.",
+      "expected_output": "Reads ## Rollback Notes for trigger, affected domains, and decisions to preserve. Reads existing ## Technical Design. Resumes interview ONLY for the affected domains (integration & dependencies, phased build plan) — does NOT re-interview architecture patterns, data models, security, or other resolved domains. After resolving the underspecified sections, updates ## Technical Design and re-runs adversarial review. Clears ## Rollback Notes after resolving.",
       "files": []
     }
   ]
