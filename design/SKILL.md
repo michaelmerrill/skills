@@ -26,7 +26,7 @@ No Requirements? Works — but note that defined requirements produce a better U
 
 One decision at a time. Focus on what users see, do, and experience.
 
-Use `AskUserQuestion` for every question (see CLAUDE.md conventions). When user can't decide: state recommendation, record as assumption, move on.
+Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: state recommendation, record as assumption, move on.
 
 ### Code-first
 

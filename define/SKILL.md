@@ -26,7 +26,7 @@ No living doc? Start from user's description, beginning with problem/motivation.
 
 ## Interview Protocol
 
-Use `AskUserQuestion` for every question (see CLAUDE.md conventions). When user can't decide: state recommendation, record assumption in Risks & Open Questions, move on.
+Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: state recommendation, record assumption in Risks & Open Questions, move on.
 
 Code-first: explore codebase before asking; present as product behavior. "The app currently [behavior]. Extend or introduce new?"
 

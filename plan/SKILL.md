@@ -43,7 +43,7 @@ Classify each: **AFK** (agent implements autonomously) or **HITL** (needs human 
 
 ### 3. Present breakdown
 
-Show table with columns: #, Title, Files, Depends on, Type, Parallel with. Ask for approval via `AskUserQuestion`. Max 3 targeted questions if genuine ambiguities exist.
+Show table with columns: #, Title, Files, Depends on, Type, Parallel with. Ask for approval via `AskUserQuestion` — header (≤12 chars), 2–4 options, one marked "(Recommended)". Max 3 targeted questions if genuine ambiguities exist.
 
 If unambiguous: "No questions — the design resolves all decisions. Approve?"
 

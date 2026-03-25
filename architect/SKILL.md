@@ -24,7 +24,7 @@ No Requirements? Works — but note that defined requirements make for a better 
 
 ## Interview Protocol
 
-Use `AskUserQuestion` for every question (see CLAUDE.md conventions). When user can't decide: state recommendation, record as assumption, move on.
+Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: state recommendation, record as assumption, move on.
 
 Code-first: explore codebase before asking questions it could answer. Present as confirmation: "I found the project handles auth via [pattern] in `[file]`. I'll follow the same approach unless you say otherwise."
 

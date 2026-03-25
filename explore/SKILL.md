@@ -24,7 +24,7 @@ Ground first question in what you found. Start with problem and motivation.
 
 Vision & scope interview, not requirements or design session. Stay at the capability level — define handles functional requirements.
 
-Use `AskUserQuestion` for every question (see CLAUDE.md conventions). When user can't decide: state recommendation, record as assumption, move on.
+Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: state recommendation, record as assumption, move on.
 
 ### Code-first
 
