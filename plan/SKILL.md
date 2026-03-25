@@ -59,7 +59,7 @@ Write `## Implementation Plan` into the living doc using the template in `assets
 
 ### 6. Finish
 
-Print overview table. Note AFK vs HITL. Suggest: "To start, hand `01-...` to an agent. Parallelizable issues can run concurrently in separate worktrees."
+Print overview table. Note AFK vs HITL. Suggest: "To start, hand `01-...` to an agent. Parallelizable issues can run concurrently in separate worktrees. Run `/publish-linear` to sync this feature to Linear for team visibility."
 
 ## Rollback
 

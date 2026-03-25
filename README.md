@@ -70,10 +70,11 @@ When a quality gate returns **Rethink**:
 
 ## Other Skills
 
-| Skill           | Purpose                                                                          |
-| --------------- | -------------------------------------------------------------------------------- |
-| `triage-issue`  | Investigate bugs — root cause analysis → issue file with TDD fix plan            |
-| `bootstrap`     | Initialize new codebases — standalone project, monorepo app/package, or service  |
+| Skill             | Purpose                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| `triage-issue`    | Investigate bugs — root cause analysis → issue file with TDD fix plan            |
+| `bootstrap`       | Initialize new codebases — standalone project, monorepo app/package, or service  |
+| `publish-linear`  | Publish pipeline state to Linear — project, documents, and issues                |
 
 ## Checking Pipeline Status
 
