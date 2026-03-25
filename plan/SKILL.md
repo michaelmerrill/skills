@@ -31,7 +31,7 @@ Validate by checking for `## Technical Design` with `### Phased Build Plan`:
 
 ### 2. Decompose into vertical slices
 
-Break into **vertical slices** (tracer bullets). Each issue delivers one working capability through all layers it touches — schema + service + route + UI together when they serve one feature.
+Break into **vertical slices** (tracer bullets). Each issue delivers one working capability through all layers it touches — schema + service + route + UI together when they serve one feature. Each slice must be independently demoable or verifiable.
 
 **Anti-pattern — horizontal layers**: Issue 1 = "all schema tables", Issue 2 = "all services", Issue 3 = "all UI pages". Also bad: splitting "template service" and "template UI" into separate issues — same capability, should be one issue. Instead: Issue 1 = "template CRUD" (schema + service + settings UI), Issue 2 = "public signing" (page + action + customer linking). Each issue is a thin vertical thread, not a thick horizontal slab.
 
@@ -43,21 +43,25 @@ Classify each: **Auto** (agent implements autonomously) or **HITL** (needs human
 
 ### 3. Present breakdown
 
-Show table with columns: #, Title, Files, Depends on, Type, Parallel with. Ask for approval via `AskUserQuestion` — header (≤12 chars), 2–4 options, one marked "(Recommended)". Max 3 targeted questions if genuine ambiguities exist.
+Show table with columns: #, Title, Files, Depends on, Type, Parallel with. Ask for approval via `AskUserQuestion` — header (≤12 chars), 2–4 options, one marked "(Recommended)".
 
-If unambiguous: "No questions — the design resolves all decisions. Approve?"
+Solicit feedback on: granularity (too coarse / too fine?), dependency correctness, slices to merge or split, Auto/HITL classification. Max 3 targeted questions if genuine ambiguities exist. If unambiguous: "No questions — the design resolves all decisions. Approve?"
 
 Iterate until approved.
 
-### 4. Generate issues
+### 4. Validate coverage
+
+Cross-check that every requirement from `## Requirements` and every phase from `### Phased Build Plan` is covered by ≥1 issue. Flag gaps before generating files.
+
+### 5. Generate issues
 
 Create `./issues/<feature-name>/` (kebab-case from living doc filename). Write each issue in dependency order using the template in `assets/issue-template.md`. No `00-overview.md` — that content goes in the living doc.
 
-### 5. Write Implementation Plan
+### 6. Write Implementation Plan
 
 Write `## Implementation Plan` into the living doc using the template in `assets/implementation-plan-template.md`. Update `## Pipeline Status` with plan row.
 
-### 6. Finish
+### 7. Finish
 
 Print overview table. Note Auto vs HITL. Suggest: "To start, hand `01-...` to an agent. Parallelizable issues can run concurrently in separate worktrees. Run `/publish-linear` to sync this feature to Linear for team visibility."
 

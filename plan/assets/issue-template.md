@@ -13,6 +13,10 @@
 - [01-slug.md](./01-slug.md) — needs <specific dependency>
 - Or: None — can start immediately.
 
+## Requirements addressed
+
+- <requirement or user story from living doc Requirements section>
+
 ## What to build
 
 <2-4 sentences: concrete deliverable with endpoint paths, method names, guard requirements — not vague summaries.>
