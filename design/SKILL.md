@@ -26,7 +26,7 @@ No Requirements? Works — but note that defined requirements produce a better U
 
 One decision at a time. Focus on what users see, do, and experience.
 
-Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: push — reframe the question, explain tradeoffs, give a stronger recommendation. Only record as assumption after two attempts. Revisit assumptions when later answers provide resolution.
+Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: push — reframe the question, explain tradeoffs, give a stronger recommendation. Record as assumption only when the user genuinely can't resolve it — not after a fixed attempt count. Revisit assumptions when later answers provide resolution.
 
 ### Code-first
 

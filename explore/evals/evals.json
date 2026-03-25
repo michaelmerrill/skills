@@ -24,6 +24,16 @@
       "prompt": "I want candidates in our election app to have a profile that voters can see when voting.",
       "expected_output": "A vision & scope interview that elaborates the vague idea into a clear concept (what kind of profile content, who manages it at a high level), assesses feasibility by exploring existing candidate/election models, and produces a scope document with a go/no-go recommendation. Questions should stay at the concept/capability level — e.g., 'Is this text-only or do you need photos/media?' NOT 'Should profiles lock during voting?' or 'Per-candidacy or per-user?' Should NOT pre-answer /define questions about specific behaviors, permissions rules, visibility rules, or approval workflows. Should explore risks with the user. Should end by suggesting '/define'.",
       "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "I want to build a real-time collaborative spreadsheet editor inside our project management app. Like Google Sheets but embedded. Users keep asking for it.",
+      "expected_output": "A vision & scope interview that explores the idea thoroughly but reaches a no-go or investigate-further verdict due to feasibility concerns (CRDT/OT complexity, significant infrastructure requirements, buy-vs-build economics favoring integration over build). Should push hard on evidence: how many users asked? What do they actually do today? What would they stop using? Should explore whether an integration (embed existing tool) solves the problem. Should NOT rubber-stamp a go verdict on an obviously high-risk, high-cost feature. Verdict should follow logically from findings. Should end with actionable next step even on no-go. All findings must be expressed in plain language — no technical terms like CRDT, OT, or WebSocket."
+    },
+    {
+      "id": 6,
+      "prompt": "We should do something with AI. Our competitors all have AI features and we're falling behind.",
+      "expected_output": "Does NOT accept the vague framing at face value. Pushes relentlessly on problem & motivation: What specific competitor features? What user problems would AI solve? What evidence of 'falling behind' (churn data, user complaints, lost deals)? Should not let the user stay at 'we need AI' — must drill down to a concrete capability before feasibility assessment is meaningful. Should probe whether the real problem is competitive positioning vs actual user need. If user cannot articulate a specific problem AI would solve after thorough probing, should reach a no-go or investigate-further verdict rather than scoping a vague 'add AI' feature. Should NOT propose specific AI implementations (that's architect territory). Should end by suggesting '/define' only if a concrete scope emerges."
     }
   ]
 }
