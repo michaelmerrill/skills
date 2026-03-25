@@ -24,11 +24,11 @@ Ground first question in what you found. Start with problem and motivation.
 
 Vision & scope interview, not requirements or design session. Stay at the capability level — define handles functional requirements.
 
-Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: state recommendation, record as assumption, move on.
+Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: push — reframe the question, explain tradeoffs, give a stronger recommendation. Only record as assumption after two attempts. Revisit assumptions when later answers provide resolution.
 
 ### Code-first
 
-Explore codebase before asking questions it could answer. Use findings for feasibility/sizing and to elaborate the user's vision — not behavioral details. Present as confirmation: "This looks feasible to extend from what's already there — unless you see a constraint?"
+Explore codebase before asking questions it could answer. Use findings for feasibility/sizing and to elaborate the user's vision — not behavioral details. Present as confirmation: "This looks feasible to extend from what's already there — unless you see a constraint?" When codebase has competing patterns for the same concern, surface the conflict and ask user which to follow — don't silently pick one. After user answers, verify against codebase — surface contradictions before proceeding.
 
 ### Completeness tracking
 
@@ -59,7 +59,7 @@ When code, docs, and intent conflict, surface it. Classify: stale docs, incomple
 When every domain is fully resolved: "I think we have enough for the scope assessment." Confirm you explored risks/assumptions with the user — don't invent them.
 
 ### Self-review (silent)
-Before writing: (1) Is the problem statement falsifiable? (2) Are risks user-confirmed, not agent-invented? (3) Does scope have clear in/out boundaries? (4) Does the recommendation follow logically from findings? Fix issues silently before writing.
+Before writing: audit all recorded assumptions — resolve any that later context now answers. If an answer in a later domain invalidates an earlier one, reopen that domain before proceeding. Then: (1) Is the problem statement falsifiable? (2) Are risks user-confirmed, not agent-invented? (3) Does scope have clear in/out boundaries? (4) Does the recommendation follow logically from findings? Fix issues silently before writing.
 
 Derive feature name as kebab-case (2-3 words). Confirm: "I'll save as `plans/<name>.md` — all pipeline skills will update this file."
 

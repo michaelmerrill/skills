@@ -24,9 +24,9 @@ No Requirements? Works — but note that defined requirements make for a better 
 
 ## Interview Protocol
 
-Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: state recommendation, record as assumption, move on.
+Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: push — reframe the question, explain tradeoffs, give a stronger recommendation. Only record as assumption after two attempts. Revisit assumptions when later answers provide resolution.
 
-Code-first: explore codebase before asking questions it could answer. Present as confirmation: "I found the project handles auth via [pattern] in `[file]`. I'll follow the same approach unless you say otherwise."
+Code-first: explore codebase before asking questions it could answer. Present as confirmation: "I found the project handles auth via [pattern] in `[file]`. I'll follow the same approach unless you say otherwise." When codebase has competing patterns for the same concern, surface the conflict and ask user which to follow — don't silently pick one. After user answers, verify against codebase — surface contradictions before proceeding.
 
 ### Completeness tracking
 
@@ -51,7 +51,7 @@ When a design decision invalidates upstream sections, append `## Rollback Notes`
 
 ### Producing the spec
 
-When every domain is fully resolved, write `## Technical Design` using the template in `assets/technical-design-template.md`. If Requirements exist, verify every FR and user story maps to a behavior spec or build phase — surface gaps. Then proceed to Adversarial Review.
+When every domain is fully resolved: audit all recorded assumptions — resolve any that later context now answers. If an answer in a later domain invalidates an earlier one, reopen that domain. Then write `## Technical Design` using the template in `assets/technical-design-template.md`. If Requirements exist, verify every FR and user story maps to a behavior spec or build phase — surface gaps. Then proceed to Adversarial Review.
 
 ## Adversarial Review
 
@@ -59,7 +59,7 @@ Work silently — user sees only the verdict.
 
 1. **Understand**: Read `## Technical Design`. Note anything underspecified, inconsistent, or surprising.
 2. **Verify against reality**: Check claims against code/docs. If `## Requirements` exists: all stories addressed? Unjustified scope creep? If `## Scope` exists: tackles out-of-scope items? Misses v1 items?
-3. **Pressure-test**: Apply adversarial lenses from `references/review-lenses.md`. Skip empty lenses, order findings by severity.
+3. **Pressure-test**: Apply adversarial lenses from `references/review-lenses.md`. Skip empty lenses, order findings by severity. Enumerate remaining assumptions — flag any now resolvable given the full design context.
 
 ### Verdict
 

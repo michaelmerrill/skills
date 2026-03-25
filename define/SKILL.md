@@ -26,9 +26,9 @@ No living doc? Start from user's description, beginning with problem/motivation.
 
 ## Interview Protocol
 
-Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: state recommendation, record assumption in Risks & Open Questions, move on.
+Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: push — reframe the question, explain tradeoffs, give a stronger recommendation. Only record assumption in Risks & Open Questions after two attempts. Revisit assumptions when later answers provide resolution.
 
-Code-first: explore codebase before asking; present as product behavior. "The app currently [behavior]. Extend or introduce new?"
+Code-first: explore codebase before asking; present as product behavior. "The app currently [behavior]. Extend or introduce new?" When codebase has competing patterns for the same concern, surface the conflict and ask user which to follow — don't silently pick one. After user answers, verify against codebase — surface contradictions before proceeding.
 
 ## Interview: Requirements
 
@@ -48,13 +48,13 @@ Exhaust every branch depth-first. Resolve sub-questions before moving on. Only a
 
 No technical implementation (schemas, APIs, architecture, technology selection). Redirect: "Captured for architect phase — let's stay on what users need."
 
-When all domains resolved: "I think we have enough to draft the requirements." Write `## Requirements` using template in `assets/requirements-template.md`. Proceed to Quality Gate.
+When all domains resolved: audit all recorded assumptions — resolve any that later context now answers. If an answer in a later domain invalidates an earlier one, reopen that domain. Then: "I think we have enough to draft the requirements." Write `## Requirements` using template in `assets/requirements-template.md`. Proceed to Quality Gate.
 
 ## Quality Gate
 
 Work silently — user sees only the verdict.
 
-**Analysis**: (1) Read requirements fully — note underspecified, inconsistent, or surprising items. (2) Verify claims against actual code/product behavior. (3) Check scope alignment if `## Scope` exists. (4) Evaluate: problem clarity, user coverage, requirements quality (specific? testable? prescriptions disguised as requirements?), success metrics, scope control, completeness.
+**Analysis**: (1) Read requirements fully — note underspecified, inconsistent, or surprising items. (2) Verify claims against actual code/product behavior. (3) Check scope alignment if `## Scope` exists. (4) Evaluate: problem clarity, user coverage, requirements quality (specific? testable? prescriptions disguised as requirements?), success metrics, scope control, completeness. (5) Enumerate remaining assumptions — flag any now resolvable.
 
 **Verdicts**:
 - **Ready**: Solid enough to design from. Minor issues only.

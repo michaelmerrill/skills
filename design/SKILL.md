@@ -26,11 +26,11 @@ No Requirements? Works — but note that defined requirements produce a better U
 
 One decision at a time. Focus on what users see, do, and experience.
 
-Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: state recommendation, record as assumption, move on.
+Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: push — reframe the question, explain tradeoffs, give a stronger recommendation. Only record as assumption after two attempts. Revisit assumptions when later answers provide resolution.
 
 ### Code-first
 
-Explore codebase before asking questions it could answer. Present as confirmation: "The app uses a dialog component for creation flows. I'll follow that pattern unless you say otherwise."
+Explore codebase before asking questions it could answer. Present as confirmation: "The app uses a dialog component for creation flows. I'll follow that pattern unless you say otherwise." When codebase has competing patterns for the same concern, surface the conflict and ask user which to follow — don't silently pick one. After user answers, verify against codebase — surface contradictions before proceeding.
 
 ### Completeness tracking
 
@@ -62,7 +62,7 @@ Glossary does NOT need re-running for Requirements patches discovered during des
 When every domain is fully resolved with no remaining sub-questions, proceed to wrap up.
 
 ### Self-review (silent)
-Before writing: (1) Every user story maps to at least one flow? (2) Every flow's screens appear in the inventory? (3) Every screen has states defined (empty, loading, error, success)? (4) Components mapped to existing codebase where possible? Fix gaps silently before writing.
+Before writing: audit all recorded assumptions — resolve any that later context now answers. If an answer in a later domain invalidates an earlier one, reopen that domain before proceeding. Then: (1) Every user story maps to at least one flow? (2) Every flow's screens appear in the inventory? (3) Every screen has states defined (empty, loading, error, success)? (4) Components mapped to existing codebase where possible? Fix gaps silently before writing.
 
 Write `## UX Design` section into the living doc using the template in `assets/ux-design-template.md`. After writing: "Review this and tell me what to change. When satisfied, run `/architect`."
 
