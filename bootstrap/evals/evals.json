@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "I want to start a new Next.js project for a task management app. The directory is empty.",
-      "expected_output": "Detects empty directory (Context A). Conducts full 7-domain interview (product, architecture, tooling, patterns, structure, terminology, dev environment) with recommendations. Generates PROJECT_BLUEPRINT.md. After approval, scaffolds using `npx create-next-app`, installs additional dependencies, configures quality gates, creates directory skeleton, generates foundation docs (CLAUDE.md, GLOSSARY.md, README.md, .env.example), and creates initial git commit. Should run quality gates (lint, build, test) and fix issues. Should suggest '/explore' to scope the first feature.",
+      "expected_output": "Detects empty directory (Context A). Conducts full 7-domain interview (product, architecture, tooling, patterns, structure, terminology, dev environment) with recommendations. Generates PROJECT_BLUEPRINT.md. After approval, scaffolds using `npx create-next-app`, installs additional dependencies, configures quality gates, creates directory skeleton, generates foundation docs (CLAUDE.md, GLOSSARY.md, README.md, .env.example), and creates initial git commit. Should run quality gates (lint, build, test) and fix issues. Should suggest '/discovery' to scope the first feature.",
       "files": []
     },
     {
@@ -22,7 +22,13 @@
     {
       "id": 4,
       "prompt": "bootstrap: Initialize this project. It already has a package.json and some source files.",
-      "expected_output": "Detects existing project (Context D) — framework config and dependencies present. Warns the user that this is an existing project. Suggests '/explore' to scope new features or offers to add a module/service within the existing structure. Should NOT overwrite existing configuration or scaffold on top of existing code. Should explain why bootstrapping an existing project is risky.",
+      "expected_output": "Detects existing project (Context D) — framework config and dependencies present. Warns the user that this is an existing project. Suggests '/discovery' to scope new features or offers to add a module/service within the existing structure. Should NOT overwrite existing configuration or scaffold on top of existing code. Should explain why bootstrapping an existing project is risky.",
+      "expectations": [
+        "Warns user this is an existing project before proceeding",
+        "Does not run any scaffold CLI commands",
+        "Does not overwrite package.json or existing config files",
+        "Suggests /discovery or adding a module/service"
+      ],
       "files": []
     }
   ]

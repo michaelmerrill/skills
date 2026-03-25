@@ -1,0 +1,78 @@
+{
+  "skill_name": "engineering",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to design the technical architecture for team billing. The feature folder is at plans/team-billing/ with discovery.md, prd.md, and spec.md.",
+      "expected_output": "Reads discovery.md, prd.md, and spec.md before asking questions. Conducts a structured technical interview exploring existing billing/user models in depth, resolves all 12 domains (system context with C4 diagram, architecture decisions as ADRs, data models with ER diagrams, API contracts with error tables, behavior specs linked to FRs, edge cases with severity, security model, observability with metrics/alerts, testing strategy tables, operational concerns, code design with signatures, phased build with ADR+FR traceability) one question at a time with recommendations. Writes standalone tdd.md. Then automatically runs adversarial review — delivering a Ready/Revise/Rethink verdict with strengths, issues grounded in codebase verification, and risks. Should end by suggesting '/plan' when Ready.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "review the technical design in plans/team-billing/ — is it ready to build?",
+      "expected_output": "Detects existing tdd.md and skips interview, going directly to adversarial review. Cross-checks against prd.md FRs and spec.md flows — does design cover all requirements? Stay within scope? Design match UX flows? Delivers a structured verdict (Ready/Revise/Rethink) with strengths, issues grounded in actual codebase verification, risks, and next step. Checks ADR quality — alternatives explored? consequences documented? Should NOT re-interview. If Revise, enters Resolution Phase with grouped issues. Should end by suggesting '/plan' when Ready.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Here's our plan for migrating from our Express monolith to microservices:\n\nPhase 1: Extract auth service. Set up Kong API gateway.\nPhase 2: Extract billing service. Use Kafka for events.\nPhase 3: Extract notification service. Add Istio.\nPhase 4: Decommission monolith.\n\nTimeline: 6 months. Team: 3 backend engineers.\n\nReview this plan.",
+      "expected_output": "A thorough adversarial critique hitting: data consistency risks during database splits, Kafka + Istio operational overhead for a 3-person team, no rollback strategy, distributed transaction risks, missing observability plan for cross-service communication, no ADRs documenting why microservices over alternatives. Should strongly recommend Revise or Rethink. If Rethink, should suggest simpler alternatives.",
+      "files": [],
+      "expectations": [
+        "Response ends with a clear verdict: Ready, Revise, or Rethink",
+        "Response does not ask the user any questions during review",
+        "Critique references specific plan elements rather than giving generic advice",
+        "Flags operational overhead of Kafka and/or Istio for a small team",
+        "Suggests at least one simpler alternative approach"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "engineer this: the dashboard sharing feature. The feature folder is at plans/dashboard-sharing/ with prd.md and spec.md. No discovery.md.",
+      "expected_output": "Reads prd.md and spec.md before asking. Notes missing discovery.md but proceeds since spec.md (required) exists. Interview addresses security concerns around external sharing (token generation, link expiration, data filtering), explores existing dashboard/permissions architecture. Produces tdd.md with ADRs for sharing approach, full API contracts including error responses for invalid/expired tokens, observability for share link usage metrics, and C4 context diagram showing sharing boundaries. Then runs adversarial review. Should end by suggesting '/plan' when Ready.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "engineer this: AI-powered search. Feature folder at plans/search/ with prd.md but no spec.md.",
+      "expected_output": "Detects missing spec.md. Stops immediately with: 'Run /design first.' Does NOT proceed with interview, does NOT explore the codebase for search infrastructure, does NOT ask any questions. spec.md is a hard requirement.",
+      "files": [],
+      "expectations": [
+        "Does not proceed with the interview",
+        "Directs user to run /design first",
+        "Does not ask any interview questions"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "engineer this: The prd.md at plans/team-billing/prd.md introduces terms like 'subscription', 'seat', 'plan', 'invoice', and 'billing cycle' but has no ## Glossary. spec.md exists. Design the technical architecture.",
+      "expected_output": "Detects no ## Glossary in prd.md. Identifies 5+ domain nouns in the PRD that aren't in the codebase. Generates a glossary silently — extracting terms, checking codebase naming (e.g., 'plan' might conflict with existing project plan concept), detecting ambiguities, proposing canonical terms. Writes ## Glossary in prd.md. Then proceeds with the technical interview using canonical terms for data models, APIs, and modules throughout tdd.md.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "engineer this: The plan skill hit issues decomposing the design. pipeline.md at plans/search/ has ## Rollback Notes saying the indexing strategy section is underspecified — missing file paths and acceptance criteria for the vector DB integration. tdd.md exists.",
+      "expected_output": "Reads ## Rollback Notes in pipeline.md for trigger, affected domains, and decisions to preserve. Reads existing tdd.md. Resumes interview ONLY for the affected domains (API design, phased build plan, code design) — does NOT re-interview system context, architecture decisions, security, observability, or other resolved domains. After resolving the underspecified sections, updates tdd.md and re-runs adversarial review. Clears ## Rollback Notes in pipeline.md after resolving.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "Let's design the team billing feature. The PRD says we need Stripe integration, but I noticed the codebase already has a half-finished Paddle integration in src/billing/. spec.md exists at plans/team-billing/.",
+      "expected_output": "Should explore existing billing code thoroughly before asking questions. Should surface the PRD/codebase conflict explicitly (PRD says Stripe, code has Paddle). Should classify the conflict and ask user to resolve before proceeding. Should capture resolution as an ADR in tdd.md with alternatives (Stripe vs Paddle vs both) and consequences. Should NOT ignore the conflict or silently pick one. Updates Decisions Log in pipeline.md.",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Our plan is to build a custom ORM because Prisma is too slow. Feature folder at plans/custom-orm/ with discovery.md, prd.md, and spec.md. tdd.md already exists. Review this.",
+      "expected_output": "Detects existing tdd.md and runs adversarial review. Sharp critique questioning whether performance has been profiled, suggesting lighter alternatives (Kysely, Knex, raw SQL), flagging maintenance burden. Cross-checks against prd.md FRs for coverage gaps and spec.md flows for design mismatches. Checks ADR quality — were alternatives properly evaluated with benchmarks? Were consequences of maintaining a custom ORM documented? Likely recommends Rethink. Should suggest rolling back to /product or /discovery to reconsider approach via pipeline.md ## Rollback Notes.",
+      "files": [],
+      "expectations": [
+        "Response ends with a clear verdict: Ready, Revise, or Rethink",
+        "Questions whether Prisma performance has been profiled",
+        "Suggests lighter alternatives",
+        "Checks prd.md and spec.md for alignment",
+        "Evaluates ADR quality — alternatives and consequences"
+      ]
+    }
+  ]
+}

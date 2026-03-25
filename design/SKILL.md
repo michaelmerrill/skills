@@ -1,75 +1,100 @@
 ---
 name: design
-description: "UX design interview → living doc UX Design section (flows, screens, states, components, a11y). Optional — UI features only. Triggers: 'design the UX,' 'what screens,' 'how should users interact,' post-define. Not for: technical design (architect), requirements (define). Skip for API-only, CLI, backend, or exact UI replicas."
+description: "Design specification interview → standalone spec.md (flows, screens, states, components, responsive, a11y). Triggers: 'design this,' 'what screens,' 'how should users interact,' post-product. Not for: technical design (engineering), requirements (product). Skip for API-only, CLI, backend, or infra features."
 ---
 
-UX design interview → `## UX Design` section in the living document. Pipeline: explore → define → **[design]** → architect → plan.
+Design interview → `./plans/<feature>/spec.md`. Pipeline: discovery → product → **design** → engineering → plan.
 
-Translates product requirements into concrete UX: flows, screens, states, components, accessibility. Does NOT define data models, APIs, architecture (architect), visual design (Figma), or requirements (define).
+Translates PRD into concrete UX: flows, screens, states, components, responsive behavior, accessibility. Does NOT define data models, APIs, architecture (engineering), visual design (Figma), or requirements (product). Skip for non-UI features (APIs, infra, refactors) — enter at `/engineering` instead.
 
-Phase: UX Design. User may be non-technical (designer/PM). Ask about interactions, not code. Technical constraints inform recommendations silently. Skip when: API/backend-only, CLI tool, exact replica of existing UI pattern, config/copy/bug fix.
+Phase: Design. Ask about interactions, not code. Technical constraints inform recommendations silently.
+
+- **Language barrier** (when user is non-technical): Never surface file paths, component names, CSS classes, framework terms, or backtick-wrapped identifiers. Describe UI patterns in plain language. When uncertain, default to plain language.
+
+| Technical (never say) | Plain language (say this) |
+|---|---|
+| "We'll use a `Dialog` component with `Sheet` on mobile" | "A popup form on desktop, slides up from bottom on mobile" |
+| "The `useQuery` hook handles loading/error states" | "The screen shows a spinner while loading and an error message if it fails" |
 
 ## Starting
 
-Before asking anything:
+1. Read feature folder (`./plans/*/`). If multiple, list via `AskUserQuestion` and ask which feature. Check `./plans/<feature>/pipeline.md` for `## Rollback Notes` — if content, skip to Rollback Receiving.
+2. Look for `discovery.md` and `prd.md`. If `prd.md` exists: extract every user story (each becomes a flow), use glossary terms for UI labels. If no `prd.md`: note gap — defined requirements produce better specs — proceed if user wants.
+3. Explore existing UI patterns — component library, design system, nav, forms, notifications, empty states, error handling.
+4. Search for design system docs, Storybook, component READMEs.
 
-1. Read the living doc (`./plans/*.md`). If multiple `.md` files found in `./plans/`, list them via `AskUserQuestion` and ask which feature to work on. Look for `## Scope`, `## Requirements` (including `### Glossary`). If `## Rollback Notes` has content: this takes priority — skip steps 2-4, resume only affected domains, clear after resolving. Extract every user story from Requirements — each becomes a flow to design. Use glossary canonical terms for all UI labels.
-2. Explore existing UI patterns — component library, design system, screens, navigation, forms, notifications, empty states, error handling.
-3. Search for design system docs, Storybook, component READMEs, style guides.
-4. If the codebase has no UI, tell the user and suggest `/architect` instead.
-
-If Requirements exists: "I've read the requirements for [feature] and explored the existing UI. Requirements include [stories]. App uses [patterns/library]. First: [question about entry points]."
-
-No Requirements? Works — but note that defined requirements produce a better UX spec. No glossary? Be consistent in naming and note terminology decisions.
+If `prd.md` exists: "I've read the PRD for [feature] and explored the existing UI. Stories include [list]. App uses [patterns]. First: [question about IA]."
 
 ## Interview Protocol
 
-One decision at a time. Focus on what users see, do, and experience.
+One decision at a time. Focus on what users see, do, experience.
 
-Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: push — reframe the question, explain tradeoffs, give a stronger recommendation. Record as assumption only when the user genuinely can't resolve it — not after a fixed attempt count. Revisit assumptions when later answers provide resolution.
+Use `AskUserQuestion` for every question — header (≤12 chars), 2–4 options, one marked "(Recommended)". When user can't decide: push — reframe, explain tradeoffs, stronger recommendation. Record as assumption only when genuinely unresolvable. Revisit assumptions when later answers provide resolution.
 
 ### Code-first
 
-Explore codebase before asking questions it could answer. Present as confirmation: "The app uses a dialog component for creation flows. I'll follow that pattern unless you say otherwise." When codebase has competing patterns for the same concern, surface the conflict and ask user which to follow — don't silently pick one. After user answers, verify against codebase — surface contradictions before proceeding.
+Explore codebase before asking questions it could answer. Present as confirmation: "The app uses a dialog for creation flows. I'll follow that unless you say otherwise." When codebase has competing patterns, surface conflict and ask. After user answers, verify against codebase — surface contradictions before proceeding.
 
 ### Completeness tracking
 
-Exhaust every branch depth-first. Resolve sub-questions before moving to the next domain. Only ask what codebase can't answer. No limit on questions; depth from more turns, not longer ones.
+Exhaust every branch depth-first. Resolve sub-questions before moving on. Only ask what codebase can't answer. No limit on questions; depth from more turns, not longer ones.
 
-1. **Entry points & navigation** — Where does user encounter this? New nav items? IA impact?
-2. **Core user flows** — For each user story: step-by-step interaction sequence (entry, actions, responses, branches).
-3. **Screen/view inventory** — Every screen, modal, panel introduced or modified. Purpose, content areas, primary actions.
-4. **State coverage** — For every screen: empty, loading, error, success, partial. Permission-based variations.
-5. **Component mapping** — Existing components to reuse? New ones needed? Closest existing pattern?
-6. **Interaction details** — Bulk actions, keyboard nav, responsive/mobile, drag-and-drop, real-time, optimistic UI, undo.
-7. **Accessibility** — Focus management, keyboard nav, screen reader announcements, color-independent indicators, touch targets, reduced motion.
-8. **Content & copy** — Key labels, button text, error messages, help text, placeholders, empty state messaging, tone/voice.
+| # | Domain | Covers | Maps to |
+|---|--------|--------|---------|
+| 1 | Information architecture | Nav location, URL structure, IA impact | IA section |
+| 2 | User flows | Per story: happy path + branches + error paths + terminal states. Mermaid for flows with 2+ branches. | Flows section |
+| 3 | Screen inventory | Every screen with full state table (empty/loading/default/error/permission-denied/partial) | Screens section |
+| 4 | Component mapping | Existing components to reuse, new ones needed, design system refs | Components section |
+| 5 | Interactions & responsive | Triggers, behavior, feedback, undo, keyboard. Responsive breakpoint table (desktop/tablet/mobile). | Interaction + Responsive sections |
+| 6 | Accessibility | By concern: focus management, keyboard nav, screen reader, visual | A11y section |
+| 7 | Content & copy | Exact text, tone, character limits, i18n notes | Content section |
+| 8 | Design references | Figma links, prototypes, external refs | References section |
+
+### Interview checkpointing
+
+After resolving each domain, append `<!-- progress: domain-N resolved -->` to the target section in `spec.md` (create file early if needed). On resume, detect markers and skip resolved domains. Remove markers when writing final spec.
 
 ### Upstream gap tracking
 
-**Minor gaps** (missing AC details, unspecified edge cases): resolve inline, record in PRD Addendum.
+**Minor gaps** (missing AC details, edge cases): resolve inline, record in PRD Addendum.
 
-**Missing user stories/AC**: note as assumption, continue, flag in PRD Addendum with "BLOCKING — backport to Requirements before architect."
+**Missing user stories/AC**: note as assumption, continue, flag in PRD Addendum as "BLOCKING — backport to PRD before engineering."
 
-**Contradictory requirements**: append to `## Rollback Notes` with trigger, affected domains, UX decisions to preserve. Roll back to `/define`.
+**Contradictory requirements**: append to `## Rollback Notes` in `pipeline.md` with trigger, affected domains, design decisions to preserve. Roll back to `/product`.
 
-**Fundamental scope ambiguity**: append to `## Rollback Notes` with trigger, affected domains, decisions to preserve. Roll back to `/explore`.
+**Fundamental scope ambiguity**: append to `## Rollback Notes` in `pipeline.md` with trigger, affected domains, decisions to preserve. Roll back to `/discovery`.
 
-Glossary does NOT need re-running for Requirements patches discovered during design. No technical implementation (schemas, APIs, architecture). Redirect: "Captured for technical design — let's stay on UX."
+No technical implementation (schemas, APIs, architecture). Redirect: "Captured for technical design — let's stay on UX."
 
-## Wrapping Up
+## Quality Gate
 
-When every domain is fully resolved with no remaining sub-questions, proceed to wrap up.
+After all domains resolved, silent analysis before writing:
 
-### Self-review (silent)
-Before writing: audit all recorded assumptions — resolve any that later context now answers. If an answer in a later domain invalidates an earlier one, reopen that domain before proceeding. Then: (1) Every user story maps to at least one flow? (2) Every flow's screens appear in the inventory? (3) Every screen has states defined (empty, loading, error, success)? (4) Components mapped to existing codebase where possible? Fix gaps silently before writing.
+| Criterion | Check |
+|-----------|-------|
+| Story coverage | Every story from PRD maps to a flow |
+| Error coverage | Every flow has happy path + error path |
+| State tables | Every screen has state table with 5+ states |
+| Component mapping | Components mapped to design system where possible |
+| Accessibility | 4 concerns covered per interaction (focus, keyboard, screen reader, visual) |
+| Content | Table covers all user-facing strings |
+| Responsive | Breakpoints defined (desktop + mobile minimum) |
+| Flow diagrams | Mermaid diagram for every flow with 2+ branches |
 
-Write `## UX Design` section into the living doc using the template in `assets/ux-design-template.md`. After writing: "Review this and tell me what to change. When satisfied, run `/architect`."
+**Ready**: all criteria pass → write spec.
+**Revise**: 1–2 criteria fail → reopen affected domains, then re-gate.
+**Rethink**: 3+ criteria fail or structural issue → explain gaps, reopen domains.
 
-Update directly on change requests. No re-interview for minor adjustments. Flag conflicts with earlier decisions. Update `## Decisions Log` with UX decisions. Update `## Pipeline Status` with design row.
+## Output
+
+Write `./plans/<feature>/spec.md` using template in `assets/spec-template.md`. Update `## Decisions Log` and `## Status` in `pipeline.md`.
+
+Close with: "Review this and tell me what to change. When satisfied, run `/engineering`."
+
+Update directly on change requests. No re-interview for minor adjustments. Flag conflicts with earlier decisions.
 
 ## Rollback
 
-**Receiving**: Read `## Rollback Notes` for trigger, affected domains, decisions to preserve. Resume only affected domains — do not re-interview resolved decisions. Update `## UX Design`, clear `## Rollback Notes`, direct user back to triggering skill.
+**Receiving**: Read `## Rollback Notes` in `pipeline.md` for trigger + affected domains + decisions to preserve. Resume only affected domains — do not re-interview resolved decisions. Update `spec.md`, clear notes, direct user to triggering skill.
 
-**Triggering**: Contradictory requirements → `/define`. Fundamental scope ambiguity → `/explore`. See upstream gap tracking.
+**Triggering**: Contradictory requirements → `/product`. Fundamental scope ambiguity → `/discovery`.

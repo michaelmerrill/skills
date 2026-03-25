@@ -3,39 +3,46 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Break the candidate profiles design into issues. The living doc is at plans/candidate-profiles.md",
-      "expected_output": "Should produce ./issues/candidate-profiles/ with 5-7 numbered issue files and write ## Implementation Plan into the living doc. Each issue should have front-loaded context with file paths, line numbers, type signatures, and pattern references from the actual codebase.",
-      "files": []
+      "prompt": "Break the candidate profiles design into issues. The feature folder is at plans/candidate-profiles/",
+      "expected_output": "Should read prd.md, spec.md, and tdd.md from the feature folder. Should produce ./issues/candidate-profiles/ with 5-7 numbered issue files and write plan.md into the feature folder. Each issue should have front-loaded context with file paths, line numbers, type signatures, and pattern references from the actual codebase. plan.md should include dependency graph, execution order, and requirements coverage mapping back to prd.md FRs."
     },
     {
       "id": 2,
-      "prompt": "I want to convert plans/candidate-profiles.md into implementation issues, but it only has ## Requirements — no technical design yet.",
-      "expected_output": "Should detect the living doc has ## Requirements but no ## Technical Design and redirect the user to run /architect first. Should NOT generate issue files.",
-      "files": []
+      "prompt": "I want to convert plans/candidate-profiles/ into implementation issues, but the folder only has prd.md and spec.md — no technical design yet.",
+      "expected_output": "Should detect prd.md and spec.md exist but no tdd.md and redirect the user to run /engineering first. Should NOT generate issue files.",
+      "expectations": [
+        "Mentions /engineering as the next step",
+        "Does not create any files in ./issues/",
+        "Does not create plan.md",
+        "Does not ask interview or decomposition questions"
+      ]
     },
     {
       "id": 3,
-      "prompt": "ok the design is reviewed, let's break it down into issues. the living doc is at plans/candidate-profiles.md — I want to hand these off to agents",
-      "expected_output": "Same as eval 1 but with more casual phrasing. Should produce issue files with the same quality of context enrichment. The 'hand off to agents' framing should reinforce that issues need to be self-contained.",
-      "files": []
+      "prompt": "ok the design is reviewed, let's break it down into issues. the feature folder is at plans/candidate-profiles/ — I want to hand these off to agents",
+      "expected_output": "Same as eval 1 but with more casual phrasing. Should produce issue files with the same quality of context enrichment. The 'hand off to agents' framing should reinforce that issues need to be self-contained. Should read all upstream docs (prd.md, spec.md, tdd.md) for full context."
     },
     {
       "id": 4,
-      "prompt": "Break plans/simple-fix.md into issues. It's a 1-phase design that just adds a validation check to two API endpoints.",
-      "expected_output": "Should handle a small/simple design gracefully — produce 1-2 issues, not force-split into more. Each issue should still have full codebase context (file paths, line numbers, pattern references). The ## Implementation Plan section should be proportionally brief. Should NOT pad with artificial issues to hit a minimum count.",
-      "files": []
+      "prompt": "Break plans/simple-fix/ into issues. It's a 1-phase design that just adds a validation check to two API endpoints.",
+      "expected_output": "Should handle a small/simple design gracefully — produce 1-2 issues, not force-split into more. Each issue should still have full codebase context (file paths, line numbers, pattern references). plan.md should be proportionally brief. Should NOT pad with artificial issues to hit a minimum count."
     },
     {
       "id": 5,
-      "prompt": "Break plans/platform-migration.md into issues. It has 8 phases with cross-cutting concerns across auth, billing, notifications, and the API layer.",
-      "expected_output": "Should produce 8-12 issues. Should correctly order dependencies (schema before API, API before UI, cross-cutting after the code they wire into). Should identify which issues can be parallelized. Should split any phase that touches 8+ files. New patterns (first cron job, first email template) should get their own focused issues even if small. Each issue should be self-contained for an agent context window.",
-      "files": []
+      "prompt": "Break plans/platform-migration/ into issues. It has 8 phases with cross-cutting concerns across auth, billing, notifications, and the API layer.",
+      "expected_output": "Should produce 8-12 issues. Should correctly order dependencies (schema before API, API before UI, cross-cutting after the code they wire into). Should identify which issues can be parallelized. Should split any phase that touches 8+ files. New patterns (first cron job, first email template) should get their own focused issues even if small. Each issue should be self-contained for an agent context window. Requirements coverage in plan.md should map every FR from prd.md to at least one issue.",
+      "expectations": [
+        "Produces 8-12 issue files in ./issues/platform-migration/",
+        "No issue file touches more than 8 files",
+        "plan.md includes a dependency graph",
+        "plan.md requirements coverage maps every FR from prd.md to at least one issue",
+        "Cross-cutting concerns (email, notifications, cron) appear after the issues they wire into"
+      ]
     },
     {
       "id": 6,
-      "prompt": "Break the design in plans/search.md into issues. The living doc has ## Rollback Notes from a previous failed decomposition attempt that said phases 3-5 were too broad.",
-      "expected_output": "Reads ## Rollback Notes for context about the previous failed attempt. Uses the rollback trigger info (phases 3-5 too broad) to inform decomposition — should split those phases more aggressively. Should NOT ignore the rollback notes or repeat the same decomposition that failed before. Should clear ## Rollback Notes after successful decomposition. If the design is still too broad even with aggressive splitting, should roll back to /architect again with new ## Rollback Notes specifying what needs further detail.",
-      "files": []
+      "prompt": "Break the design in plans/search/ into issues. The pipeline.md has ## Rollback Notes from a previous failed decomposition attempt that said phases 3-5 were too broad.",
+      "expected_output": "Reads ## Rollback Notes from pipeline.md for context about the previous failed attempt. Uses the rollback trigger info (phases 3-5 too broad) to inform decomposition — should split those phases more aggressively. Should NOT ignore the rollback notes or repeat the same decomposition that failed before. Should clear ## Rollback Notes in pipeline.md after successful decomposition. If the design is still too broad even with aggressive splitting, should roll back to /engineering again with new ## Rollback Notes in pipeline.md."
     }
   ]
 }

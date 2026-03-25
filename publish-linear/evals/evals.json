@@ -1,0 +1,35 @@
+{
+  "skill_name": "publish-linear",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Publish the team-billing feature to Linear. The feature folder has discovery.md, prd.md, spec.md, tdd.md, and plan.md. There are 6 issue files in ./issues/team-billing/. The team is already configured in .pipeline.md.",
+      "expected_output": "Should read all docs from ./plans/team-billing/. Should create or find the Linear project by name. Should sync all 5 standalone docs as Linear documents (Discovery Brief, Product Requirements, Design Specification, Technical Design, Implementation Plan). Should extract Decisions Log and Status from pipeline.md as separate documents. Should map pipeline status to correct Linear project state. Should create all 6 issues with labels (Auto/HITL from Type field), then wire blockedBy relations in a second pass. Should write linear-project ID marker to pipeline.md. Should print confirmation with counts.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Push the dashboard-sharing feature to Linear. We only have discovery.md and prd.md so far, no issues yet.",
+      "expected_output": "Should read ./plans/dashboard-sharing/ and find only discovery.md and prd.md. Should create or find the Linear project. Should sync only the 2 existing docs as Linear documents — should NOT error on missing spec.md/tdd.md/plan.md. Should skip issue sync entirely since no ./issues/dashboard-sharing/ directory exists. Should set project state based on last pipeline stage (product). Should print confirmation showing 2 documents synced, 0 issues.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Sync the ai-search feature to Linear again. It was already published last week — the linear-project ID is in pipeline.md.",
+      "expected_output": "Should detect <!-- linear-project: ID --> marker in pipeline.md. Should find the existing project by ID via list_projects. Should update (not duplicate) all existing documents by matching on title. Should update (not duplicate) issues by matching on title. Should preserve blockedBy relations. Should update project status and summary. Should be fully idempotent — running twice produces the same result.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Publish the notifications feature to Linear.",
+      "expected_output": "Should look for ./plans/notifications/ feature folder. If not found, should stop with a clear error message. Should NOT create a Linear project, documents, or issues. Should NOT ask the user to create the folder.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Publish the onboarding-flow feature to Linear. This is the first time we're using Linear on this project.",
+      "expected_output": "Should check .pipeline.md for linear-team value. If missing, should list available teams via list_teams and ask the user to pick one via AskUserQuestion. After selection, should save the team choice to .pipeline.md. Should then proceed with normal sync — create project, sync documents, create issues. Should ensure Auto and HITL labels exist on the team (create if missing).",
+      "files": []
+    }
+  ]
+}

@@ -16,13 +16,19 @@
     {
       "id": 3,
       "prompt": "I expected the app to send email notifications when a task is overdue, but it doesn't do that. Users are complaining.",
-      "expected_output": "Should investigate whether overdue email notifications were ever implemented — check for notification/email code, cron jobs, task scheduling. If this behavior was never built, should classify as a missing feature, not a bug. Should redirect to /explore for a complex new notification system, or create a simple issue if the infrastructure exists and just needs wiring. Should NOT create a bug issue for behavior that was never designed.",
+      "expected_output": "Should investigate whether overdue email notifications were ever implemented — check for notification/email code, cron jobs, task scheduling. If this behavior was never built, should classify as a missing feature, not a bug. Should redirect to /discovery for a complex new notification system, or create a simple issue if the infrastructure exists and just needs wiring. Should NOT create a bug issue for behavior that was never designed.",
+      "expectations": [
+        "Classifies as missing feature, not bug",
+        "Does not create a bug issue file with TDD fix plan",
+        "Redirects to /discovery (if complex) or creates a simple missing-feature issue (if infrastructure exists)",
+        "Investigates existing notification/email infrastructure before classifying"
+      ],
       "files": []
     },
     {
       "id": 4,
       "prompt": "Our API response times went from 50ms to 2 seconds after we added the new dashboard endpoint. Everything is slow now, not just the dashboard.",
-      "expected_output": "Should investigate the dashboard endpoint code, look for blocking operations, N+1 queries, missing indexes, or middleware that affects all routes. Should check if new middleware was added globally vs scoped to the dashboard route. Should assess blast radius — is this affecting all endpoints or just ones sharing a resource? If the fix is localized (e.g., scope middleware, add an index), create an issue file. If the fix is architectural (e.g., need caching layer, query redesign across multiple endpoints), recommend /architect.",
+      "expected_output": "Should investigate the dashboard endpoint code, look for blocking operations, N+1 queries, missing indexes, or middleware that affects all routes. Should check if new middleware was added globally vs scoped to the dashboard route. Should assess blast radius — is this affecting all endpoints or just ones sharing a resource? If the fix is localized (e.g., scope middleware, add an index), create an issue file. If the fix is architectural (e.g., need caching layer, query redesign across multiple endpoints), recommend /engineering.",
       "files": []
     },
     {

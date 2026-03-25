@@ -1,23 +1,23 @@
-## Section → Document
+## File → Document
 
-| Living doc section | Linear document title |
+| Source file | Linear document title |
 |---|---|
-| `## Scope` | Scope |
-| `## Requirements` | Requirements |
-| `## UX Design` | UX Design |
-| `## Technical Design` | Technical Design |
-| `## Implementation Plan` | Implementation Plan |
-| `## Decisions Log` | Decisions |
-| `## Pipeline Status` | Pipeline Status |
+| `discovery.md` | Discovery Brief |
+| `prd.md` | Product Requirements |
+| `spec.md` | Design Specification |
+| `tdd.md` | Technical Design |
+| `plan.md` | Implementation Plan |
+| `pipeline.md` `## Decisions Log` | Decisions |
+| `pipeline.md` `## Status` | Pipeline Status |
 
 ## Stage → Project Status
 
 | Pipeline stage | Linear project state |
 |---|---|
-| explore | Exploring |
-| define | Defining |
+| discovery | Discovering |
+| product | Defining |
 | design | Designing |
-| architect | Architecting |
+| engineering | Architecting |
 | plan | Planning |
 
 ## Issue Field Mapping

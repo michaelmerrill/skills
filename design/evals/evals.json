@@ -3,32 +3,62 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "I want to design the UX for our team invitation feature. The living doc is at plans/team-invitations.md with ## Requirements covering inviting members, role assignment, and revoking invites.",
-      "expected_output": "Reads the living doc's ## Requirements first and acknowledges its contents. Explores the codebase for existing UI components, design system, and navigation patterns. Conducts a structured UX interview covering all 8 domains (entry points, user flows, screen inventory, state coverage, component mapping, interaction details, accessibility, content/copy) one question at a time with recommendations. Writes ## UX Design into the living doc with step-by-step user flows for each user story (invite, assign role, revoke), screen inventory with all states (empty members list, loading, error, populated), component inventory mapped to existing codebase components, accessibility requirements (focus trapping in invite modal, keyboard nav for member list), and content/copy (button labels, error messages, empty state messaging). Should NOT include data models, API endpoints, database schemas, or system architecture. Should end by suggesting '/architect'.",
+      "prompt": "I want to design the team invitation feature. The PRD is at plans/team-invitations/prd.md covering inviting members, role assignment, and revoking invites.",
+      "expected_output": "Reads prd.md first and acknowledges its contents. Explores the codebase for existing UI components, design system, and navigation patterns. Conducts a structured interview covering all 8 domains (IA, user flows, screen inventory, component mapping, interactions & responsive, accessibility, content & copy, design references) one question at a time using AskUserQuestion with recommendations. Writes standalone spec.md into plans/team-invitations/ with: step-by-step user flows for each story (invite, assign role, revoke) with mermaid diagrams for branching flows, screen inventory with full state tables (empty/loading/default/error/permission-denied/partial), component inventory mapped to existing codebase, responsive breakpoint table, accessibility by concern (focus/keyboard/screen reader/visual), and content table with exact strings. Updates pipeline.md Decisions Log and Status. Should NOT include data models, API endpoints, or architecture. Should end by suggesting '/engineering'.",
       "files": []
     },
     {
       "id": 2,
-      "prompt": "Let's design the UX for a dashboard sharing feature. Users need to share dashboards externally via links with granular visibility controls. No PRD exists yet.",
-      "expected_output": "Checks for a PRD (finds none) and suggests running /define first but proceeds if user wants to continue. Explores codebase for existing sharing patterns, link generation UI, permission controls, and design system components. Conducts a UX-focused interview covering: entry point for sharing (share button location, modal vs panel), the share link creation flow (step-by-step with visibility options), the external viewer experience (what they see, auth-free access), the link management flow (list active links, revoke access), screen inventory with states (no shares yet, active shares, expired links), component mapping, accessibility (focus management in share modal, screen reader for permission toggles), and copy (share button label, permission level descriptions, confirmation messages). Should flag PRD gaps as they arise and track them. Should NOT specify auth token storage, API design, or database models. Should end by suggesting '/architect'.",
+      "prompt": "Let's design the dashboard sharing feature. Users need to share dashboards externally via links with granular visibility controls. No PRD exists yet.",
+      "expected_output": "Checks for prd.md (finds none) and notes that defined requirements produce better specs but proceeds if user wants. Explores codebase for existing sharing patterns, link generation UI, permission controls, and design system. Conducts full 8-domain interview using AskUserQuestion. Should produce standalone spec.md with: IA for share entry points, user flows with mermaid diagrams (share creation flow has branches for permission levels), screen inventory with state tables (no shares/active shares/expired links), responsive breakpoint table, accessibility per interaction, content table. Flags PRD gaps in PRD Addendum section. Should NOT specify auth token storage, API design, or database models. Should end by suggesting '/engineering'.",
       "files": []
     },
     {
       "id": 3,
-      "prompt": "design: We're adding AI-powered search to replace keyword search. The living doc is at plans/ai-search.md with ## Requirements. The app uses React with shadcn/ui components.",
-      "expected_output": "Reads the living doc's ## Requirements and explores the codebase for existing search UI, shadcn/ui component library, and current search patterns. Conducts a UX interview covering: search entry point (existing search bar modification vs new), the search interaction flow (typing, suggestions, submitting, results display), results screen with all states (empty query, loading/streaming results, no results found, error, results with different content types), component mapping to shadcn/ui (Command/Combobox for search input, Card for results, Skeleton for loading), interaction details (keyboard shortcuts for search, arrow key navigation through results, real-time/debounced suggestions), accessibility (search landmark, live region for result count announcements, focus management between input and results), and copy (placeholder text, no-results messaging, AI attribution/confidence indicators). Should reuse existing shadcn/ui components by name. Should NOT specify embedding models, vector databases, retrieval algorithms, or API design. Should end by suggesting '/architect'.",
+      "prompt": "design: The PRD at plans/notifications/prd.md is missing user stories for bulk actions, the digest email flow, the mute flow, and the notification preferences screen. Let's design anyway.",
+      "expected_output": "Detects 4 missing user stories from prd.md. Notes each as an assumption, continues the full interview, and flags all 4 in the PRD Addendum section as 'BLOCKING — backport to PRD before engineering.' Should complete the full spec.md despite gaps. Should produce standalone spec.md covering the missing stories based on reasonable assumptions with all required sections.",
       "files": []
     },
     {
       "id": 4,
-      "prompt": "design: The requirements in plans/notifications.md are missing user stories for bulk actions, the digest email flow, the mute flow, and the notification preferences screen. Let's design the UX anyway.",
-      "expected_output": "Detects 4 missing user stories from ## Requirements. Under the type-based gap rules, should NOT roll back to /define. Instead, notes each as an assumption, continues the UX interview, and flags all 4 in the PRD Addendum section as 'BLOCKING — backport to Requirements before architect.' Should complete the full UX spec despite the gaps. Should produce a UX spec that covers the missing stories based on reasonable assumptions.",
+      "prompt": "design: The pipeline.md at plans/permissions/ has rollback notes saying 'admin vs super-admin role management contradiction found during engineering.' The spec.md exists with most domains resolved.",
+      "expected_output": "Reads pipeline.md Rollback Notes for trigger and affected domains. Resumes only affected domains — does NOT re-interview resolved decisions. After resolving, updates spec.md, clears Rollback Notes in pipeline.md, and directs user back to /engineering.",
       "files": []
     },
     {
       "id": 5,
-      "prompt": "design: The living doc at plans/permissions.md says 'admins can manage all roles' in ## Scope but says 'only super-admins can assign admin roles' in ## Requirements. These contradict each other. Let's design the UX.",
-      "expected_output": "Detects a contradictory requirement (admin vs super-admin role management). Should append to ## Rollback Notes in plans/permissions.md with the contradiction as trigger, functional requirements as affected domain, and any existing UX decisions to preserve. Should roll back to /define rather than resolving the contradiction inline. Should NOT continue the UX interview past this point.",
+      "prompt": "design: The prd.md at plans/permissions/ says 'admins can manage all roles' but discovery.md says 'only super-admins can assign admin roles.' These contradict each other.",
+      "expected_output": "Detects contradictory requirements (admin vs super-admin role management). Appends to ## Rollback Notes in pipeline.md with the contradiction as trigger, affected domains, and any existing design decisions to preserve. Rolls back to /product rather than resolving the contradiction inline. Should NOT continue the design interview past this point.",
+      "expectations": [
+        "Appends ## Rollback Notes to pipeline.md",
+        "Rollback notes mention the admin vs super-admin contradiction",
+        "Directs user to /product",
+        "Does not continue the design interview after detecting the contradiction"
+      ],
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "design: We're adding AI search to replace keyword search. The PRD is at plans/ai-search/prd.md. The app uses React with shadcn/ui.",
+      "expected_output": "Reads prd.md and explores codebase for existing search UI and shadcn/ui components. Conducts full 8-domain interview. Runs quality gate after all domains resolved. Writes standalone spec.md with: user flows including mermaid diagram for search flow (has branches for suggestions, no results, errors), screen inventory with state tables (5+ states per screen including empty query, loading, results, no results, error, permission-denied), component mapping to shadcn/ui (Command/Combobox for input, Card for results, Skeleton for loading), responsive breakpoint table (desktop/tablet/mobile), accessibility by 4 concerns, content table with all strings. Should reuse shadcn/ui components by name. Should NOT specify embedding models, vector databases, or API design. Should suggest '/engineering'.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "design: I need to design a simple settings toggle for dark mode. PRD is at plans/dark-mode/prd.md with one user story: 'As a user I can toggle dark mode.'",
+      "expected_output": "Reads prd.md. Despite simplicity, conducts full 8-domain interview since design is required for all features. Produces standalone spec.md with: IA (settings location), flow (single toggle — may not need mermaid since no 2+ branches), screen inventory with state table, component mapping (toggle/switch from design system), interaction spec with feedback behavior, responsive breakpoints, accessibility (toggle label, state announcement, contrast in both modes, reduced motion), content table (toggle label, confirmation if any). Quality gate should pass — every story mapped, states defined, a11y covered. Suggests '/engineering'.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "design: Resume designing the checkout flow. plans/checkout/spec.md has progress markers showing domains 1-4 resolved. pipeline.md has no rollback notes.",
+      "expected_output": "Reads spec.md and detects <!-- progress: domain-N resolved --> markers for domains 1-4 (IA, user flows, screen inventory, component mapping). Skips those domains entirely. Resumes interview at domain 5 (interactions & responsive). Completes domains 5-8, runs quality gate, then writes final spec.md removing all progress markers. Updates pipeline.md.",
+      "expectations": [
+        "Does not ask questions about domains 1-4 (IA, flows, screens, components)",
+        "First interview question is about domain 5 (interactions/responsive) or later",
+        "Final spec.md contains no <!-- progress: --> markers",
+        "Updates pipeline.md Status and Decisions Log"
+      ],
       "files": []
     }
   ]

@@ -1,6 +1,6 @@
 ---
 name: triage-issue
-description: "Investigate bug -> root cause analysis -> issue file with TDD fix plan. Triggers: 'bug,' 'broken,' 'not working,' 'regression,' 'error,' 'triage this.' Not for: new features (explore), technical design (architect), code review."
+description: "Investigate bug -> root cause analysis -> issue file with TDD fix plan. Triggers: 'bug,' 'broken,' 'not working,' 'regression,' 'error,' 'triage this.' Not for: new features (discovery), technical design (engineering), code review."
 ---
 
 Bug investigation -> root cause -> issue file with TDD fix plan. Parallel track to the feature pipeline -- for defects, not capabilities.
@@ -51,9 +51,9 @@ After investigation, classify:
 
 **Missing feature (simple)** -- Behavior never built but fix is localized (1-3 files, clear pattern). Create issue file noting this is net-new behavior, not a regression.
 
-**Missing feature (complex)** -- New capability, multiple files, design decisions needed. Redirect: "This looks like a missing feature rather than a bug -- [explanation]. I'd recommend `/explore` to scope it properly. Reference `./issues/bugs/<slug>.md` for my investigation findings."
+**Missing feature (complex)** -- New capability, multiple files, design decisions needed. Redirect: "This looks like a missing feature rather than a bug -- [explanation]. I'd recommend `/discovery` to scope it properly. Reference `./issues/bugs/<slug>.md` for my investigation findings."
 
-**Systemic** -- Root cause is architectural, fix requires new patterns or touches 8+ files. Redirect: "The root cause is systemic: [explanation]. A point fix would be fragile. I'd recommend `/architect` — reference `./issues/bugs/<slug>.md` for my investigation findings." Create lightweight issue with investigation findings.
+**Systemic** -- Root cause is architectural, fix requires new patterns or touches 8+ files. Redirect: "The root cause is systemic: [explanation]. A point fix would be fragile. I'd recommend `/engineering` — reference `./issues/bugs/<slug>.md` for my investigation findings." Create lightweight issue with investigation findings.
 
 ## Issue Output
 
@@ -61,13 +61,13 @@ Save to `./issues/bugs/<slug>.md` using the template in `assets/bug-issue-templa
 
 After writing: "Issue saved to `./issues/bugs/<slug>.md`. Fix plan starts with a failing test in `<test-file>`. Hand to an agent or start with the test."
 
-Answer follow-ups about root cause or fix approach. If user wants to expand scope: "That's beyond a bug fix -- run `/architect` with this issue as context."
+Answer follow-ups about root cause or fix approach. If user wants to expand scope: "That's beyond a bug fix -- run `/engineering` with this issue as context."
 
 ## Scope Guards
 
 - One bug per invocation. Multiple bugs? Triage the first, then: "Describe the next bug and I'll triage it separately."
 - Don't design solutions. Fix plan is tactical -- minimal change to correct the defect.
 - Don't implement the fix. Output is the issue file, not the code change.
-- Feature request → "This is new behavior, not a bug. Run `/explore`."
-- Systemic issue → "This needs a design. Run `/architect`." Create lightweight issue with findings.
+- Feature request → "This is new behavior, not a bug. Run `/discovery`."
+- Systemic issue → "This needs a design. Run `/engineering`." Create lightweight issue with findings.
 - Vague report, no repro → ask for repro steps. If unavailable, create lightweight issue marked "needs-reproduction."

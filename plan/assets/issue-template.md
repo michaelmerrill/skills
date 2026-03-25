@@ -4,7 +4,7 @@
 
 # <Title>
 
-> Part of: [<feature-name>](../../plans/<feature-name>.md)
+> Part of: [<feature-name>](../../plans/<feature-name>/)
 > Issue: <N> of <total>
 > Type: Auto | HITL
 
@@ -15,7 +15,7 @@
 
 ## Requirements addressed
 
-- <requirement or user story from living doc Requirements section>
+- <FR or user story from prd.md>
 
 ## What to build
 
