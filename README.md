@@ -15,12 +15,12 @@ npx skills remove <owner/repo>  # Remove installed skills
 Skills form a structured pipeline across three phases:
 
 ```
-discovery → product → design → engineering → plan
+scope → product → design → engineering → plan
 ```
 
 | Skill         | Phase                   | Purpose                                                    |
 | ------------- | ----------------------- | ---------------------------------------------------------- |
-| `discovery`   | 1 — Product             | Discovery brief — validate concept, feasibility, go/no-go  |
+| `scope`       | 1 — Product             | Scope brief — shape the bet, define boundaries, place/pass |
 | `product`     | 1 — Product             | PRD — requirements, stories, metrics, scope, glossary      |
 | `design`      | 2 — Design              | Design spec — flows, screens, states, components, a11y     |
 | `engineering`  | 3 — Engineering         | TDD — architecture, APIs, data, security, observability    |
@@ -34,13 +34,13 @@ Not every change needs the full pipeline. Pick your entry point based on the cha
 
 | Change type                                                           | Entry point     | Steps                                           |
 | --------------------------------------------------------------------- | --------------- | ----------------------------------------------- |
-| New capability (any)                                                  | `/discovery`    | Full pipeline                                   |
-| Feature already greenlit                                              | `/product`      | product → design → engineering → plan           |
+| New capability (any)                                                  | `/scope`        | Full pipeline                                   |
+| Feature already greenlit                                              | `/product`      | product → design → engineering → plan            |
 | Requirements clear, need design + technical                           | `/design`       | design → engineering → plan                     |
 | Requirements and design clear (spec exists, detailed AC)              | `/engineering`  | engineering → plan                              |
 | Bug fix, regression, something broken                                 | `/triage-issue` | triage-issue → agent implementation             |
 | Tech debt / refactoring (no behavior change)                          | `/engineering`  | engineering → plan                              |
-| Dependency migration / major upgrade                                  | `/engineering`  | engineering → plan (or `/discovery` if unclear)  |
+| Dependency migration / major upgrade                                  | `/engineering`  | engineering → plan (or `/scope` if unclear)      |
 | Performance optimization                                              | `/triage-issue` | If regression. `/engineering` if systemic        |
 | Security hardening                                                    | `/engineering`  | engineering → plan                              |
 | Config change, copy update, minor refactor                            | None            | Just build it                                   |
@@ -63,7 +63,7 @@ When a built-in quality gate returns **Revise**:
 
 When a quality gate returns **Rethink**:
 
-1. The skill recommends rolling back to an earlier stage (e.g., `/discovery` if scope is wrong)
+1. The skill recommends rolling back to an earlier stage (e.g., `/scope` if scope is wrong)
 
 **Cross-phase rollback**: Any skill can trigger rollback when it discovers a blocking issue from an earlier phase. The triggering skill writes `## Rollback Notes` in `pipeline.md` before directing the user upstream. The receiving skill reads the notes, resumes only affected domains, and clears the section after resolving.
 
@@ -90,7 +90,7 @@ ls ./issues/<feature-name>/                  # Issues generated?
 Each skill directory contains a `SKILL.md` definition and optional `evals/`, `assets/`, and `references/` subdirectories. Pipeline skills share a **feature folder** at `./plans/<feature-name>/` containing standalone documents:
 
 - `pipeline.md` — coordination (status, decisions, rollback notes, Linear ID)
-- `discovery.md` — discovery brief (from `/discovery`)
+- `scope.md` — scope brief (from `/scope`)
 - `prd.md` — product requirements document (from `/product`)
 - `spec.md` — design specification (from `/design`)
 - `tdd.md` — technical design document (from `/engineering`)
@@ -103,7 +103,7 @@ Issue decomposition outputs go to `./issues/<feature-name>/`. Bug triage outputs
 The pipeline will expand to cover the full SDLC:
 
 ```
-discovery → product → design → engineering → plan → build → validate → operate
+scope → product → design → engineering → plan → build → validate → operate
 ```
 
 `build`, `validate`, and `operate` are not yet implemented.

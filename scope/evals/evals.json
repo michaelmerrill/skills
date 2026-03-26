@@ -1,0 +1,53 @@
+{
+  "skill_name": "scope",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to add team billing to our SaaS app. Right now each user has their own subscription but we're getting requests from companies who want to pay for a group of users under one account.",
+      "expected_output": "A scope interview that shapes the vague idea into a concrete, bounded concept, explores existing billing/user models for feasibility, resolves all 6 domains (problem, users, appetite, shaped solution, feasibility, risks) one question at a time with recommendations, and produces a scope brief with place/pass bet. Should ask multiple questions about problem/evidence before moving to other domains. Should assess appetite (investment worth) before shaping solution. Should explore risks with the user, not fabricate them. Should identify rabbit holes with containment strategies and alternatives considered. Should NOT ask functional requirements questions (specific billing rules, permissions, field-level decisions, approval workflows) — defer to /product. Should NOT include data models, behavior specs, or phased build plans. Should end by suggesting '/product'.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "We need a way for users to share dashboards with people outside our org. Like a public link or something, but we need to control what data is visible.",
+      "expected_output": "A scope interview that shapes the concept (what kind of sharing, rough audience), explores existing dashboard/permissions models for feasibility, assesses appetite for investment, and produces a scope brief with feasibility assessment addressing security constraints. Should ask multiple questions about problem/evidence. Should probe alternatives (embed vs link vs export). Should identify rabbit holes with containment strategies (data filtering complexity, auth for external users). Should NOT ask functional requirements questions (link expiration rules, data filtering mechanics, specific permission models) — defer to /product. Should NOT dive into implementation details. Should end by suggesting '/product'.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want to add AI-powered search to our docs site. Users keep complaining they can't find things and our current keyword search is pretty bad.",
+      "expected_output": "A scope interview that shapes the concept (semantic vs keyword, scope of content), explores existing search infrastructure for feasibility, identifies rabbit holes with containment strategies (search quality validation, content indexing complexity), assesses appetite, and produces a scope brief with a clear recommendation. Should ask multiple questions about problem/evidence (how many complaints? what can't they find?). Should explore alternatives (improve existing search vs build new vs buy). Should NOT ask functional requirements questions (ranking algorithms, result display rules, indexing behavior) — defer to /product. Should NOT design the embedding pipeline or specify the vector database. Should end by suggesting '/product'.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want candidates in our election app to have a profile that voters can see when voting.",
+      "expected_output": "A scope interview that shapes the vague idea into a clear, bounded concept (what kind of profile content, who manages it at a high level), assesses feasibility by exploring existing candidate/election models, sizes the appetite, and produces a scope brief with a place/pass bet. Questions should stay at the concept/capability level — e.g., 'Is this text-only or do you need photos/media?' NOT 'Should profiles lock during voting?' or 'Per-candidacy or per-user?' Should explore alternatives considered. Should NOT pre-answer /product questions about specific behaviors, permissions rules, visibility rules, or approval workflows. Should explore risks with the user. Should end by suggesting '/product'.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "I want to build a real-time collaborative spreadsheet editor inside our project management app. Like Google Sheets but embedded. Users keep asking for it.",
+      "expected_output": "A scope interview that explores the idea thoroughly but reaches a pass or investigate-further bet due to feasibility concerns (significant infrastructure requirements, buy-vs-build economics favoring integration over build). Should push hard on evidence: how many users asked? What do they actually do today? What would they stop using? Should challenge the appetite: is this worth weeks+ of investment? Should explore alternatives (embed existing tool, integrate third-party). Should identify rabbit holes with containment strategies (real-time sync complexity, conflict resolution). Should NOT rubber-stamp a place bet on an obviously high-risk, high-cost feature. Bet should follow logically from findings. Should end with actionable next step even on pass. All findings must be expressed in plain language — no technical terms.",
+      "expectations": [
+        "Bet is pass or investigate-further, not place",
+        "At least one alternative to building from scratch is explored (embed, integrate, buy)",
+        "Appetite question asked before shaping solution",
+        "scope.md is created with a Bet section",
+        "No technical terms (no mentions of WebSocket, CRDT, OT, database, API, etc.)"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "We should do something with AI. Our competitors all have AI features and we're falling behind.",
+      "expected_output": "Does NOT accept the vague framing at face value. Actively helps shape the idea: proposes concrete framings ('Do you mean X or Y?'), surfaces what the codebase already does that could relate. Pushes on problem & evidence: What specific competitor features? What user problems would AI solve? What evidence of 'falling behind' (churn data, user complaints, lost deals)? Forces 'if we do nothing' — what specifically happens? Should not let the user stay at 'we need AI' — must help them drill down to a concrete capability before appetite or feasibility is meaningful. Should probe whether the real problem is competitive positioning vs actual user need. If user cannot articulate a specific problem AI would solve after thorough probing, should reach a pass or investigate-further bet rather than scoping a vague 'add AI' feature. Should NOT propose specific AI implementations (that's architect territory). Should end by suggesting '/product' only if a concrete scope emerges.",
+      "expectations": [
+        "First question helps shape the vague framing rather than just accepting it",
+        "Asks for specific evidence (user complaints, churn data, competitor features)",
+        "Does not proceed to appetite or feasibility before problem is concrete",
+        "Does not suggest /product unless user articulates a specific capability",
+        "Does not propose specific AI implementations"
+      ]
+    }
+  ]
+}

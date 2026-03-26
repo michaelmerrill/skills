@@ -1,9 +1,9 @@
 ---
 name: engineering
-description: "Technical design interview + adversarial review → standalone tdd.md. Covers architecture, data, APIs, behavior, security, observability, testing, phasing. Triggers: 'engineer this,' 'how should we build,' 'technical design,' post-design. Not for: scoping (discovery), requirements (product), UX (design)."
+description: "Technical design interview + adversarial review → standalone tdd.md. Covers architecture, data, APIs, behavior, security, observability, testing, phasing. Triggers: 'engineer this,' 'how should we build,' 'technical design,' post-design. Not for: scoping (scope), requirements (product), UX (design)."
 ---
 
-Technical design interview → `./plans/<feature>/tdd.md` → adversarial review. Pipeline: discovery → product → design → **engineering** → plan.
+Technical design interview → `./plans/<feature>/tdd.md` → adversarial review. Pipeline: scope → product → design → **engineering** → plan.
 
 Phase: Engineering. User is technical. Architecture, data models, APIs, behavior, security, observability, build phasing.
 
@@ -12,7 +12,7 @@ Phase: Engineering. User is technical. Architecture, data models, APIs, behavior
 Before asking anything:
 
 1. Read the feature folder (`./plans/*/`). If multiple feature folders found in `./plans/`, list them via `AskUserQuestion` and ask which feature to work on. Check `pipeline.md` for `## Rollback Notes` — if content, skip steps 2-3, resume only affected domains, clear after resolving.
-2. Look for `discovery.md`, `prd.md`, `spec.md`. `spec.md` is **REQUIRED** — if missing, stop: "Run `/design` first." If `tdd.md` already populated → skip interview, go to Adversarial Review.
+2. Look for `scope.md`, `prd.md`, `spec.md`. `spec.md` is **REQUIRED** — if missing, stop: "Run `/design` first." If `tdd.md` already populated → skip interview, go to Adversarial Review.
 3. Check `prd.md` for `## Glossary`. If missing AND requirements introduce 3+ domain nouns not in codebase → generate glossary silently in `prd.md`, then use canonical terms throughout.
 4. Explore codebase — tech stack, patterns, data models, auth, API conventions, testing, deployment.
 5. Search for architecture docs, ADRs, domain glossaries. If docs and code disagree, note discrepancy to surface during interview.
@@ -46,7 +46,7 @@ Resolve decisions across these domains depth-first — exhaust sub-questions bef
 
 Resolve upstream decisions before downstream. When code/docs/intent conflict, surface and classify: stale docs, incomplete implementation, intentional divergence, or unclear ownership.
 
-When a design decision invalidates upstream docs, append `## Rollback Notes` to `pipeline.md` (trigger, affected domains, decisions to preserve). Data model breaks UX → `/design`. Architectural constraint breaks product assumption → `/product` or `/discovery`. Roll back only as far as necessary.
+When a design decision invalidates upstream docs, append `## Rollback Notes` to `pipeline.md` (trigger, affected domains, decisions to preserve). Data model breaks UX → `/design`. Architectural constraint breaks product assumption → `/product` or `/scope`. Roll back only as far as necessary.
 
 ### Producing the doc
 
@@ -57,7 +57,7 @@ When every domain is fully resolved: audit all recorded assumptions — resolve 
 Work silently — user sees only the verdict.
 
 1. **Understand**: Read `tdd.md`. Note anything underspecified, inconsistent, or surprising.
-2. **Verify against reality**: Check claims against code/docs. Cross-check against `prd.md` FRs — all stories addressed? Unjustified scope creep? Cross-check against `spec.md` flows — design mismatches? If `discovery.md` exists: tackles out-of-scope items? Misses v1 items?
+2. **Verify against reality**: Check claims against code/docs. Cross-check against `prd.md` FRs — all stories addressed? Unjustified scope creep? Cross-check against `spec.md` flows — design mismatches? If `scope.md` exists: tackles out-of-scope items? Misses v1 items?
 3. **Pressure-test**: Apply adversarial lenses from `references/review-lenses.md`. Additional lens: ADR quality — alternatives explored? consequences documented? Skip empty lenses, order findings by severity. Enumerate remaining assumptions — flag any now resolvable.
 
 ### Verdict
@@ -70,6 +70,6 @@ Format: `### Verdict: Ready / Revise / Rethink` followed by **Strengths** (2-4 b
 
 **Revise**: "Let's work through these issues." Group by subsection. Each turn: restate issues, propose resolution, accept/modify/skip. Skipped items become open items. After all resolved, update `tdd.md` in single write, re-run review. No re-exploration, no scope expansion, no re-interview. Batch aggressively if user accepts unchanged.
 
-**Rethink**: Recommend re-interview from affected domains. If findings invalidate product assumptions (not just tech), append `## Rollback Notes` to `pipeline.md` and direct to `/product` or `/discovery`.
+**Rethink**: Recommend re-interview from affected domains. If findings invalidate product assumptions (not just tech), append `## Rollback Notes` to `pipeline.md` and direct to `/product` or `/scope`.
 
 Update `## Decisions Log` and `## Status` in `pipeline.md`.

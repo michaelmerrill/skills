@@ -21,7 +21,7 @@ Use mapping tables in `assets/linear-mapping.md` for all field mappings.
 
 ### 1. Project
 
-Extract feature name from `# Discovery: <name>` heading in `discovery.md`, or from the folder name if no discovery brief exists.
+Extract feature name from `# Scope: <name>` heading in `scope.md`, or from the folder name if no scope brief exists.
 
 Check for `<!-- linear-project: <id> -->` in `pipeline.md`:
 - **Has ID**: `list_projects`, verify project exists by ID. If gone, treat as new.
@@ -36,7 +36,7 @@ Read the feature folder. For each standalone doc that exists, sync as a Linear d
 
 | File | Linear document title |
 |------|----------------------|
-| `discovery.md` | Discovery Brief |
+| `scope.md` | Scope Brief |
 | `prd.md` | Product Requirements |
 | `spec.md` | Design Specification |
 | `tdd.md` | Technical Design |

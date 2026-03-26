@@ -9,11 +9,11 @@
 
 | Stage | Skill | Verdict | Date |
 |-------|-------|---------|------|
-| Discovery | /discovery | <verdict> | <date> |
+| Scope | /scope | <verdict> | <date> |
 
 ## Decisions Log
 
-- [<date>] Discovery: <key decisions>
+- [<date>] Scope: <key decisions>
 
 ## Rollback Notes
 

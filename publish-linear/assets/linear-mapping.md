@@ -2,7 +2,7 @@
 
 | Source file | Linear document title |
 |---|---|
-| `discovery.md` | Discovery Brief |
+| `scope.md` | Scope Brief |
 | `prd.md` | Product Requirements |
 | `spec.md` | Design Specification |
 | `tdd.md` | Technical Design |
@@ -14,7 +14,7 @@
 
 | Pipeline stage | Linear project state |
 |---|---|
-| discovery | Discovering |
+| scope | Scoping |
 | product | Defining |
 | design | Designing |
 | engineering | Architecting |

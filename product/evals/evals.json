@@ -3,20 +3,20 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "I want to write requirements for adding team billing to our SaaS app. We've already scoped it — the discovery brief is at plans/team-billing/.",
-      "expected_output": "Reads the discovery brief (discovery.md) and acknowledges its contents. Skips Problem & motivation domain (already resolved in discovery). Conducts a structured product interview covering remaining 9 domains (target users, user stories with MoSCoW priorities, functional requirements with story traceability, non-functional requirements with measurable targets, success metrics with baselines/targets/timeframes, scope with out-of-scope rationale, market context if relevant, dependencies, risks) one question at a time with recommendations. Writes standalone prd.md with all sections populated. Then automatically runs quality gate checking: every story has 2+ acceptance criteria, every FR maps to a story, success metrics have baselines, no implementation language in FRs, MoSCoW on all stories/FRs. Delivers Ready/Revise/Rethink verdict. If Ready, checks glossary conditions and writes ## Glossary in prd.md if needed. Should NOT include data models, API designs, architecture decisions, or technical implementation details. Should end by suggesting '/design' next.",
+      "prompt": "I want to write requirements for adding team billing to our SaaS app. We've already scoped it — the scope brief is at plans/team-billing/.",
+      "expected_output": "Reads the scope brief (scope.md) and acknowledges its contents. Skips Problem & motivation domain (already resolved in scope). Conducts a structured product interview covering remaining 9 domains (target users, user stories with MoSCoW priorities, functional requirements with story traceability, non-functional requirements with measurable targets, success metrics with baselines/targets/timeframes, scope with out-of-scope rationale, market context if relevant, dependencies, risks) one question at a time with recommendations. Writes standalone prd.md with all sections populated. Then automatically runs quality gate checking: every story has 2+ acceptance criteria, every FR maps to a story, success metrics have baselines, no implementation language in FRs, MoSCoW on all stories/FRs. Delivers Ready/Revise/Rethink verdict. If Ready, checks glossary conditions and writes ## Glossary in prd.md if needed. Should NOT include data models, API designs, architecture decisions, or technical implementation details. Should end by suggesting '/design' next.",
       "files": []
     },
     {
       "id": 2,
       "prompt": "Let's write requirements for a dashboard sharing feature. Users need to share dashboards with people outside the org via links, with control over what data is visible.",
-      "expected_output": "No feature folder found — derives kebab-case name, confirms with user, creates ./plans/<name>/pipeline.md. Starts from problem/motivation (no discovery brief). Conducts product-focused interview exploring user personas (internal admin sharing, external viewer), user stories with MoSCoW priorities (create share link, view shared dashboard, revoke access), functional requirements with story traceability (link generation, permission controls, data filtering from user perspective), NFRs with measurable targets, success metrics with baselines and targets (adoption rate, external viewer engagement), scope with rationale for out-of-scope items. Writes standalone prd.md. Runs quality gate checking all criteria. Delivers verdict. Should NOT specify auth token implementation, API endpoints, or database schemas. Should end by suggesting '/design' next.",
+      "expected_output": "No feature folder found — derives kebab-case name, confirms with user, creates ./plans/<name>/pipeline.md. Starts from problem/motivation (no scope brief). Conducts product-focused interview exploring user personas (internal admin sharing, external viewer), user stories with MoSCoW priorities (create share link, view shared dashboard, revoke access), functional requirements with story traceability (link generation, permission controls, data filtering from user perspective), NFRs with measurable targets, success metrics with baselines and targets (adoption rate, external viewer engagement), scope with rationale for out-of-scope items. Writes standalone prd.md. Runs quality gate checking all criteria. Delivers verdict. Should NOT specify auth token implementation, API endpoints, or database schemas. Should end by suggesting '/design' next.",
       "files": []
     },
     {
       "id": 3,
       "prompt": "review the requirements in plans/team-billing/ — are they ready for design?",
-      "expected_output": "Detects existing prd.md and skips interview, going directly to quality gate. Checks gate criteria: every story has 2+ acceptance criteria, FR-to-story traceability (no orphans), success metrics have baselines/targets/timeframes/measurement, no implementation language in FRs, out-of-scope rationale, MoSCoW on all stories and FRs. Delivers structured verdict (Ready/Revise/Rethink) with strengths, issues, risks. Checks discovery.md alignment if present. Should NOT re-interview. If Revise, enters resolution phase — walking through issue-groups with suggested resolutions, updating prd.md. If Ready, checks glossary conditions. Should end by suggesting '/design' next.",
+      "expected_output": "Detects existing prd.md and skips interview, going directly to quality gate. Checks gate criteria: every story has 2+ acceptance criteria, FR-to-story traceability (no orphans), success metrics have baselines/targets/timeframes/measurement, no implementation language in FRs, out-of-scope rationale, MoSCoW on all stories and FRs. Delivers structured verdict (Ready/Revise/Rethink) with strengths, issues, risks. Checks scope.md alignment if present. Should NOT re-interview. If Revise, enters resolution phase — walking through issue-groups with suggested resolutions, updating prd.md. If Ready, checks glossary conditions. Should end by suggesting '/design' next.",
       "expectations": [
         "Does not ask interview questions — goes straight to quality gate",
         "Verdict is one of Ready/Revise/Rethink",
@@ -34,12 +34,12 @@
     {
       "id": 5,
       "prompt": "product: Look at plans/gamification/. The feature is about adding a points and badges system but I'm not sure the problem statement even makes sense for our B2B product.",
-      "expected_output": "Detects existing prd.md and goes to quality gate. Likely delivers Rethink verdict due to fundamental problems (unclear problem-market fit for B2B). Should NOT enter resolution phase on Rethink. Should write ## Rollback Notes to pipeline.md with trigger + affected domains + preserved decisions. Should recommend running /discovery to re-scope. Should explain why patching individual issues won't fix fundamentally misaligned requirements.",
+      "expected_output": "Detects existing prd.md and goes to quality gate. Likely delivers Rethink verdict due to fundamental problems (unclear problem-market fit for B2B). Should NOT enter resolution phase on Rethink. Should write ## Rollback Notes to pipeline.md with trigger + affected domains + preserved decisions. Should recommend running /scope to re-scope. Should explain why patching individual issues won't fix fundamentally misaligned requirements.",
       "expectations": [
         "Verdict is Rethink, not Revise or Ready",
         "Does not enter resolution phase (no issue-group walkthrough)",
         "Writes ## Rollback Notes to pipeline.md",
-        "Recommends /discovery, not /design"
+        "Recommends /scope, not /design"
       ],
       "files": []
     },
@@ -51,8 +51,8 @@
     },
     {
       "id": 7,
-      "prompt": "product: We're building AI-powered search to replace keyword search. Users complain they can't find things. plans/ai-search/ has the discovery brief.",
-      "expected_output": "Reads discovery.md, skips Problem & motivation. Interviews on target users (who searches, roles, frequency), user stories with MoSCoW priorities (natural language search, filtered results, saved searches), functional requirements with story traceability (each FR maps to stories), NFRs with measurable targets (response time, relevance quality thresholds), success metrics with baselines (current search success rate) and targets and timeframes. Market context domain triggered — search has competitors, should explore alternatives. Writes standalone prd.md. Runs quality gate. Should NOT specify embedding models, vector databases, indexing strategies. Should end by suggesting '/design' next.",
+      "prompt": "product: We're building AI-powered search to replace keyword search. Users complain they can't find things. plans/ai-search/ has the scope brief.",
+      "expected_output": "Reads scope.md, skips Problem & motivation. Interviews on target users (who searches, roles, frequency), user stories with MoSCoW priorities (natural language search, filtered results, saved searches), functional requirements with story traceability (each FR maps to stories), NFRs with measurable targets (response time, relevance quality thresholds), success metrics with baselines (current search success rate) and targets and timeframes. Market context domain triggered — search has competitors, should explore alternatives. Writes standalone prd.md. Runs quality gate. Should NOT specify embedding models, vector databases, indexing strategies. Should end by suggesting '/design' next.",
       "files": []
     },
     {
