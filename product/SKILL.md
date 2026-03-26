@@ -1,9 +1,9 @@
 ---
 name: product
-description: "Product requirements interview → standalone prd.md. Covers problem, users, stories, FRs, NFRs, metrics, scope, risks. Triggers: 'product requirements,' 'write a PRD,' 'define requirements,' post-discovery. Not for: scoping (discovery), UX design (design), technical design (engineering)."
+description: "Product requirements interview → standalone prd.md. Covers problem, users, stories, FRs, NFRs, metrics, scope, risks. Triggers: 'product requirements,' 'write a PRD,' 'define requirements,' post-scope. Not for: scoping (scope), UX design (design), technical design (engineering)."
 ---
 
-Product requirements interview → `./plans/<feature>/prd.md` → quality gate → glossary (when needed). Pipeline: discovery → **product** → design → engineering → plan.
+Product requirements interview → `./plans/<feature>/prd.md` → quality gate → glossary (when needed). Pipeline: scope → **product** → design → engineering → plan.
 
 ## Rules
 
@@ -24,16 +24,16 @@ Before asking anything:
 
 1. Detect state in `./plans/`. Multiple feature folders? List via `AskUserQuestion`, ask which.
    - `## Rollback Notes` with content in `pipeline.md`: priority. Skip steps 2-3, resume only affected domains, clear after resolving.
-   - Feature folder with `discovery.md`: read for context.
+   - Feature folder with `scope.md`: read for context.
    - `prd.md` populated: skip interview → Quality Gate.
    - `prd.md` with `## Glossary` populated: skip to After Delivering.
    - No feature folder: create `./plans/<name>/pipeline.md` + start from scratch.
 2. Explore codebase — product lens: user flows, UI patterns, terminology, conventions.
 3. Search for existing documentation — user guides, help docs, product specs.
 
-If discovery brief exists: "I've read the discovery brief for [feature]. Problem: [X], users: [Y], proposal: [Z]. Let's start with target users — who specifically will use this?"
+If scope brief exists: "I've read the scope brief for [feature]. Problem: [X], users: [Y], shaped solution: [Z]. Let's start with target users — who specifically will use this?"
 
-No feature folder? Start from user's description, beginning with problem/motivation. Derive kebab-case name, confirm, create `./plans/<name>/pipeline.md`. No discovery.md — user entered pipeline at product.
+No feature folder? Start from user's description, beginning with problem/motivation. Derive kebab-case name, confirm, create `./plans/<name>/pipeline.md`. No scope.md — user entered pipeline at product.
 
 ## Interview Protocol
 
@@ -45,7 +45,7 @@ Walk every branch depth-first. Resolve sub-questions before moving on. Only ask 
 
 Track resolution across 10 domains:
 
-1. **Problem & motivation** — skip if discovery.md exists (already resolved)
+1. **Problem & motivation** — skip if scope.md exists (already resolved)
 2. **Target users** — personas with needs, current behavior, frequency
 3. **User stories** — As a/I want/so that + MoSCoW priority (Must/Should/Could/Won't)
 4. **Functional requirements** — step through each story: see, click, receive. Each FR maps to stories (traceability)
@@ -62,7 +62,7 @@ When all domains resolved: audit assumptions — resolve any that later context 
 
 Work silently — user sees only the verdict.
 
-**Analysis**: (1) Read PRD fully — note underspecified, inconsistent, surprising items. (2) Verify claims against codebase. (3) Check alignment with `discovery.md` if exists. (4) Evaluate against gate criteria. (5) Enumerate remaining assumptions — flag any now resolvable.
+**Analysis**: (1) Read PRD fully — note underspecified, inconsistent, surprising items. (2) Verify claims against codebase. (3) Check alignment with `scope.md` if exists. (4) Evaluate against gate criteria. (5) Enumerate remaining assumptions — flag any now resolvable.
 
 **Gate criteria**:
 - Every story has 2+ acceptance criteria
@@ -75,7 +75,7 @@ Work silently — user sees only the verdict.
 **Verdicts**:
 - **Ready**: Solid enough to design from. Minor issues only.
 - **Revise**: Issues to fix before design. Specify what.
-- **Rethink**: Fundamental problems — rollback to `/discovery`.
+- **Rethink**: Fundamental problems — rollback to `/scope`.
 
 **Output**: Verdict header, Strengths (2-4 bullets), Issues (numbered, severity-ordered), Risks.
 
@@ -99,7 +99,7 @@ Max 1-2 questions. More needed → re-enter Quality Gate with Revise targeting a
 
 **Receiving**: Read `## Rollback Notes` in `pipeline.md` for trigger, affected domains, decisions to preserve. Resume only affected domains — don't re-interview resolved decisions. After resolving, re-run Quality Gate, clear `## Rollback Notes` in `pipeline.md`.
 
-**Triggering to discovery**: If interview reveals scope is wrong (wrong problem, missing stakeholder, infeasible direction): append `## Rollback Notes` to `pipeline.md` with trigger + affected domains + preserved decisions. "This changes the scope, not just requirements. Recommend revisiting `/discovery`."
+**Triggering to scope**: If interview reveals scope is wrong (wrong problem, missing stakeholder, infeasible direction): append `## Rollback Notes` to `pipeline.md` with trigger + affected domains + preserved decisions. "This changes the scope, not just requirements. Recommend revisiting `/scope`."
 
 ## After Delivering
 

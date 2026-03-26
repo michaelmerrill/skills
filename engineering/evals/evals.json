@@ -3,8 +3,8 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "I want to design the technical architecture for team billing. The feature folder is at plans/team-billing/ with discovery.md, prd.md, and spec.md.",
-      "expected_output": "Reads discovery.md, prd.md, and spec.md before asking questions. Conducts a structured technical interview exploring existing billing/user models in depth, resolves all 12 domains (system context with C4 diagram, architecture decisions as ADRs, data models with ER diagrams, API contracts with error tables, behavior specs linked to FRs, edge cases with severity, security model, observability with metrics/alerts, testing strategy tables, operational concerns, code design with signatures, phased build with ADR+FR traceability) one question at a time with recommendations. Writes standalone tdd.md. Then automatically runs adversarial review — delivering a Ready/Revise/Rethink verdict with strengths, issues grounded in codebase verification, and risks. Should end by suggesting '/plan' when Ready.",
+      "prompt": "I want to design the technical architecture for team billing. The feature folder is at plans/team-billing/ with scope.md, prd.md, and spec.md.",
+      "expected_output": "Reads scope.md, prd.md, and spec.md before asking questions. Conducts a structured technical interview exploring existing billing/user models in depth, resolves all 12 domains (system context with C4 diagram, architecture decisions as ADRs, data models with ER diagrams, API contracts with error tables, behavior specs linked to FRs, edge cases with severity, security model, observability with metrics/alerts, testing strategy tables, operational concerns, code design with signatures, phased build with ADR+FR traceability) one question at a time with recommendations. Writes standalone tdd.md. Then automatically runs adversarial review — delivering a Ready/Revise/Rethink verdict with strengths, issues grounded in codebase verification, and risks. Should end by suggesting '/plan' when Ready.",
       "files": []
     },
     {
@@ -28,8 +28,8 @@
     },
     {
       "id": 4,
-      "prompt": "engineer this: the dashboard sharing feature. The feature folder is at plans/dashboard-sharing/ with prd.md and spec.md. No discovery.md.",
-      "expected_output": "Reads prd.md and spec.md before asking. Notes missing discovery.md but proceeds since spec.md (required) exists. Interview addresses security concerns around external sharing (token generation, link expiration, data filtering), explores existing dashboard/permissions architecture. Produces tdd.md with ADRs for sharing approach, full API contracts including error responses for invalid/expired tokens, observability for share link usage metrics, and C4 context diagram showing sharing boundaries. Then runs adversarial review. Should end by suggesting '/plan' when Ready.",
+      "prompt": "engineer this: the dashboard sharing feature. The feature folder is at plans/dashboard-sharing/ with prd.md and spec.md. No scope.md.",
+      "expected_output": "Reads prd.md and spec.md before asking. Notes missing scope.md but proceeds since spec.md (required) exists. Interview addresses security concerns around external sharing (token generation, link expiration, data filtering), explores existing dashboard/permissions architecture. Produces tdd.md with ADRs for sharing approach, full API contracts including error responses for invalid/expired tokens, observability for share link usage metrics, and C4 context diagram showing sharing boundaries. Then runs adversarial review. Should end by suggesting '/plan' when Ready.",
       "files": []
     },
     {
@@ -63,8 +63,8 @@
     },
     {
       "id": 9,
-      "prompt": "Our plan is to build a custom ORM because Prisma is too slow. Feature folder at plans/custom-orm/ with discovery.md, prd.md, and spec.md. tdd.md already exists. Review this.",
-      "expected_output": "Detects existing tdd.md and runs adversarial review. Sharp critique questioning whether performance has been profiled, suggesting lighter alternatives (Kysely, Knex, raw SQL), flagging maintenance burden. Cross-checks against prd.md FRs for coverage gaps and spec.md flows for design mismatches. Checks ADR quality — were alternatives properly evaluated with benchmarks? Were consequences of maintaining a custom ORM documented? Likely recommends Rethink. Should suggest rolling back to /product or /discovery to reconsider approach via pipeline.md ## Rollback Notes.",
+      "prompt": "Our plan is to build a custom ORM because Prisma is too slow. Feature folder at plans/custom-orm/ with scope.md, prd.md, and spec.md. tdd.md already exists. Review this.",
+      "expected_output": "Detects existing tdd.md and runs adversarial review. Sharp critique questioning whether performance has been profiled, suggesting lighter alternatives (Kysely, Knex, raw SQL), flagging maintenance burden. Cross-checks against prd.md FRs for coverage gaps and spec.md flows for design mismatches. Checks ADR quality — were alternatives properly evaluated with benchmarks? Were consequences of maintaining a custom ORM documented? Likely recommends Rethink. Should suggest rolling back to /product or /scope to reconsider approach via pipeline.md ## Rollback Notes.",
       "files": [],
       "expectations": [
         "Response ends with a clear verdict: Ready, Revise, or Rethink",

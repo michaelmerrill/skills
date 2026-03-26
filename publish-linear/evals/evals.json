@@ -3,14 +3,14 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Publish the team-billing feature to Linear. The feature folder has discovery.md, prd.md, spec.md, tdd.md, and plan.md. There are 6 issue files in ./issues/team-billing/. The team is already configured in .pipeline.md.",
-      "expected_output": "Should read all docs from ./plans/team-billing/. Should create or find the Linear project by name. Should sync all 5 standalone docs as Linear documents (Discovery Brief, Product Requirements, Design Specification, Technical Design, Implementation Plan). Should extract Decisions Log and Status from pipeline.md as separate documents. Should map pipeline status to correct Linear project state. Should create all 6 issues with labels (Auto/HITL from Type field), then wire blockedBy relations in a second pass. Should write linear-project ID marker to pipeline.md. Should print confirmation with counts.",
+      "prompt": "Publish the team-billing feature to Linear. The feature folder has scope.md, prd.md, spec.md, tdd.md, and plan.md. There are 6 issue files in ./issues/team-billing/. The team is already configured in .pipeline.md.",
+      "expected_output": "Should read all docs from ./plans/team-billing/. Should create or find the Linear project by name. Should sync all 5 standalone docs as Linear documents (Scope Brief, Product Requirements, Design Specification, Technical Design, Implementation Plan). Should extract Decisions Log and Status from pipeline.md as separate documents. Should map pipeline status to correct Linear project state. Should create all 6 issues with labels (Auto/HITL from Type field), then wire blockedBy relations in a second pass. Should write linear-project ID marker to pipeline.md. Should print confirmation with counts.",
       "files": []
     },
     {
       "id": 2,
-      "prompt": "Push the dashboard-sharing feature to Linear. We only have discovery.md and prd.md so far, no issues yet.",
-      "expected_output": "Should read ./plans/dashboard-sharing/ and find only discovery.md and prd.md. Should create or find the Linear project. Should sync only the 2 existing docs as Linear documents — should NOT error on missing spec.md/tdd.md/plan.md. Should skip issue sync entirely since no ./issues/dashboard-sharing/ directory exists. Should set project state based on last pipeline stage (product). Should print confirmation showing 2 documents synced, 0 issues.",
+      "prompt": "Push the dashboard-sharing feature to Linear. We only have scope.md and prd.md so far, no issues yet.",
+      "expected_output": "Should read ./plans/dashboard-sharing/ and find only scope.md and prd.md. Should create or find the Linear project. Should sync only the 2 existing docs as Linear documents — should NOT error on missing spec.md/tdd.md/plan.md. Should skip issue sync entirely since no ./issues/dashboard-sharing/ directory exists. Should set project state based on last pipeline stage (product). Should print confirmation showing 2 documents synced, 0 issues.",
       "files": []
     },
     {

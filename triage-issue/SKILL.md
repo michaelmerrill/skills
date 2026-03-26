@@ -1,6 +1,6 @@
 ---
 name: triage-issue
-description: "Investigate bug -> root cause analysis -> issue file with TDD fix plan. Triggers: 'bug,' 'broken,' 'not working,' 'regression,' 'error,' 'triage this.' Not for: new features (discovery), technical design (engineering), code review."
+description: "Investigate bug -> root cause analysis -> issue file with TDD fix plan. Triggers: 'bug,' 'broken,' 'not working,' 'regression,' 'error,' 'triage this.' Not for: new features (scope), technical design (engineering), code review."
 ---
 
 Bug investigation -> root cause -> issue file with TDD fix plan. Parallel track to the feature pipeline -- for defects, not capabilities.
@@ -51,7 +51,7 @@ After investigation, classify:
 
 **Missing feature (simple)** -- Behavior never built but fix is localized (1-3 files, clear pattern). Create issue file noting this is net-new behavior, not a regression.
 
-**Missing feature (complex)** -- New capability, multiple files, design decisions needed. Redirect: "This looks like a missing feature rather than a bug -- [explanation]. I'd recommend `/discovery` to scope it properly. Reference `./issues/bugs/<slug>.md` for my investigation findings."
+**Missing feature (complex)** -- New capability, multiple files, design decisions needed. Redirect: "This looks like a missing feature rather than a bug -- [explanation]. I'd recommend `/scope` to scope it properly. Reference `./issues/bugs/<slug>.md` for my investigation findings."
 
 **Systemic** -- Root cause is architectural, fix requires new patterns or touches 8+ files. Redirect: "The root cause is systemic: [explanation]. A point fix would be fragile. I'd recommend `/engineering` — reference `./issues/bugs/<slug>.md` for my investigation findings." Create lightweight issue with investigation findings.
 
@@ -68,6 +68,6 @@ Answer follow-ups about root cause or fix approach. If user wants to expand scop
 - One bug per invocation. Multiple bugs? Triage the first, then: "Describe the next bug and I'll triage it separately."
 - Don't design solutions. Fix plan is tactical -- minimal change to correct the defect.
 - Don't implement the fix. Output is the issue file, not the code change.
-- Feature request → "This is new behavior, not a bug. Run `/discovery`."
+- Feature request → "This is new behavior, not a bug. Run `/scope`."
 - Systemic issue → "This needs a design. Run `/engineering`." Create lightweight issue with findings.
 - Vague report, no repro → ask for repro steps. If unavailable, create lightweight issue marked "needs-reproduction."

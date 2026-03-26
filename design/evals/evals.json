@@ -27,7 +27,7 @@
     },
     {
       "id": 5,
-      "prompt": "design: The prd.md at plans/permissions/ says 'admins can manage all roles' but discovery.md says 'only super-admins can assign admin roles.' These contradict each other.",
+      "prompt": "design: The prd.md at plans/permissions/ says 'admins can manage all roles' but scope.md says 'only super-admins can assign admin roles.' These contradict each other.",
       "expected_output": "Detects contradictory requirements (admin vs super-admin role management). Appends to ## Rollback Notes in pipeline.md with the contradiction as trigger, affected domains, and any existing design decisions to preserve. Rolls back to /product rather than resolving the contradiction inline. Should NOT continue the design interview past this point.",
       "expectations": [
         "Appends ## Rollback Notes to pipeline.md",

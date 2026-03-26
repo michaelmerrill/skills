@@ -1,10 +1,10 @@
-<!-- Discovery brief. Create as ./plans/<feature-name>/discovery.md -->
-<!-- Pre-PRD gate. Kill bad ideas fast, greenlight good ones. -->
+<!-- Scope brief. Create as ./plans/<feature-name>/scope.md -->
+<!-- Pre-PRD shaping artifact. Turn vague ideas into concrete, bounded bets. -->
 <!-- Downstream: product reads this to produce PRD. engineering reads for constraints. -->
 
-# Discovery: <Feature Name>
+# Scope: <Feature Name>
 
-> <date> | Verdict: Go / No-Go / Investigate
+> <date> | Bet: Place / Pass / Investigate
 
 ## Problem
 
@@ -27,9 +27,9 @@
 **Why this size:** <one sentence>
 **Why now:** <trigger — what changed>
 
-## Proposal
+## Shaped Solution
 
-<2-4 sentences: rough approach, not a design>
+<2-4 sentences: rough solution shape — enough to see it, not enough to build it>
 
 **In for v1:**
 - <capability>
@@ -38,10 +38,7 @@
 - <capability> — <reason>
 
 **Rabbit holes:**
-- <area of unexpected complexity>
-
-**Alternatives considered:**
-- <approach> — <why rejected>
+- <area of unexpected complexity> — <containment strategy>
 
 ## Feasibility
 
@@ -54,9 +51,9 @@
 - **Risk:** <statement>. *Likelihood: H/M/L. Impact: <what happens>.*
 - **Assumption:** <statement>. *If wrong: <consequence>.*
 
-## Verdict
+## Bet
 
-**Decision:** Go / No-Go / Investigate
+**Decision:** Place / Pass / Investigate
 
 <Rationale grounded in evidence + feasibility + appetite.>
 

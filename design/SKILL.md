@@ -3,7 +3,7 @@ name: design
 description: "Design specification interview → standalone spec.md (flows, screens, states, components, responsive, a11y). Triggers: 'design this,' 'what screens,' 'how should users interact,' post-product. Not for: technical design (engineering), requirements (product). Skip for API-only, CLI, backend, or infra features."
 ---
 
-Design interview → `./plans/<feature>/spec.md`. Pipeline: discovery → product → **design** → engineering → plan.
+Design interview → `./plans/<feature>/spec.md`. Pipeline: scope → product → **design** → engineering → plan.
 
 Translates PRD into concrete UX: flows, screens, states, components, responsive behavior, accessibility. Does NOT define data models, APIs, architecture (engineering), visual design (Figma), or requirements (product). Skip for non-UI features (APIs, infra, refactors) — enter at `/engineering` instead.
 
@@ -19,7 +19,7 @@ Phase: Design. Ask about interactions, not code. Technical constraints inform re
 ## Starting
 
 1. Read feature folder (`./plans/*/`). If multiple, list via `AskUserQuestion` and ask which feature. Check `./plans/<feature>/pipeline.md` for `## Rollback Notes` — if content, skip to Rollback Receiving.
-2. Look for `discovery.md` and `prd.md`. If `prd.md` exists: extract every user story (each becomes a flow), use glossary terms for UI labels. If no `prd.md`: note gap — defined requirements produce better specs — proceed if user wants.
+2. Look for `scope.md` and `prd.md`. If `prd.md` exists: extract every user story (each becomes a flow), use glossary terms for UI labels. If no `prd.md`: note gap — defined requirements produce better specs — proceed if user wants.
 3. Explore existing UI patterns — component library, design system, nav, forms, notifications, empty states, error handling.
 4. Search for design system docs, Storybook, component READMEs.
 
@@ -62,7 +62,7 @@ After resolving each domain, append `<!-- progress: domain-N resolved -->` to th
 
 **Contradictory requirements**: append to `## Rollback Notes` in `pipeline.md` with trigger, affected domains, design decisions to preserve. Roll back to `/product`.
 
-**Fundamental scope ambiguity**: append to `## Rollback Notes` in `pipeline.md` with trigger, affected domains, decisions to preserve. Roll back to `/discovery`.
+**Fundamental scope ambiguity**: append to `## Rollback Notes` in `pipeline.md` with trigger, affected domains, decisions to preserve. Roll back to `/scope`.
 
 No technical implementation (schemas, APIs, architecture). Redirect: "Captured for technical design — let's stay on UX."
 
@@ -97,4 +97,4 @@ Update directly on change requests. No re-interview for minor adjustments. Flag 
 
 **Receiving**: Read `## Rollback Notes` in `pipeline.md` for trigger + affected domains + decisions to preserve. Resume only affected domains — do not re-interview resolved decisions. Update `spec.md`, clear notes, direct user to triggering skill.
 
-**Triggering**: Contradictory requirements → `/product`. Fundamental scope ambiguity → `/discovery`.
+**Triggering**: Contradictory requirements → `/product`. Fundamental scope ambiguity → `/scope`.

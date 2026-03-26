@@ -1,9 +1,9 @@
 ---
 name: bootstrap
-description: "Initialize new codebases — standalone project, monorepo, or new app/package/service within existing repo. Interview + convention inheritance + scaffold + foundation docs. Triggers: 'new project,' 'bootstrap,' 'init,' 'scaffold,' 'add app,' 'add package,' 'new service,' greenfield, empty directory. Not for: adding features (discovery), deploying (deploy-to-vercel), hooks on existing repos (setup-pre-commit)."
+description: "Initialize new codebases — standalone project, monorepo, or new app/package/service within existing repo. Interview + convention inheritance + scaffold + foundation docs. Triggers: 'new project,' 'bootstrap,' 'init,' 'scaffold,' 'add app,' 'add package,' 'new service,' greenfield, empty directory. Not for: adding features (scope), deploying (deploy-to-vercel), hooks on existing repos (setup-pre-commit)."
 ---
 
-Structured interview → convention inheritance → scaffold → foundation docs. Handles standalone projects, monorepo apps/packages, and modules in existing codebases. Standalone skill. After scaffolding, enter the feature pipeline with `/discovery`.
+Structured interview → convention inheritance → scaffold → foundation docs. Handles standalone projects, monorepo apps/packages, and modules in existing codebases. Standalone skill. After scaffolding, enter the feature pipeline with `/scope`.
 
 ## Starting — Context Detection
 
@@ -14,7 +14,7 @@ Before asking anything, inspect the working directory. Classify:
 | **A. Empty dir** | No files or only `.git`/README/LICENSE | New standalone project |
 | **B. Monorepo root** | `turbo.json`, `pnpm-workspace.yaml`, `nx.json`, or root `workspaces` | Add app/package/service. Run Convention Inheritance. |
 | **C. Inside monorepo** | Ancestor has monorepo markers, cwd in `apps/`/`packages/` | Scaffold at this location. Run Convention Inheritance. |
-| **D. Existing project** | Framework config, deps, source, no monorepo markers | Warn. Suggest `/discovery` or offer to add module/service. |
+| **D. Existing project** | Framework config, deps, source, no monorepo markers | Warn. Suggest `/scope` or offer to add module/service. |
 | **E. Near-empty** | `.git` + README only | Same as A, note existing files |
 
 Contexts B/C/D: run Convention Inheritance next. A/E: skip to Interview.
@@ -77,7 +77,7 @@ Summary:
 1. **Run quality gates** — lint, build, test. Fix issues.
 2. **Summarize** — key files/directories, quality gate commands, foundation docs created.
 3. **Suggest next steps**:
-   - Standalone: "Run `/discovery` to scope your first feature." Set up DB, push to GitHub.
-   - Monorepo app: "Run `/discovery` to scope the first feature for `<app-name>`."
-   - Monorepo package: "Start building the package API, or run `/discovery`."
-   - Module in existing: "Run `/discovery` to plan the first capability."
+   - Standalone: "Run `/scope` to scope your first feature." Set up DB, push to GitHub.
+   - Monorepo app: "Run `/scope` to scope the first feature for `<app-name>`."
+   - Monorepo package: "Start building the package API, or run `/scope`."
+   - Module in existing: "Run `/scope` to plan the first capability."

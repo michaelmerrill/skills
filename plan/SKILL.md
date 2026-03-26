@@ -3,7 +3,7 @@ name: plan
 description: "Decompose technical design into agent-sized implementation issues → numbered markdown files + standalone plan.md. Triggers: 'plan this,' 'break into issues,' 'create tasks,' 'ready to implement,' post-engineering. Not for: designs without file paths/phases (run engineering first)."
 ---
 
-Decompose reviewed design into agent-sized issues → `./plans/<feature>/plan.md` + `./issues/<feature>/NN-slug.md`. Pipeline: discovery → product → design → engineering → **plan** → publish-linear.
+Decompose reviewed design into agent-sized issues → `./plans/<feature>/plan.md` + `./issues/<feature>/NN-slug.md`. Pipeline: scope → product → design → engineering → **plan** → publish-linear.
 
 Phase: Engineering. User is technical.
 
@@ -16,7 +16,7 @@ If `## Rollback Notes` has content in `pipeline.md`: read notes, skip validation
 Validate by checking for `tdd.md` with `## Phased Build Plan`:
 - **Has tdd.md + Phased Build Plan**: Proceed.
 - **Has prd.md but no tdd.md**: Stop. "Run `/engineering` first."
-- **Has discovery.md only**: Stop. "Run `/product` then `/engineering` first."
+- **Has scope.md only**: Stop. "Run `/product` then `/engineering` first."
 - **Simple fix plan** (specific file changes, no phases): Accept — produces 1-2 issues.
 
 ## Process

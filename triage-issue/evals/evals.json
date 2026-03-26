@@ -16,11 +16,11 @@
     {
       "id": 3,
       "prompt": "I expected the app to send email notifications when a task is overdue, but it doesn't do that. Users are complaining.",
-      "expected_output": "Should investigate whether overdue email notifications were ever implemented — check for notification/email code, cron jobs, task scheduling. If this behavior was never built, should classify as a missing feature, not a bug. Should redirect to /discovery for a complex new notification system, or create a simple issue if the infrastructure exists and just needs wiring. Should NOT create a bug issue for behavior that was never designed.",
+      "expected_output": "Should investigate whether overdue email notifications were ever implemented — check for notification/email code, cron jobs, task scheduling. If this behavior was never built, should classify as a missing feature, not a bug. Should redirect to /scope for a complex new notification system, or create a simple issue if the infrastructure exists and just needs wiring. Should NOT create a bug issue for behavior that was never designed.",
       "expectations": [
         "Classifies as missing feature, not bug",
         "Does not create a bug issue file with TDD fix plan",
-        "Redirects to /discovery (if complex) or creates a simple missing-feature issue (if infrastructure exists)",
+        "Redirects to /scope (if complex) or creates a simple missing-feature issue (if infrastructure exists)",
         "Investigates existing notification/email infrastructure before classifying"
       ],
       "files": []
