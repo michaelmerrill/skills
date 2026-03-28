@@ -1,0 +1,51 @@
+{
+  "skill_name": "test",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add test coverage for the candidate-profiles feature. All 5 issues are implemented. The tdd.md has a testing strategy with integration and e2e tables, plus 8 edge cases.",
+      "expected_output": "Should read tdd.md testing strategy and edge cases table. Should discover existing unit tests from /implement. Should identify gaps: integration tests across issue boundaries, e2e flows, untested edge cases. Should write tests following existing patterns. Should run full suite to confirm all pass. Should NOT duplicate existing unit tests.",
+      "expectations": [
+        "Reads tdd.md testing strategy and edge cases",
+        "Discovers existing test files and catalogs coverage",
+        "Identifies integration, e2e, and edge case gaps",
+        "Writes tests following existing conventions",
+        "Does not duplicate tests from /implement",
+        "Runs full test suite",
+        "Updates pipeline.md"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Add test coverage for the notifications feature. While writing integration tests, one test fails — it looks like a bug in the email sending logic.",
+      "expected_output": "Should report the failing test and the likely bug but NOT fix the implementation code. Should note which test fails, what the expected vs actual behavior is, and suggest /triage-issue or a new /implement invocation. Should continue writing other tests that don't depend on the buggy code.",
+      "expectations": [
+        "Reports the bug without fixing implementation code",
+        "Notes expected vs actual behavior",
+        "Suggests /triage-issue for the bug",
+        "Continues writing other tests"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Add tests for the search feature. Only issue 01 of 3 is implemented so far.",
+      "expected_output": "Should handle partial implementation gracefully. Should write tests only for what's implemented (issue 01). Should note which integration and e2e tests can't be written yet because they depend on unimplemented issues. Should NOT write tests for code that doesn't exist.",
+      "expectations": [
+        "Writes tests only for implemented code",
+        "Notes which tests are deferred pending future issues",
+        "Does not write tests for unimplemented code"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Add test coverage for the simple-fix feature. It's a 1-issue feature that adds validation to two endpoints. The /implement TDD cycle already covered all acceptance criteria with unit tests.",
+      "expected_output": "Should discover that unit tests already cover acceptance criteria well. Should identify if any integration or edge case gaps exist (e.g., testing both endpoints together, boundary values). If coverage is already thorough, should report that and write only high-value supplementary tests, not pad with redundant tests. A short run for a small feature is correct.",
+      "expectations": [
+        "Discovers existing thorough unit test coverage",
+        "Does not duplicate existing tests",
+        "Writes only genuinely valuable supplementary tests",
+        "Proportional effort for small feature"
+      ]
+    }
+  ]
+}
