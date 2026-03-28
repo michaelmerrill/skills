@@ -12,10 +12,10 @@ npx skills remove <owner/repo>  # Remove installed skills
 
 ## SDLC Pipeline
 
-Skills form a structured pipeline across three phases:
+Skills form a structured pipeline across four phases:
 
 ```
-scope → product → design → engineering → plan
+scope → product → design → engineering → plan → implement → test → review
 ```
 
 | Skill         | Phase                   | Purpose                                                    |
@@ -25,8 +25,11 @@ scope → product → design → engineering → plan
 | `design`      | 2 — Design              | Design spec — flows, screens, states, components, a11y     |
 | `engineering`  | 3 — Engineering         | TDD — architecture, APIs, data, security, observability    |
 | `plan`        | 3 — Engineering         | Decompose into agent-sized implementation issues           |
+| `implement`   | 4 — Build               | TDD implementation — Red-Green-Refactor per acceptance criterion |
+| `test`        | 4 — Build               | Augment test coverage — integration, e2e, edge cases       |
+| `review`      | 4 — Build               | Code review against upstream specs — Approve/Request Changes/Rethink |
 
-**Phase audiences**: Phase 1 questions are product-level — user need not be technical. Agent reads codebase silently, asks about intent/goals/constraints. Phase 2 translates product decisions into design artifacts; user may or may not be technical. Phase 3 assumes a technical user.
+**Phase audiences**: Phase 1 questions are product-level — user need not be technical. Agent reads codebase silently, asks about intent/goals/constraints. Phase 2 translates product decisions into design artifacts; user may or may not be technical. Phases 3–4 assume a technical user.
 
 ### When to Use What
 
@@ -35,14 +38,17 @@ Not every change needs the full pipeline. Pick your entry point based on the cha
 | Change type                                                           | Entry point     | Steps                                           |
 | --------------------------------------------------------------------- | --------------- | ----------------------------------------------- |
 | New capability (any)                                                  | `/scope`        | Full pipeline                                   |
-| Feature already greenlit                                              | `/product`      | product → design → engineering → plan            |
-| Requirements clear, need design + technical                           | `/design`       | design → engineering → plan                     |
-| Requirements and design clear (spec exists, detailed AC)              | `/engineering`  | engineering → plan                              |
-| Bug fix, regression, something broken                                 | `/triage-issue` | triage-issue → agent implementation             |
-| Tech debt / refactoring (no behavior change)                          | `/engineering`  | engineering → plan                              |
-| Dependency migration / major upgrade                                  | `/engineering`  | engineering → plan (or `/scope` if unclear)      |
+| Feature already greenlit                                              | `/product`      | product → design → engineering → plan → implement → test → review |
+| Requirements clear, need design + technical                           | `/design`       | design → engineering → plan → implement → test → review |
+| Requirements and design clear (spec exists, detailed AC)              | `/engineering`  | engineering → plan → implement → test → review  |
+| Issues exist, ready to build                                          | `/implement`    | implement → test → review (per issue)           |
+| Implementation done, need coverage                                    | `/test`         | test → review                                   |
+| Implementation done, need review                                      | `/review`       | review only                                     |
+| Bug fix, regression, something broken                                 | `/triage-issue` | triage-issue → implement                        |
+| Tech debt / refactoring (no behavior change)                          | `/engineering`  | engineering → plan → implement → test → review  |
+| Dependency migration / major upgrade                                  | `/engineering`  | engineering → plan → implement (or `/scope` if unclear) |
 | Performance optimization                                              | `/triage-issue` | If regression. `/engineering` if systemic        |
-| Security hardening                                                    | `/engineering`  | engineering → plan                              |
+| Security hardening                                                    | `/engineering`  | engineering → plan → implement                  |
 | Config change, copy update, minor refactor                            | None            | Just build it                                   |
 | Prototype / throwaway exploration                                     | None            | Just build it — don't plan throwaway code       |
 
@@ -51,6 +57,12 @@ Not every change needs the full pipeline. Pick your entry point based on the cha
 **design** includes a built-in quality gate. After producing the design spec, it reviews coverage of PRD stories, screen states, accessibility, and responsive behavior.
 
 **engineering** includes a built-in adversarial review. After producing the TDD, it pressure-tests assumptions, verifies against the codebase, and delivers a verdict.
+
+**implement** follows TDD internally — Red-Green-Refactor per acceptance criterion. Every criterion gets a failing test before implementation code is written. HITL issues pause for user feedback after each criterion.
+
+**test** augments coverage post-implementation. Focuses on gaps that single-issue TDD can't cover: integration across issue boundaries, e2e user flows, and edge cases from the TDD.
+
+**review** traces implementation back to upstream specs (prd.md, tdd.md, spec.md). Four review passes: requirements trace, architecture conformance, spec compliance, code quality. Delivers Approve / Request Changes / Rethink verdict.
 
 ### Revision & Rollback
 
@@ -100,10 +112,10 @@ Issue decomposition outputs go to `./issues/<feature-name>/`. Bug triage outputs
 
 ## Future Stages
 
-The pipeline will expand to cover the full SDLC:
+The pipeline covers planning through build. Remaining SDLC stage:
 
 ```
-scope → product → design → engineering → plan → build → validate → operate
+scope → product → design → engineering → plan → implement → test → review → operate
 ```
 
-`build`, `validate`, and `operate` are not yet implemented.
+`operate` (deployment, monitoring, incident response) is not yet implemented.

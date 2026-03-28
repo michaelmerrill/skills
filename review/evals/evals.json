@@ -1,0 +1,52 @@
+{
+  "skill_name": "review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review the implementation of issue 01-user-crud.md from ./issues/candidate-profiles/. All acceptance criteria are checked off and tests pass.",
+      "expected_output": "Should read upstream docs (prd.md, spec.md, tdd.md) and the issue file. Should read all modified/created files. Should run four review passes: requirements trace, architecture conformance, spec compliance, code quality. For a clean implementation, should issue a short Approve verdict. Should update pipeline.md.",
+      "expectations": [
+        "Reads upstream docs before reviewing",
+        "Reads all files listed in the issue",
+        "Checks requirements are fully implemented",
+        "Checks architecture decisions from tdd.md are followed",
+        "Issues Approve verdict for clean implementation",
+        "Updates pipeline.md status table"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review issue 03-search-api.md from ./issues/candidate-profiles/. The implementation uses a different query pattern than what tdd.md specifies in the Architecture Decisions section.",
+      "expected_output": "Should detect the architecture conformance issue — ADR specifies one pattern but code uses another. Should issue Request Changes verdict with the specific finding: file, what's wrong, what the ADR says, and suggested fix. Should use AskUserQuestion to ask user how to proceed.",
+      "expectations": [
+        "Detects architecture conformance issue",
+        "References specific ADR from tdd.md",
+        "Issues Request Changes verdict",
+        "Provides actionable finding with file and suggested fix",
+        "Uses AskUserQuestion for next steps"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Review issue 02-notification-ui.md from ./issues/notifications/. The implementation completely skips the error state handling that spec.md defines for the notification panel.",
+      "expected_output": "Should detect the spec compliance gap — missing error states defined in spec.md screen state table. Should issue Request Changes with specific finding referencing the spec.md section and listing which states are missing. Should NOT approve despite other criteria being met.",
+      "expectations": [
+        "Detects missing error state handling",
+        "References spec.md screen state table",
+        "Issues Request Changes, not Approve",
+        "Lists specific missing states"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Review all issues for the candidate-profiles feature. The implementation added a caching layer and a new admin API that aren't in any upstream doc.",
+      "expected_output": "Should detect scope creep — features built that weren't specified in prd.md, tdd.md, or any issue file. Should flag the unspecified additions. May issue Request Changes (remove the extras) or Rethink (if the additions suggest the design was insufficient and needs revisiting upstream).",
+      "expectations": [
+        "Detects unspecified caching layer and admin API",
+        "Flags as scope creep not in upstream docs",
+        "Does not approve unspecified additions",
+        "Considers whether this warrants Request Changes or Rethink"
+      ]
+    }
+  ]
+}

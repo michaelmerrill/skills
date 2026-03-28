@@ -1,0 +1,63 @@
+{
+  "skill_name": "implement",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Implement issue 01-user-crud.md from ./issues/candidate-profiles/. The issue has 4 acceptance criteria covering create, read, update, and delete operations.",
+      "expected_output": "Should read the issue file, orient in the codebase by reading all referenced pattern files and key types, then follow TDD for each acceptance criterion: write failing test, implement minimal code, refactor. Should run verification commands from the issue. Should check off acceptance criteria in the issue file and update pipeline.md.",
+      "expectations": [
+        "Reads the issue file before coding",
+        "Reads pattern reference files listed in Context section",
+        "Writes a failing test before each implementation",
+        "Runs tests after each Red-Green-Refactor cycle",
+        "Runs verification commands from the issue",
+        "Checks off acceptance criteria in the issue file",
+        "Updates pipeline.md status table"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Implement issue 03-search-api.md from ./issues/candidate-profiles/. It's blocked by 01-user-crud.md and 02-schema-setup.md.",
+      "expected_output": "Should check blocked-by issues before starting. Should verify blockers are complete by checking their acceptance criteria or looking for expected code. If blockers are incomplete, should stop and direct user to implement those first. Should NOT begin coding if blockers are unresolved.",
+      "expectations": [
+        "Checks blocked-by issues before starting implementation",
+        "Verifies blocker completion by checking acceptance criteria or code",
+        "Stops if blockers are incomplete",
+        "Does not write any implementation code if blocked"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Implement issue 02-notification-ui.md from ./issues/notifications/. It's typed as HITL.",
+      "expected_output": "Should follow the same TDD process but pause after each acceptance criterion to show what was built and ask user whether to continue, adjust, or stop. Should use AskUserQuestion for each pause point. Should not proceed to the next criterion without user approval.",
+      "expectations": [
+        "Follows TDD cycle for each criterion",
+        "Pauses after each criterion with AskUserQuestion",
+        "Shows what was built before asking",
+        "Respects user choice to adjust or stop"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Implement issue 01-validation.md from ./issues/simple-fix/. The issue says to add input validation to two API endpoints. It has acceptance criteria but the file paths listed don't exist in the codebase.",
+      "expected_output": "Should detect that files listed in the issue don't match the actual codebase. Should NOT guess or create files at wrong paths. Should stop and report the issue as underspecified, directing user to run /plan to revise it. May append Rollback Notes to pipeline.md.",
+      "expectations": [
+        "Detects file path mismatch between issue and codebase",
+        "Does not create files at non-existent paths",
+        "Reports the issue as underspecified",
+        "Directs user to /plan for revision"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Implement issue 04-email-templates.md from ./issues/notifications/. While implementing, I notice the auth middleware has a bug unrelated to this issue.",
+      "expected_output": "Should stay within issue scope. Should note the unrelated bug but NOT fix it. Should suggest running /triage-issue for the auth bug separately. Should complete the current issue's acceptance criteria without scope expansion.",
+      "expectations": [
+        "Does not fix unrelated bugs",
+        "Notes the bug for the user",
+        "Suggests /triage-issue for the unrelated bug",
+        "Completes the current issue without scope creep"
+      ]
+    }
+  ]
+}
